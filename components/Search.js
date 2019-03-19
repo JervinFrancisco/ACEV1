@@ -173,11 +173,10 @@ componentDidMount(){
                 mode="dialog"
                 androidIcon={<Icon name="arrow-down" />}
                 style={{width: 100, color:"#fff"}}
-
                 itemStyle={{
                   backgroundColor: "#183553"
                 }}
-                placeholder="Select your SIM"
+                placeholder="Select Make"
                 placeholderStyle={{ color: "#bfc6ea"}}
                 placeholderIconColor="#007aff"
 
@@ -220,7 +219,7 @@ componentDidMount(){
                 mode="dialog"
 
                 style={{width: 100, color:"#fff"}}
-                placeholder="Select your SIM"
+                placeholder="Select Model"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
 
@@ -242,7 +241,7 @@ componentDidMount(){
                 mode="dialog"
               
                 style={{width: 100, color:"#fff"}}
-                placeholder="Select your SIM"
+                placeholder="Select Year"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
 
