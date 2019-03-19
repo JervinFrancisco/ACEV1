@@ -14,6 +14,8 @@ export default class Result extends React.Component {
       { name: "3", shape: "poly", coords: [381,241,383,94,462,53,457,282], fillColor: "yellow"  },
       { name: "4", shape: "poly", coords: [245,285,290,285,274,239,249,238], preFillColor: "red"  },
       { name: "5", shape: "circle", coords: [170, 100, 25 ] },
+      //rect shape also possible.
+      //need coords
     ]
   } 
   
@@ -25,14 +27,15 @@ export default class Result extends React.Component {
       }
 
       areaClicked(area) {
-        
+        //area.name if statements
       }
 
       render() {
           return (
             <React.Fragment>
               <ImageMapper src="./assets/icon.png" map={MAP}
-                onClick={area => this.areaClicked(area)}              
+                onClick={area => this.areaClicked(area)}  
+                //onImageClick optional            
               />
             </React.Fragment>
           );
