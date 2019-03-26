@@ -32,10 +32,7 @@ export default class Search extends React.Component {
     }
 
   }
-  openDrawer() {
-      
 
-  };
   
 componentDidMount(){
     
@@ -106,7 +103,7 @@ componentDidMount(){
     ),
     headerRight: (
       <View style ={{   flexDirection: 'row', 
-      alignSelf: 'flex-start', paddingTop: 12, marginRight: 10}}>
+      alignSelf: 'flex-start', paddingTop: 12, marginRight: 11}}>
       <TouchableOpacity
       style={{backgroundColor: 'transparent'}}
       onPress={() => {
@@ -139,21 +136,24 @@ componentDidMount(){
     if (this.state.loading) {
       return false;
     }
-
+    const {navigate} = this.props.navigation;
    
     return (
 
       <Drawer
       ref= {this.myRef}
       content={<SideBar />}
-      type="static"
+      type="overlay"
       styles={drawerStyles}
       openDrawerOffset={100}
-      tweenHandler={Drawer.tweenPresets.parallax}
+      //tweenHandler={Drawer.tweenPresets.parallax}
       open={false}
       tapToClose={true}
       panCloseMask={0.0}
       closedDrawerOffset={-3}
+      tweenHandler={(ratio) => ({
+        main: { opacity:(2-ratio)/0 }
+      })}
       
       >
 
@@ -168,13 +168,17 @@ componentDidMount(){
               <Text style ={styles.listLabelText}>Make</Text>
             </ListItem>    
             <Item picker style ={styles.itemPicker}>
-            
+  
               <Picker
                 mode="dialog"
                 androidIcon={<Icon name="arrow-down" />}
-                style={{width: 100, color:"#fff"}}
+                style={{width: 100, height: 60,color:"#fff", transform:([{ scaleY: 1.5 }])}}
+                
                 itemStyle={{
-                  backgroundColor: "#183553"
+                  backgroundColor: "#183553",
+                  height: 50,
+                  width: 150,
+                  fontSize: 50,
                 }}
                 placeholder="Select Make"
                 placeholderStyle={{ color: "#bfc6ea"}}
@@ -218,7 +222,7 @@ componentDidMount(){
               <Picker
                 mode="dialog"
 
-                style={{width: 100, color:"#fff"}}
+                style={{width: 100, color:"#fff",height: 60, transform:([{ scaleY: 1.5}])}}
                 placeholder="Select Model"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
@@ -240,7 +244,7 @@ componentDidMount(){
               <Picker
                 mode="dialog"
               
-                style={{width: 100, color:"#fff"}}
+                style={{width: 100, color:"#fff", height: 60, transform:([{ scaleY: 1.5 }])}}
                 placeholder="Select Year"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
@@ -257,9 +261,9 @@ componentDidMount(){
             </Item>
           </Form>
           <View style = {{marginTop: 50}}>
-          <TouchableOpacity  onPress={() => this.savedData()} style ={styles.buttonSavedStyle}>
+          <TouchableOpacity   onPress={() => navigate('Result')}style ={styles.buttonSavedStyle}>
          <Text style ={{color: "white",  fontWeight:"600",
-    fontSize: 15,}}>View Vehicle</Text>
+    fontSize: 20,}}>View Vehicle</Text>
           </TouchableOpacity>
       
           </View>

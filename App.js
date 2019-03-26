@@ -13,7 +13,7 @@ const App = createStackNavigator(
     // Details: Details
   },
   {
-    initialRouteName: "Result" //temporarily - will/should be 'Login'
+    initialRouteName: "Search" //temporarily - will/should be 'Login'
   }
 );
 

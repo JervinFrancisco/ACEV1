@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableOpacity
 } from 'react-native';
 
 import styles from './styles';
 export default class Button extends Component {
   render() {
     return(
-      <TouchableHighlight
+      <TouchableOpacity
         style={styles.button}
         underlayColor="#B5B5B5"
         onPress={() => {
           this.props.onPress();
         }}>
-        <Text style={styles.buttonText}>{this.props.text}</Text>
-      </TouchableHighlight>
+        <Text style={{color:"white", fontSize: 18}}>{this.props.text}</Text>
+      </TouchableOpacity>
     )    
   }
 }
