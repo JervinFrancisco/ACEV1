@@ -102,6 +102,10 @@ module.exports = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  itemPicker: {
+    color: '#FFFFFF',
+    backgroundColor: '#0D2847'
+  },
   button: {
     padding: 15,
   

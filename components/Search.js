@@ -25,7 +25,8 @@ export default class Search extends React.Component {
       make: undefined,
       model: undefined,
       year: undefined,
-      loading: true
+      loading: true,
+      drawerOpen: false
       // voice: false,
       // speechToText: "No voice input"
 
@@ -248,7 +249,6 @@ componentDidMount(){
                 placeholder="Select Year"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
-
                 selectedValue={this.state.year}
                 onValueChange={this.onValueChange4.bind(this)}
               >
@@ -273,7 +273,20 @@ componentDidMount(){
        
   
       <Container style = {{display:"none"}}>
-          <Button  onPress={(c) => {this.myRef.current.open()}} ref = {ref} title="Press Me" > 
+          <Button  onPress={(c) => {
+            if(this.state.drawerOpen == false){
+            console.log("open")
+            this.myRef.current.open()
+            this.state.drawerOpen = true
+            console.log(this.state.drawerOpen)
+            }else{
+            console.log("close")
+            this.myRef.current.close()
+            this.state.drawerOpen = false
+            }
+            
+            
+            }} ref = {ref} title="Press Me" > 
           
       </Button>
       </Container>
@@ -313,7 +326,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 1,
-    backgroundColor: "#183553",
+    backgroundColor: "#0D2847",
     textAlign:"center",
   },
 
