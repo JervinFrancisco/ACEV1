@@ -12,9 +12,11 @@
     "native-base": "^2.12.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-camera": "^2.1.1",
     "react-native-drawer": "^2.5.1",
     "react-native-elements": "^1.1.0",
     "react-native-floating-action": "^1.14.2",
+    "react-native-linear-gradient": "^2.5.4",
     "react-native-svg": "^9.3.6",
     "react-navigation": "^3.3.2"
   },

@@ -274,16 +274,27 @@ componentDidMount(){
   
       <Container style = {{display:"none"}}>
           <Button  onPress={(c) => {
-            if(this.state.drawerOpen == false){
-            console.log("open")
+            
+            if(this.state.drawerOpen){
+              this.myRef.current.close()
+            }
+
             this.myRef.current.open()
             this.state.drawerOpen = true
-            console.log(this.state.drawerOpen)
-            }else{
-            console.log("close")
-            this.myRef.current.close()
-            this.state.drawerOpen = false
-            }
+
+              
+
+          //  if(this.state.drawerOpen == false){
+          //   console.log("open")
+          //   console.log()
+          //   this.myRef.current.open()
+          //   this.state.drawerOpen = true
+          //   console.log(this.state.drawerOpen)
+          //   }else{
+          //   console.log("close")
+          //   this.myRef.current.close()
+          //   this.state.drawerOpen = false
+          //   }
             
             
             }} ref = {ref} title="Press Me" > 
