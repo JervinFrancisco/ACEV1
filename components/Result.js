@@ -5,8 +5,10 @@ import MethodList from './MethodList';
 import { Ionicons } from '@expo/vector-icons';
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated } from 'react-native';
 import { ScrollableTabView, ScrollableTabBar } from '@valdio/react-native-scrollable-tabview'
-import { Container, Header, Content, List, ListItem, Icon, Left, Body, Right, Switch, Button } from 'native-base';
+import { Container, Header, Content, List, Icon, Left, Body, Right, Switch, Button } from 'native-base';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { ListItem } from 'react-native-elements'
+import { FloatingAction } from 'react-native-floating-action';
 import { Svg } from 'expo';
 const { Circle, Rect, Path } = Svg;
 
@@ -101,15 +103,30 @@ toggle3 = () => {
 toggle4 = () => {
   this.setState({hover4: !this.state.hover4});
 };
-toggle5 = () => {
-  this.setState({hover5: !this.state.hover5});
-};
-toggle6 = () => {
-  this.setState({hover6: !this.state.hover6});
-};
+
   render() {
     const { navigate } = this.props.navigation;
-
+    const actions = [{
+      text: 'Accessibility',
+      icon: require('../assets/drugs.jpeg'),
+      name: 'bt_accessibility',
+      position: 2
+    }, {
+      text: 'Language',
+      icon: require('../assets/drugs.jpeg'),
+      name: 'bt_language',
+      position: 1
+    }, {
+      text: 'Location',
+      icon: require('../assets/drugs.jpeg'),
+      name: 'bt_room',
+      position: 3
+    }, {
+      text: 'Video',
+      icon: require('../assets/drugs.jpeg'),
+      name: 'bt_videocam',
+      position: 4
+    }];
     return (
       <Container >
         <Container  >
@@ -152,12 +169,12 @@ toggle6 = () => {
             onPressIn={this.toggle4}
             onPressOut={this.toggle4}
                 d="M990.35,57.9C904.85,6.26,794.79,9.81,794.79,9.81H583.24C504.22,17.12,446.52,59,446.52,59c-50.41,33.39-78.26,50-93.38,58.31l49,112.86H894.35c43.4-34.1,75.18-20.92,75.18-20.92l23.7-149.85ZM658.56,149.1c-85.19,6.93-243.45,8-243.45,8s-9.51-4.55-5.66-13.48c6.41-14.87,27.71-41.89,95.66-80.23,60.75-31.79,122.42-36.61,174.45-35C679,67.06,669.9,119.94,658.56,149.1Zm238.6-5.58c-58,7.68-130.89,7.65-204.52,4.54-6.81-34.18-1.78-86.55,7-113,2.53-10.43,103.92-6.95,139.11,2,40.64,14.38,54.89,53.77,66,100C904,139.45,899.55,142.83,897.16,143.52Z" />
-              <Circle  onPress={() => this.tabView.goToPage(2)} fill={this.state.hover5 ? 'white' : 'grey'}
-                onPressIn={this.toggle5}
-                onPressOut={this.toggle5} cx="957.99" cy="310.67" r="87.57" />
-              <Circle  onPress={() => this.tabView.goToPage(2)} fill={this.state.hover6 ? 'white' : 'grey'}
-                onPressIn={this.toggle6}
-                onPressOut={this.toggle6} cx="241.4" cy="310.41" r="87.57" />
+              <Circle  onPress={() => this.tabView.goToPage(2)} fill={this.state.hover3 ? 'white' : 'grey'}
+                onPressIn={this.toggle3}
+                onPressOut={this.toggle3} cx="957.99" cy="310.67" r="87.57" />
+              <Circle  onPress={() => this.tabView.goToPage(2)} fill={this.state.hover3 ? 'white' : 'grey'}
+                onPressIn={this.toggle3}
+                onPressOut={this.toggle3} cx="241.4" cy="310.41" r="87.57" />
 
             </Svg>
 
@@ -183,64 +200,18 @@ toggle6 = () => {
               <Container >
 
                 <Content>
-                  <ListItem icon>
-                    <Left>
-                      <Button style={{ backgroundColor: "#FF9501" }} >
-                        <Image
-                          style={{
-                            width: 100,
-                            height: 100,
-                            resizeMode: 'contain'
-                          }}
-                          source={require('../assets/drugs.jpeg')}
-                        />
-
-                      </Button>
-                    </Left>
-                    <Body style={{
-                      width: 100,
-                      height: 100,
-                    }}>
-                      <Text>Airplane Mode</Text>
-                    </Body>
-
-                  </ListItem>
-                  <ListItem icon>
-                    <Left>
-                      <Button style={{ backgroundColor: "#FF9501" }}>
-                        <Image
-                          style={{
-                            width: 100,
-                            height: 100,
-                            resizeMode: 'contain'
-                          }}
-                          source={require('../assets/drugs.jpeg')}
-                        />
-
-                      </Button>
-                    </Left>
-                    <Body style={{
-                      width: 100,
-                      height: 100,
-                    }}>
-                      <Text>Airplane Mode</Text>
-                    </Body>
-
-                  </ListItem>
-                  <ListItem icon>
-                    <Left>
-                      <Button style={{ backgroundColor: "#007AFF" }}>
-                        <Icon active name="bluetooth" />
-                      </Button>
-                    </Left>
-                    <Body>
-                      <Text>Bluetooth</Text>
-                    </Body>
-                    <Right>
-                      <Text>On</Text>
-                      <Icon active name="arrow-forward" />
-                    </Right>
-                  </ListItem>
+                <ListItem
+        key={1233}
+        leftAvatar={{  rounded: false , source: require('../assets/drugs.jpeg') }}
+        title={"Drugs"}
+        subtitle={"l.subtitle"}
+      />
+                    <ListItem
+        key={1223333}
+        leftAvatar={{  rounded: false , source: require('../assets/drugs.jpeg') }}
+        title={"Drugs"}
+        subtitle={"l.subtitle"}
+      />
                 </Content>
               </Container>
             </View>
@@ -267,9 +238,17 @@ toggle6 = () => {
 
           </Button>
         </Container>
+        <FloatingAction
+      
+        onPressMain={() => {
+          var yo = ref;
+          yo.current.props.onPress()
+        }}
+      />
       </Container>
     )
   }
+  
 
   // render() {
   //     return (
