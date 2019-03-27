@@ -3,16 +3,29 @@ import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, 
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+import ImagePicker from 'react-native-image-picker';
 //import Camera from 'react-native-camera';
 
 const ref = React.createRef();
 const front = React.createRef();
+const options = {
+    title: 'Select Avatar',
+    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+  };
+
 export default class Add extends Component {
+
+    
     
     constructor(props) {
         super(props);
         this.state = {
-          selected2: null
+          selected2: null,
+          imageSource: null
         };
       }
 
@@ -57,6 +70,27 @@ export default class Add extends Component {
       }
       cameraPressed(ev){
           console.log('camera')
+          
+            ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+          
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+              console.log('User tapped custom button: ', response.customButton);
+            } else {
+              const source = { uri: response.uri };
+          
+              // You can also display the image using data:
+              // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+          
+              this.setState({
+                imageSource: source,
+              });
+            }
+          });
       }
 
 
@@ -92,9 +126,13 @@ export default class Add extends Component {
                     <Input placeholder='Reference number (optional)' placeholderTextColor='#FFF'/>
                 </Item>
 
+                <Item regular style={styles.formItem}>
+                    <Input placeholder='Employee Number' placeholderTextColor='#FFF'/>
+                </Item>
+
               </Form>
-                <Button iconLeft large block style={{backgroundColor: '#173553'}}>
-                        <Icon name='camera' text='camera' onPress={this.cameraPressed.bind(this)}/>
+                <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 5}} onPress={this.cameraPressed.bind(this)} >
+                        <Icon name='camera' text='camera'/>
                 </Button>
                 
                 <TouchableOpacity   onPress={() => navigate('Result')}style ={styles.buttonSavedStyle}>
