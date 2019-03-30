@@ -63,7 +63,7 @@ export default class Add extends Component {
     
       }
 
-      onValueChange2(value: string) {
+      onValueChange2(value) {
         this.setState({
           selected2: value
         });
