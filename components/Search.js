@@ -8,6 +8,7 @@ import { StyleSheet, Button , TouchableHighlight,Image, TouchableOpacity, View} 
 import Drawer from 'react-native-drawer'
 import { Container, Header, Content, Form, Item, Picker, Icon, Text, ListItem } from 'native-base';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import Makes from '../assets/makes.json'
 var self
 const ref = React.createRef();
 export default class Search extends React.Component {
@@ -22,6 +23,7 @@ export default class Search extends React.Component {
     this.state = {
      
       car: [],
+      makes:Makes.makes,
       make: undefined,
       model: undefined,
       year: undefined,
@@ -50,8 +52,11 @@ componentDidMount(){
     } 
 
   onValueChange2(value) {
+    console.log(value);
     this.setState({
       make: value
+    },()=>{
+      console.log("Make was saved",value)
     });
 
   }
@@ -59,6 +64,8 @@ componentDidMount(){
   onValueChange3(value) {
     this.setState({
       model: value,
+    },()=>{
+      console.log("Model was saved",value)
     });
 
   }
@@ -67,19 +74,48 @@ componentDidMount(){
   onValueChange4(value) {
     this.setState({
       year: value
+    },()=>{
+      console.log("Year was saved",value)
     });
 
   }
 
   savedData() {
-    let obj = {
-      make: this.state.make,
-      model: this.state.model,
-      year: this.state.year
+    // 
+    console.log("make",this.state.make, "model",this.state.model, "year",this.state.year)
+    let year=parseInt(this.state.year)
+    let formData = {
+      "make": "honda",
+      "model": "civic",
+      "year": 2019
     }
+ 
+let opts ={
+body:JSON.stringify(formData),
+method: "POST",
+headers: { 
+ 'Accept': 'application/json',
+ 'Content-Type': 'application/json'
+}
+}
+const {navigate} = this.props.navigation;
+  return fetch('http://10.70.153.85:3000/api/authVehicle', opts)
+  .then(resp=>resp.json())
+  .then(data=>{
+    let build=data.listings[0].build
+    let car={make:build.make,mode:build.make,year:build.year,bodytype:build.body_type}
+    navigate('Result', {data: car})
+  
 
-    this.state.car.push(obj)
-    console.log(this.state.car)
+  })
+  .catch(err=>console.log("Error", err.message))
+ 
+    // this.state.car.push(obj)
+    // let carObj=this.state.car
+    // carObj.push(obj)
+    // this.setState({
+    //   car:carObj
+    // })
   }
 
   static navigationOptions = {
@@ -134,6 +170,7 @@ componentDidMount(){
 
   //
   render() {
+    console.log(Makes)
     if (this.state.loading) {
       return false;
     }
@@ -174,7 +211,7 @@ componentDidMount(){
                 mode="dialog"
                 androidIcon={<Icon name="arrow-down" />}
                 style={{width: 100, height: 60,color:"#fff", /*transform:([{ scaleY: 1.5 }])*/}}
-                itemTextStyle={{ 
+                itemTextStyle={{
                   fontSize: 50
                 }}
                 itemStyle={{
@@ -190,31 +227,12 @@ componentDidMount(){
                 onValueChange={this.onValueChange2.bind(this)}
                 
               >
-                <Picker.Item label="Honda" value="Honda" />
-                <Picker.Item label="BMW" value="BMW" />
-                <Picker.Item label="Jeep" value="Jeep" />
-                <Picker.Item label="Dodge" value="Dodge" />
-                <Picker.Item label="Mercedes Benz" value="Mercedes Benz" />
-                <Picker.Item label="BMW" value="BMW" />
-                <Picker.Item label="Jeep" value="Jeep" />
-                <Picker.Item label="Dodge" value="Dodge" />
-                <Picker.Item label="Mercedes Benz" value="Mercedes Benz" />
-                <Picker.Item label="BMW" value="BMW" />
-                <Picker.Item label="Jeep" value="Jeep" />
-                <Picker.Item label="Dodge" value="Dodge" />
-                <Picker.Item label="Mercedes Benz" value="Mercedes Benz" />
-                <Picker.Item label="BMW" value="BMW" />
-                <Picker.Item label="Jeep" value="Jeep" />
-                <Picker.Item label="Dodge" value="Dodge" />
-                <Picker.Item label="Mercedes Benz" value="Mercedes Benz" />
-                <Picker.Item label="BMW" value="BMW" />
-                <Picker.Item label="Jeep" value="Jeep" />
-                <Picker.Item label="Dodge" value="Dodge" />
-                <Picker.Item label="Mercedes Benz" value="Mercedes Benz" />
-                <Picker.Item label="BMW" value="BMW" />
-                <Picker.Item label="Jeep" value="Jeep" />
-                <Picker.Item label="Dodge" value="Dodge" />
-                <Picker.Item label="Mercedes Benz" value="Mercedes Benz" />
+              {
+                this.state.makes.map(make=>(
+                <Picker.Item key={Date.now()} label={make} value={make}/>
+              ))
+
+              }
               </Picker>
             </Item>
             <ListItem itemDivider itemDivider style ={styles.listLabel}>
@@ -253,7 +271,7 @@ componentDidMount(){
                 selectedValue={this.state.year}
                 onValueChange={this.onValueChange4.bind(this)}
               >
-                <Picker.Item label="Wallet" value="key0" />
+                <Picker.Item label="2019" value="2019" />
                 <Picker.Item label="ATM Card" value="key1" />
                 <Picker.Item label="Debit Card" value="key2" />
                 <Picker.Item label="Credit Card" value="key3" />
@@ -262,7 +280,7 @@ componentDidMount(){
             </Item>
           </Form>
           <View style = {{marginTop: 50}}>
-          <TouchableOpacity   onPress={() => navigate('Result')}style ={styles.buttonSavedStyle}>
+          <TouchableOpacity   onPress={()=>{this.savedData()}} style ={styles.buttonSavedStyle}>
          <Text style ={{color: "white",  fontWeight:"600",
     fontSize: 20,}}>View Vehicle</Text>
           </TouchableOpacity>

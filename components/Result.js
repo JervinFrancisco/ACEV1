@@ -18,7 +18,9 @@ const front = React.createRef();
 export default class Result extends React.Component {
 
   constructor(props) {
+    console.log("yo",props.state)
     super(props);
+    
     this.state={  tab : null,
       activePage : 2,
       hover : false,
@@ -34,7 +36,15 @@ export default class Result extends React.Component {
    this.animatedValue = new Animated.Value(0)
  }
 
+
  componentDidMount(){
+  setTimeout(() => {
+  const { navigation } = this.props
+ 
+  const data = navigation.getParam('data', 'NO DATA')
+console.log("YOOOO", data)
+  },3000)
+
 Animated.timing(this.animatedValue,{
   toValue:150,
   duration:1500
