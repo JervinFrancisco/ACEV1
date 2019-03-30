@@ -15,7 +15,7 @@ const App = createStackNavigator(
     Details: Details
   },
   {
-    initialRouteName: "Details" //temporarily - will/should be 'Login'
+    initialRouteName: "Search" //temporarily - will/should be 'Login'
   }
 );
 
