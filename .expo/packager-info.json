@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 80667,
+  "expoServerNgrokUrl": "https://ru-5p4.anonymous.acev1.exp.direct",
+  "packagerNgrokUrl": "https://packager.ru-5p4.anonymous.acev1.exp.direct",
+  "ngrokPid": 80760,
   "webpackServerPort": null
 }
