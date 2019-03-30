@@ -23,12 +23,7 @@ export default class SideBar extends Component {
         <Text style={styles.controlPanelWelcome2}>
          ava_miller@cbsa.gc.ca
         </Text>
-        <Button
-          onPress={() => {
-            this._drawer.open();
-          }}
-          text="Edit Account"
-        />
+     
               <Button
           onPress={() => {
             this._drawer.open();
