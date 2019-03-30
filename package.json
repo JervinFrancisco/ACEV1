@@ -16,12 +16,7 @@
     "react-native-drawer": "^2.5.1",
     "react-native-elements": "^1.1.0",
     "react-native-floating-action": "^1.14.2",
-<<<<<<< HEAD
     "react-native-image-zoom-viewer": "^2.2.25",
-=======
-    "react-native-image-picker": "^0.28.0",
-    "react-native-linear-gradient": "^2.5.4",
->>>>>>> fb1c59c3663641239f6f6a6ddd147b8d8c852f57
     "react-native-svg": "^9.3.6",
     "react-navigation": "^3.3.2"
   },
