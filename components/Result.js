@@ -7,10 +7,11 @@ import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Animated }
 import { ScrollableTabView, ScrollableTabBar } from '@valdio/react-native-scrollable-tabview'
 import { Container, Header, Content, List, Icon, Left, Body, Right, Switch, Button } from 'native-base';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { ListItem } from 'react-native-elements'
+import { ListItem, withTheme } from 'react-native-elements'
 import { FloatingAction } from 'react-native-floating-action';
 import { Svg } from 'expo';
 const { Circle, Rect, Path } = Svg;
+
 
 const ref = React.createRef();
 const front = React.createRef();
@@ -136,7 +137,7 @@ export default class Result extends React.Component {
             <Text>Mercedes Benz CLA250 2019</Text>
 
 
-            <Svg height="50%" width="50%" viewBox="0 0 1210.14 411.4">
+            <Svg height="70%" width="70%" viewBox="0 0 1210.14 411.4">
 
               <Path
                 fill={this.state.hover ? 'white' : 'grey'}
@@ -146,7 +147,6 @@ export default class Result extends React.Component {
                 ref={front}
                 d="M1185.91,166.26c12.7-83.81,4.3-70.22-26-71.11-35.43-1.27-97.6-.85-97.6-.85l-53.85-27.24L986.81,212.63s70.12,7.7,73.81,100.09l0,.8c2.57,9.76,91,9.14,91.4-.8,9.29-8.7,30.32-8.75,34.71-16.93C1218.38,230.44,1185.91,166.26,1185.91,166.26Z"
               />
-
               <Path
 
                 fill={this.state.hover2 ? 'white' : 'grey'}
@@ -233,7 +233,7 @@ export default class Result extends React.Component {
 </Content>
 </Container>
           </ScrollView>
-          <ScrollView tabLabel="Undercariage/Wheels" >
+          <ScrollView tabLabel='Undercariage/Wheels'>
             <View>
               <Text>Two</Text>
             </View>
@@ -246,7 +246,7 @@ export default class Result extends React.Component {
         </ScrollableTabView>
 
         <Container style={{ display: "none" }}>
-          <Button onPress={() => { navigate('Search') }} ref={ref} title="Press Me" >
+          <Button onPress={() => { navigate('Add') }} ref={ref} title="Press Me" >
 
           </Button>
         </Container>
@@ -274,7 +274,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   listLabelText: {
     fontWeight: "600",
     fontSize: 15,

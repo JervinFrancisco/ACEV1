@@ -3,6 +3,8 @@ import Search from './components/Search';
 import Login from './components/Login';
 import Result from './components/Result';
 import Details from './components/Details';
+import Camera from './components/CameraScreen';
+import Add from './components/Add';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 const App = createStackNavigator(

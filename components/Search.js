@@ -173,13 +173,14 @@ componentDidMount(){
               <Picker
                 mode="dialog"
                 androidIcon={<Icon name="arrow-down" />}
-                style={{width: 100, height: 60,color:"#fff", transform:([{ scaleY: 1.5 }])}}
-                
+                style={{width: 100, height: 60,color:"#fff", /*transform:([{ scaleY: 1.5 }])*/}}
+                itemTextStyle={{ 
+                  fontSize: 50
+                }}
                 itemStyle={{
                   backgroundColor: "#183553",
                   height: 50,
-                  width: 150,
-                  fontSize: 50,
+                  width: 150
                 }}
                 placeholder="Select Make"
                 placeholderStyle={{ color: "#bfc6ea"}}
@@ -223,7 +224,7 @@ componentDidMount(){
               <Picker
                 mode="dialog"
 
-                style={{width: 100, color:"#fff",height: 60, transform:([{ scaleY: 1.5}])}}
+                style={{width: 100, color:"#fff",height: 60, /*transform:([{ scaleY: 1.5}])*/}}
                 placeholder="Select Model"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
@@ -245,7 +246,7 @@ componentDidMount(){
               <Picker
                 mode="dialog"
               
-                style={{width: 100, color:"#fff", height: 60, transform:([{ scaleY: 1.5 }])}}
+                style={{width: 100, color:"#fff", height: 60, /*transform:([{ scaleY: 1.5 }])*/}}
                 placeholder="Select Year"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
@@ -274,16 +275,27 @@ componentDidMount(){
   
       <Container style = {{display:"none"}}>
           <Button  onPress={(c) => {
-            if(this.state.drawerOpen == false){
-            console.log("open")
+            
+            if(this.state.drawerOpen){
+              this.myRef.current.close()
+            }
+
             this.myRef.current.open()
             this.state.drawerOpen = true
-            console.log(this.state.drawerOpen)
-            }else{
-            console.log("close")
-            this.myRef.current.close()
-            this.state.drawerOpen = false
-            }
+
+              
+
+          //  if(this.state.drawerOpen == false){
+          //   console.log("open")
+          //   console.log()
+          //   this.myRef.current.open()
+          //   this.state.drawerOpen = true
+          //   console.log(this.state.drawerOpen)
+          //   }else{
+          //   console.log("close")
+          //   this.myRef.current.close()
+          //   this.state.drawerOpen = false
+          //   }
             
             
             }} ref = {ref} title="Press Me" > 
@@ -318,8 +330,8 @@ const styles = StyleSheet.create({
 
   listLabelText:{
     fontWeight:"600",
-    fontSize: 15,
-    color: "grey"
+    fontSize: 20,
+    color: "#BBB"
   },
 
   itemPicker:{
@@ -332,7 +344,7 @@ const styles = StyleSheet.create({
 
   buttonSavedStyle:{
 
-    marginTop: 20,
+    marginTop: 5,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
