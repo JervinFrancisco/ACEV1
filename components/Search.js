@@ -85,7 +85,7 @@ componentDidMount(){
     console.log("make",this.state.make, "model",this.state.model, "year",this.state.year)
     let year=parseInt(this.state.year)
     let formData = {
-      "make": "honda",
+      "make": "Honda",
       "model": "civic",
       "year": 2019
     }
@@ -99,11 +99,11 @@ headers: {
 }
 }
 const {navigate} = this.props.navigation;
-  return fetch('http://10.70.153.85:3000/api/authVehicle', opts)
+  return fetch('http://10.70.137.158:3000/api/authVehicle', opts)
   .then(resp=>resp.json())
   .then(data=>{
     let build=data.listings[0].build
-    let car={make:build.make,mode:build.make,year:build.year,bodytype:build.body_type}
+    let car={make:build.make,model:build.model,year:build.year,bodytype:build.body_type}
     navigate('Result', {data: car})
   
 

@@ -63,7 +63,7 @@ export default class Add extends Component {
     
       }
 
-      onValueChange2(value: string) {
+      onValueChange2(value) {
         this.setState({
           selected2: value
         });
@@ -139,6 +139,11 @@ export default class Add extends Component {
                     <Text style ={{color: "white",  fontWeight:"600",
                                     fontSize: 20,}}>Submit</Text>
                 </TouchableOpacity>
+                <Container style={{ display: "none" }}>
+          <Button onPress={() => { navigate('Result') }} ref={ref} title="Press Me" >
+
+          </Button>
+        </Container>
             </Content>
           </Container>
           );

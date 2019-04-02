@@ -14,6 +14,7 @@ const { Circle, Rect, Path } = Svg;
 
 
 const ref = React.createRef();
+const ref2 = React.createRef();
 const front = React.createRef();
 export default class Result extends React.Component {
 
@@ -38,12 +39,13 @@ export default class Result extends React.Component {
 
 
  componentDidMount(){
-  setTimeout(() => {
+   
+
   const { navigation } = this.props
  
   const data = navigation.getParam('data', 'NO DATA')
-console.log("YOOOO", data)
-  },1000)
+  console.log(data)
+
 
 Animated.timing(this.animatedValue,{
   toValue:150,
@@ -143,14 +145,8 @@ toggle4 = () => {
         <Container  >
           <View style={styles.container2}>
             <Text style={{color:'white',fontSize:25}}>Mercedes Benz CLA250 2019</Text>
-            {/* <Image
-          source={require('../assets/car-icon.png')}
-        /> */}
-      
-
-
+    {
             <Svg height="70%" width="70%" viewBox="0 0 1210.14 411.4">
-
               <Path
                 fill={this.state.hover ? 'white' : '#7A879B'}
                 onPress={() => {this.tabView.goToPage(3)}}
@@ -185,8 +181,9 @@ toggle4 = () => {
               <Circle  onPress={() => this.tabView.goToPage(2)} fill={this.state.hover3 ? 'white' : '#7A879B'}
                 onPressIn={this.toggle3}
                 onPressOut={this.toggle3} cx="241.4" cy="310.41" r="87.57" />
-
             </Svg>
+        }
+        
 
 
 
@@ -244,16 +241,22 @@ toggle4 = () => {
         </ScrollableTabView>
 
         <Container style={{ display: "none" }}>
-          <Button onPress={() => { navigate('Add') }} ref={ref} title="Press Me" >
+          <Button onPress={() => { navigate('Search') }} ref={ref} title="Press Me" >
 
           </Button>
         </Container>
+        
         <FloatingAction
       
-        onPressMain={() => {
-          var yo = ref;
-          yo.current.props.onPress()
+        onPressMain={(yo) => {
+         
+          { navigate('Add') }
+
         }}
+    showBackground ={false}
+    onStateChange={(yo)=> yo.isActive=== false}
+  
+   
       />
       </Container>
     )
