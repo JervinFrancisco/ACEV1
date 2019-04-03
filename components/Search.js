@@ -99,7 +99,7 @@ headers: {
 }
 }
 const {navigate} = this.props.navigation;
-  return fetch('http://10.70.139.99:3000/api/authVehicle', opts)
+  return fetch('http://10.70.152.183:3000/api/authVehicle', opts)
   .then(resp=>resp.json())
   .then(data=>{
     let build=data.listings[0].build

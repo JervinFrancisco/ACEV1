@@ -118,16 +118,18 @@ export default class Details extends Component {
       <Container>
 
 
-
-
+       
+     
         <Slideshow
 
-          onPress={() => { this.handleOpenModal(this.state.dataSource.id) }}
+          onPress={(yo) => { this.handleOpenModal(yo.image.id) }}
           dataSource={this.state.dataSource}
           position={this.state.position}
-          onPositionChanged={position => this.setState({ position })} />
+          onPositionChanged={position => this.setState({ position })} 
+          
+          />
 
-
+ 
 
         <View>
           <Modal visible={this.state.showModal} transparent={true} onRequestClose={this.handleCloseModal} onCancel={() => this.handleCloseModal}>
