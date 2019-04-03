@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, Button } from 'native-base';
-import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated } from 'react-native';
+import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem } from 'native-base';
+import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated,  Keyboard, KeyboardAvoidingView  } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import ImagePicker from 'react-native-image-picker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 //import Camera from 'react-native-camera';
 
 const ref = React.createRef();
@@ -97,9 +98,19 @@ export default class Add extends Component {
       render() {
         const { navigate } = this.props.navigation;
         return (
+          <KeyboardAwareScrollView
+          style={{ backgroundColor: '#4c69a5' }}
+          resetScrollToCoords={{ x: 0, y: 100 }}
+          contentContainerStyle={styles.container}
+          scrollEnabled={true}
+          extraScrollHeight ={1000}
+        >
           <Container style={styles.container}>
             <Content>
               <Form>
+              <ListItem itemDivider style ={styles.listLabel}>
+              <Text style ={styles.listLabelText}>Car Area</Text>
+            </ListItem> 
                 <Item picker style={styles.formItem}>
                   <Picker
                     mode="dropdown"
@@ -116,16 +127,25 @@ export default class Add extends Component {
                     <Picker.Item label="Rear/Trunk" value="key3" />
                   </Picker>
                 </Item>
+                <ListItem itemDivider style ={styles.listLabel}>
+              <Text style ={styles.listLabelText}>Title Of Description</Text>
+            </ListItem> 
                 <Item regular style={styles.formItem}>
                     <Input placeholder='Title' placeholderTextColor='#FFF'/>
                 </Item>
-
-                <Textarea rowSpan={5} placeholder="Description" placeholderTextColor="#FFF" style={styles.formItem}/>
-
+                <ListItem itemDivider style ={styles.listLabel}>
+              <Text style ={styles.listLabelText}>Description</Text>
+            </ListItem> 
+                <Textarea rowSpan={3} placeholder="Description" placeholderTextColor="#FFF" style={styles.formItem}/>
+                <ListItem itemDivider style ={styles.listLabel}>
+              <Text style ={styles.listLabelText}>Reference Number</Text>
+            </ListItem> 
                 <Item regular style={styles.formItem}>
-                    <Input placeholder='Reference number (optional)' placeholderTextColor='#FFF'/>
+                    <Input placeholder='(optional)' placeholderTextColor='#FFF'/>
                 </Item>
-
+                <ListItem itemDivider style ={styles.listLabel}>
+              <Text style ={styles.listLabelText}>Employee Number</Text>
+            </ListItem> 
                 <Item regular style={styles.formItem}>
                     <Input placeholder='Employee Number' placeholderTextColor='#FFF'/>
                 </Item>
@@ -146,6 +166,7 @@ export default class Add extends Component {
         </Container>
             </Content>
           </Container>
+          </KeyboardAwareScrollView>
           );
       }
 
@@ -180,5 +201,18 @@ const styles = StyleSheet.create({
           borderBottomColor: '#0D2847',
           marginTop: 5
       },
-  
+      listLabel: {
+        marginTop: 1,
+        backgroundColor: 'transparent',
+        textAlign: 'center',
+        justifyContent: "center",
+        alignItems: "center",
+        
+        },
+        
+        listLabelText:{
+          fontWeight:"600",
+          fontSize: 15,
+          color: "#BBB"
+        },
   })
