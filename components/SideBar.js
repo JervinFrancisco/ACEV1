@@ -3,18 +3,37 @@
 // import { Container, Content, Text, List, ListItem } from "native-base";
 // const routes = ["Home", "Chat", "Profile"];
 import React, { Component } from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+
 import {
   SwitchIOS,
   View,
-  Text
+  Text,
+  TouchableOpacity
 } from 'react-native';
+
 
 import styles from './styles';
 import Button from './Button';
 
 export default class SideBar extends Component {
+
+  constructor(props) {
+  super(props);
+  this.state={
+    navigateDrawer:props.na
+  }
+  }
+  componentDidMount() {
+
+
+  }
+  navDrawer=()=>{
+    this.state.navigateDrawer("About")
+  }
+
   render() {
-    
+console.log(this.props)
     return (
       <View style={styles.controlPanel}>
         <Text style={styles.controlPanelWelcome}>
@@ -24,24 +43,28 @@ export default class SideBar extends Component {
          ava_miller@cbsa.gc.ca
         </Text>
      
-              <Button
-          onPress={() => {
-            this._drawer.open();
-          }}
-          text="Language"
-        />
-            <Button
-          onPress={() => {
-            this._drawer.open();
-          }}
-          text="Play Tutorial"
-        />
-            <Button
-          onPress={() => {
-            this._drawer.open();
-          }}
-          text="About ACE"
-        />
+        <TouchableOpacity
+        style={styles.button}
+        underlayColor="#B5B5B5"
+        onPress={() => {
+          this.props.onPress();
+        }}>
+        <Text style={{color:"white", fontSize: 18}}>Language</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        underlayColor="#B5B5B5"
+        onPress={() => {
+          this.props.onPress();
+        }}>
+        <Text style={{color:"white", fontSize: 18}}>sdasdasd</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        underlayColor="#B5B5B5"
+        onPress={this.navDrawer}>
+        <Text style={{color:"white", fontSize: 18}}>dasdasdsdad</Text>
+      </TouchableOpacity>
       </View>
     )
   }

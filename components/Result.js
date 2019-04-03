@@ -144,27 +144,7 @@ export default class Result extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    const actions = [{
-      text: 'Accessibility',
-      icon: require('../assets/drugs.jpeg'),
-      name: 'bt_accessibility',
-      position: 2
-    }, {
-      text: 'Language',
-      icon: require('../assets/drugs.jpeg'),
-      name: 'bt_language',
-      position: 1
-    }, {
-      text: 'Location',
-      icon: require('../assets/drugs.jpeg'),
-      name: 'bt_room',
-      position: 3
-    }, {
-      text: 'Video',
-      icon: require('../assets/drugs.jpeg'),
-      name: 'bt_videocam',
-      position: 4
-    }];
+
     return (
       <Container >
         <Container  >

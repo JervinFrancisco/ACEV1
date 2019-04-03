@@ -9,6 +9,7 @@ import {
 import styles from './styles';
 export default class Button extends Component {
   render() {
+   
     return(
       <TouchableOpacity
         style={styles.button}

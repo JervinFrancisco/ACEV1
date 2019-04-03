@@ -167,6 +167,10 @@ const {navigate} = this.props.navigation;
     ),
    
   }
+  navigateDrawer=(ev)=>{
+    const {navigate} = this.props.navigation;
+navigate(ev)
+  }
 
   //
   render() {
@@ -180,7 +184,7 @@ const {navigate} = this.props.navigation;
 
       <Drawer
       ref= {this.myRef}
-      content={<SideBar />}
+      content={<SideBar na={this.navigateDrawer}/>}
       type="overlay"
       styles={drawerStyles}
       openDrawerOffset={100}
