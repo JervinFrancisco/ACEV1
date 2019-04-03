@@ -10,12 +10,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const ref = React.createRef();
 const front = React.createRef();
 const options = {
-    title: 'Select Avatar',
-    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-    storageOptions: {
-      skipBackup: true,
-      path: 'images',
-    },
+    title: 'Choose Image',
+    takePhotoButtonTitle: 'Take Photo',
+    chooseFromLibraryButtonTitle: 'Choose From Gallery'
   };
 
 export default class Add extends Component {
@@ -79,8 +76,6 @@ export default class Add extends Component {
               console.log('User cancelled image picker');
             } else if (response.error) {
               console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-              console.log('User tapped custom button: ', response.customButton);
             } else {
               const source = { uri: response.uri };
           
@@ -154,6 +149,7 @@ export default class Add extends Component {
                 <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 5}} onPress={this.cameraPressed.bind(this)} >
                         <Icon name='camera' text='camera'/>
                 </Button>
+                <Image source={this.state.imageSource}></Image>
                 
                 <TouchableOpacity   onPress={() => navigate('Result')}style ={styles.buttonSavedStyle}>
                     <Text style ={{color: "white",  fontWeight:"600",
