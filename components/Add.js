@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem, Label } from 'native-base';
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated,  Keyboard, KeyboardAvoidingView  } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
@@ -122,31 +122,25 @@ export default class Add extends Component {
                     <Picker.Item label="Rear/Trunk" value="key3" />
                   </Picker>
                 </Item>
-                <ListItem itemDivider style ={styles.listLabel}>
-              <Text style ={styles.listLabelText}>Title Of Description</Text>
-            </ListItem> 
-                <Item regular style={styles.formItem}>
-                    <Input placeholder='Title' placeholderTextColor='#FFF'/>
+                <Item floatingLabel>
+                  <Label style={styles.listLabelText}>Title</Label>
+                  <Input style={styles.inputFields}/>
                 </Item>
-                <ListItem itemDivider style ={styles.listLabel}>
-              <Text style ={styles.listLabelText}>Description</Text>
-            </ListItem> 
-                <Textarea rowSpan={3} placeholder="Description" placeholderTextColor="#FFF" style={styles.formItem}/>
-                <ListItem itemDivider style ={styles.listLabel}>
-              <Text style ={styles.listLabelText}>Reference Number</Text>
-            </ListItem> 
-                <Item regular style={styles.formItem}>
-                    <Input placeholder='(optional)' placeholderTextColor='#FFF'/>
+                <Item floatingLabel>
+                  <Label style={styles.listLabelText}>Description</Label>
+                  <Input style={styles.inputFields}/>
                 </Item>
-                <ListItem itemDivider style ={styles.listLabel}>
-              <Text style ={styles.listLabelText}>Employee Number</Text>
-            </ListItem> 
-                <Item regular style={styles.formItem}>
-                    <Input placeholder='Employee Number' placeholderTextColor='#FFF'/>
+                <Item floatingLabel>
+                  <Label style={styles.listLabelText}>Employee Number</Label>
+                  <Input style={styles.inputFields}/>
+                </Item>
+                <Item floatingLabel last>
+                  <Label style={styles.listLabelText}>Reference Number (optional)</Label>
+                  <Input style={styles.inputFields}/>
                 </Item>
 
               </Form>
-                <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 5}} onPress={this.cameraPressed.bind(this)} >
+                <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 10}} onPress={this.cameraPressed.bind(this)} >
                         <Icon name='camera' text='camera'/>
                 </Button>
                 <Image source={this.state.imageSource}></Image>
@@ -209,6 +203,9 @@ const styles = StyleSheet.create({
         listLabelText:{
           fontWeight:"600",
           fontSize: 15,
-          color: "#BBB"
+          color: "#FFF"
+        },
+        inputFields:{
+          color: "#FFF"
         },
   })
