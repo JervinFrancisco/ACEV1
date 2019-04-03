@@ -5,6 +5,9 @@ import Result from './components/Result';
 import Details from './components/Details';
 import Camera from './components/CameraScreen';
 import Add from './components/Add';
+import Tutorial from './components/Tutorial';
+import SideBar from './components/SideBar';
+
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 const App = createStackNavigator(
@@ -13,10 +16,12 @@ const App = createStackNavigator(
     // Login: Login,
     Result: Result,
     Details: Details,
-    Add: Add
+    Add: Add,
+    Tutorial: Tutorial,
+    SideBar: SideBar
   },
   {
-    initialRouteName: "Details" //temporarily - will/should be 'Login'
+    initialRouteName: "Tutorial" //temporarily - will/should be 'Login'
   }
 );
 
