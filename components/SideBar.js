@@ -32,6 +32,11 @@ export default class SideBar extends Component {
     this.state.navigateDrawer("About")
   }
 
+  navDrawer2=()=>{
+    this.state.navigateDrawer("Tutorial")
+  }
+
+
   render() {
 console.log(this.props)
     return (
@@ -54,16 +59,14 @@ console.log(this.props)
       <TouchableOpacity
         style={styles.button}
         underlayColor="#B5B5B5"
-        onPress={() => {
-          this.props.onPress();
-        }}>
-        <Text style={{color:"white", fontSize: 18}}>sdasdasd</Text>
+          onPress={this.navDrawer2}>
+        <Text style={{color:"white", fontSize: 18}}>Play Tutorial</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
         underlayColor="#B5B5B5"
         onPress={this.navDrawer}>
-        <Text style={{color:"white", fontSize: 18}}>dasdasdsdad</Text>
+        <Text style={{color:"white", fontSize: 18}}>About Ace</Text>
       </TouchableOpacity>
       </View>
     )
