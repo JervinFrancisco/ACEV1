@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createAppContainer, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { Container, Header, Left, Body, Right, Title, Button, Icon, Content, Picker, Item } from 'native-base';
 export default class About extends Component {
     
     constructor(props) {
@@ -9,7 +10,6 @@ export default class About extends Component {
             isLoading: false
         }
       }
-
 
       render() {
           return (
