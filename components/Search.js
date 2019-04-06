@@ -39,17 +39,13 @@ export default class Search extends React.Component {
 
 
   componentDidMount() {
-
   }
-
   async componentWillMount() {
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
     });
     this.setState({ loading: false });
-
-
   }
 
   onValueChange2(value) {
@@ -59,7 +55,6 @@ export default class Search extends React.Component {
     }, () => {
       console.log("Make was saved", value)
     });
-
   }
 
   onValueChange3(value) {
@@ -68,9 +63,7 @@ export default class Search extends React.Component {
     }, () => {
       console.log("Model was saved", value)
     });
-
   }
-
 
   onValueChange4(value) {
     this.setState({
@@ -78,7 +71,6 @@ export default class Search extends React.Component {
     }, () => {
       console.log("Year was saved", value)
     });
-
   }
 
   savedData() {
@@ -189,21 +181,14 @@ export default class Search extends React.Component {
         tweenHandler={(ratio) => ({
           main: { opacity: (2 - ratio) / 0 }
         })}
-
       >
-
-
         <Container style={styles.container}>
-
-
-
           <Content padder>
             <Form >
               <ListItem itemDivider style={styles.listLabel}>
                 <Text style={styles.listLabelText}>Make</Text>
               </ListItem>
               <Item picker style={styles.itemPicker}>
-
                 <Picker
                   mode="dialog"
                   androidIcon={<Icon name="arrow-down" />}
@@ -238,7 +223,6 @@ export default class Search extends React.Component {
               <Item picker style={styles.itemPicker}>
                 <Picker
                   mode="dialog"
-
                   style={{ width: 100, color: "#fff", height: 60, /*transform:([{ scaleY: 1.5}])*/ }}
                   placeholder="Select Model"
                   placeholderStyle={{ color: "#bfc6ea" }}
@@ -276,15 +260,18 @@ export default class Search extends React.Component {
                 </Picker>
               </Item>
             </Form>
-            <View style={{ marginTop: 50 }}>
-              <TouchableOpacity onPress={() => { this.savedData() }} style={styles.buttonSavedStyle}>
+
+ {/* View Vehicle Button */}
+            <View>
+              <TouchableOpacity onPress={() => { this.savedData() }} style={styles.viewVehicleButton}>
                 <Text style={{
-                  color: "white", fontWeight: "600",
-                  fontSize: 20,
+                  color: "white",
+                  fontWeight: "600",
+                  textAlign: "center",
                 }}>View Vehicle</Text>
               </TouchableOpacity>
-
             </View>
+
           </Content>
 
 <Container style={{ display: "none" }}>
@@ -333,8 +320,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: "center",
     alignItems: "center",
-
-
   },
 
   listLabelText: {
@@ -351,18 +336,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  buttonSavedStyle: {
-
-    marginTop: 5,
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: "auto",
-    marginRight: "auto",
+  viewVehicleButton: {
     backgroundColor: "#4AA7D1",
-    height: 60,
-    width: 300
-
+    textTransform: "uppercase",
+    borderRadius: 2.5,
+    justifyContent: "center",
+    height: 60
   },
 
   buttonHidden: {
