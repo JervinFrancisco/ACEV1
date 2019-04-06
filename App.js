@@ -8,6 +8,7 @@ import Add from './components/Add';
 import About from './components/About';
 import Tutorial from './components/Tutorial';
 import SideBar from './components/SideBar';
+import Bulletins from './components/Bulletins';
 
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
@@ -20,7 +21,8 @@ const App = createStackNavigator(
     Add: Add,
     About:About,
     Tutorial: Tutorial,
-    SideBar: SideBar
+    SideBar: SideBar,
+    Bulletins:Bulletins
   },
   {
     initialRouteName: "Search" //temporarily - will/should be 'Login'
