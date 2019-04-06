@@ -81,7 +81,7 @@ export default class Search extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTUwYTBjN2M5NTQ5MGI5OWRhYjQxMCIsImlhdCI6MTU1NDU3ODA4MiwiZXhwIjoxNTU0NjY0NDgyfQ.F5lDXXhEwTNXjDgq4pfSUk9bCUVFcEi1k686hIt3nUE'
+        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDU4MzY4MSwiZXhwIjoxNTU0NjcwMDgxfQ.vMVHSy41Kag5Kr8loWfcHGxLhUewiH0J1SBpjk11S_I'
       }
     }
     const { navigate } = this.props.navigation
@@ -106,7 +106,7 @@ export default class Search extends React.Component {
 
     },
  
-    headerTitleStyle: { color: '#fff' },
+ 
     headerLeft: (
       <TouchableOpacity
         style={{ backgroundColor: 'transparent', paddingLeft:18,paddingRight:18,padding:10,
