@@ -23,7 +23,7 @@ export default class Tutorial extends Component {
           
           <TouchableOpacity
             style={{
-              backgroundColor: 'transparent', paddingLeft:30,paddingRight:18,padding:10,
+              backgroundColor: 'transparent', paddingLeft:30, paddingRight:18, padding:10,
             }}
             onPress={() => {
               var yo = ref;
