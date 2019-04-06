@@ -14,7 +14,7 @@ import { Svg } from 'expo';
 const { Circle, Rect, Path } = Svg;
 
 
-const http = "http://10.70.152.25:3000/"                   
+const http = "http://10.70.153.202:3000/"                   
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();
@@ -77,7 +77,7 @@ export default class Result extends React.Component {
           headers: { 
            'Accept': 'application/json',
            'Content-Type': 'application/x-www-form-urlencoded',
-           'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTUwYTBjN2M5NTQ5MGI5OWRhYjQxMCIsImlhdCI6MTU1NDQyNDE3NiwiZXhwIjoxNTU0NTEwNTc2fQ.IzHzCaeoSUSAwrROmh5sxmkSCAItTLPbopWWMkYwBxs'
+           'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDU4MzY4MSwiZXhwIjoxNTU0NjcwMDgxfQ.vMVHSy41Kag5Kr8loWfcHGxLhUewiH0J1SBpjk11S_I'
        }
   }
   const {navigate} = this.props.navigation
@@ -113,13 +113,13 @@ export default class Result extends React.Component {
 
 
     },
-    headerTitle: "ACE",
-    headerTitleStyle: { color: '#fff' },
+
     headerLeft: (
       <TouchableOpacity
         style={{
           backgroundColor: 'transparent', flexDirection: 'row',
-          alignSelf: 'flex-start', paddingTop: 12, marginLeft: 10
+          alignSelf: 'flex-start', paddingLeft:30,paddingRight:18,padding:10,
+     
         }}
         onPress={() => {
           var yo = ref;
