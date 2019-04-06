@@ -14,7 +14,7 @@ import { Svg } from 'expo';
 const { Circle, Rect, Path } = Svg;
 
 
-
+const http = "http://10.70.152.25:3000/"                   
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();
@@ -23,7 +23,6 @@ const front = React.createRef();
 export default class Result extends React.Component {
   timer;
   constructor(props) {
-    console.log("yo", props.state)
     super(props);
 
     this.state = {
@@ -35,9 +34,14 @@ export default class Result extends React.Component {
       hover4: false,
       hover5: false,
       hover6: false,
+      undercarriage:null,
+      rear:null,
+      front:null,
+      center:null,
       showPlayerControls: false,
       initialPage: 0, 
-      activeTab: undefined
+      activeTab: undefined,
+      data: null
     }
 
   }
@@ -65,13 +69,39 @@ export default class Result extends React.Component {
 
 
   componentDidMount() {
+    
+    // http://localhost:3000/concealments/5ca50af07c95490b99dab412
+    let opts ={
+      // body:JSON.stringify(formData),
+      method: "GET",
+          headers: { 
+           'Accept': 'application/json',
+           'Content-Type': 'application/x-www-form-urlencoded',
+           'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTUwYTBjN2M5NTQ5MGI5OWRhYjQxMCIsImlhdCI6MTU1NDQyNDE3NiwiZXhwIjoxNTU0NTEwNTc2fQ.IzHzCaeoSUSAwrROmh5sxmkSCAItTLPbopWWMkYwBxs'
+       }
+  }
+  const {navigate} = this.props.navigation
+  const { navigation } = this.props
+  const data = navigation.getParam('data', 'NO DATA')
 
-    const { navigation } = this.props
-
-    const data = navigation.getParam('data', 'NO DATA')
-    console.log(data)
-
-
+  this.setState({data:data})
+            fetch(`${http}concealments/${data[0].make}/${data[0].model}/${data[0].year}`,opts)
+            .then(resp=>resp.json())
+            .then(data=>{
+           let rear=data[0].rear.concealment.length>0?data[0].rear.concealment:null
+           let front=data[0].front.concealment.length>0?data[0].front.concealment:null
+           let undercarriage=data[0].undercarriage.concealment.length>0?data[0].undercarriage.concealment:null
+           let center=data[0].center.concealment.length>0?data[0].center.concealment:null
+           console.log("this is all the data",data[0]);
+           this.setState({
+                data:data,
+                undercarriage:undercarriage,
+                front:front,
+                rear:rear,
+                center:center
+              })
+            })
+            .catch(err=>console.log("Error", err.message))
     Animated.timing(this.animatedValue, {
       toValue: 150,
       duration: 1500
@@ -199,7 +229,7 @@ export default class Result extends React.Component {
 
         <ScrollableTabView
           refreshControlStyle={{ backgroundColor: 'red' }}
-          renderTabBar={() => <ScrollableTabBar onScroll={(yo)=>this.setState({ activeTab: this.state.activeTab = undefined})}/>}
+          renderTabBar={() => <ScrollableTabBar onScroll={(yo)=>this.setState({ activeTab: this.state.activeTab = undefined})} onPress={(yo)=>console.log(yo)}/>}
           style={{ marginTop: -220, backgroundColor: "#0D2847" }}
           tabBarTextStyle={{ color: "white", fontSize: 27 }}
           tabBarUnderlineStyle={{ backgroundColor: "white" }}
@@ -209,7 +239,7 @@ export default class Result extends React.Component {
         
         >
 
-          <ScrollView  tabLabel="Front/Engine" >
+          <ScrollView tabLabel="Front/Engine"  >
             <View >
               <Container >
 
@@ -229,20 +259,22 @@ export default class Result extends React.Component {
                     />
                   ) : null}
 
+  {  this.state.front &&
+                   this.state.front.map(concealment=>(
+                  <ListItem
+                  key={concealment._id}
+                  leftAvatar={{ rounded: false, source: {uri:`${http}${concealment.src[0]}` } }}
+                  title={concealment.title}
+                  onPress={() => navigate('Details',{data:concealment})}
+                  />
+                ), )
+              
+              }
 
-                  <ListItem
-                    key={1233}
-                    leftAvatar={{ rounded: false, source: require('../assets/drugs.jpeg') }}
-                    title={"Drugs"}
-                    subtitle={"l.subtitle"}
-                    onPress={() => navigate('Details')}
-                  />
-                  <ListItem
-                    key={1223333}
-                    leftAvatar={{ rounded: false, source: require('../assets/drugs.jpeg') }}
-                    title={"Drugs"}
-                    subtitle={"l.subtitle"}
-                  />
+                 { !this.state.front &&
+              <Text style={{fontSize:50, color:"red"}}>No Concealment Methods for Front/Engine</Text>
+            } 
+
                 </Content>
               </Container>
             </View>
@@ -268,14 +300,22 @@ export default class Result extends React.Component {
                   }}
                 />
               ) : null}
+                   {  this.state.center &&
+              this.state.center.map(concealment=>(
+                
                <ListItem
-                    key={1233}
-                    leftAvatar={{ rounded: false, source: require('../assets/drugs.jpeg') }}
-                    title={"Drugs"}
-                    subtitle={"l.subtitle"}
-                    onPress={() => navigate('Details')}
+               key={concealment._id}
+               leftAvatar={{ rounded: false, source: {uri:`${http}${concealment.src[0]}` } }}
+               title={concealment.title}
+               onPress={() => navigate('Details',{data:concealment})}
                   />
-               
+                ), )
+              
+              }
+
+               { !this.state.center &&
+              <Text style={{fontSize:50, color:"red"}}>No Concealment Methods for Center/Cabin</Text>
+            } 
                   </Content>
             </Container >
 
@@ -283,7 +323,7 @@ export default class Result extends React.Component {
             </View>
           </ScrollView>
 
-          <ScrollView  page={this.state.activeTab}   tabLabel='Undercariage/Wheels'>
+          <ScrollView  page={this.state.activeTab}   tabLabel='Undercarriage/Wheels'>
             <View>
             <Container >
 
@@ -300,19 +340,20 @@ export default class Result extends React.Component {
                   }}
                 />
               ) : null}
-              <ListItem
-                    key={1233}
-                    leftAvatar={{ rounded: false, source: require('../assets/drugs.jpeg') }}
-                    title={"Drugs"}
-                    subtitle={"l.subtitle"}
-                    onPress={() => navigate('Details')}
-                  />
+              {  this.state.undercarriage &&
+              this.state.undercarriage.map(concealment=>(
                   <ListItem
-                    key={1223333}
-                    leftAvatar={{ rounded: false, source: require('../assets/drugs.jpeg') }}
-                    title={"Drugs"}
-                    subtitle={"l.subtitle"}
+                    key={concealment._id}
+                    leftAvatar={{ rounded: false, source:{uri:`${http}${concealment.src[0]}`  }}}
+                    title={concealment.title}
+                    onPress={() => navigate('Details', {data:concealment})}
                   />
+              ), )
+              
+              }
+              { !this.state.undercarriage &&
+              <Text>No Concealment Method For Undercarriage</Text>
+            } 
                            </Content>
             </Container >
             </View>
@@ -331,27 +372,25 @@ export default class Result extends React.Component {
                     backgroundColor: 'grey',
                     justifyContent: 'center',
                     height: 80,
-
-
                   }}
                 >
-            
-
                 </Header>
               ) : null}
+                {  this.state.rear &&
+                   this.state.rear.map(concealment=>(
              <ListItem
-                    key={1233}
-                    leftAvatar={{ rounded: false, source: require('../assets/drugs.jpeg') }}
-                    title={"Drugs"}
-                    subtitle={"l.subtitle"}
-                    onPress={() => navigate('Details')}
+          
+                    key={concealment._id}
+                    leftAvatar={{ rounded: false, source: {uri:`${http}${concealment.src[0]}` } }}
+                    title={concealment.title}
+                    onPress={() => navigate('Details',{data:concealment})}
                   />
-                  <ListItem
-                    key={1223333}
-                    leftAvatar={{ rounded: false, source: require('../assets/drugs.jpeg') }}
-                    title={"Drugs"}
-                    subtitle={"l.subtitle"}
-                  />
+             ),)
+                }
+
+                { !this.state.rear &&
+              <Text style={{fontSize:50, color:"red"}}>No Concealment Method For Rear/Trunk</Text>
+            } 
                   </Content>
                              </Container >
 
@@ -359,45 +398,7 @@ export default class Result extends React.Component {
             </View>
           </ScrollView>
           <ScrollView overScrollMode={'never'} style={{display:"none"}} >
-            <View>
-            <Container >
 
-<Content>
-              {this.state.showPlayerControls ? (
-                <Header
-                  ref={ref3}
-                  centerComponent={{ text: 'MY TITLE', style: { color: 'white' } }}
-                  rightComponent={{ icon: 'close',  style: { color: '#FFFFFF'}, onPress: () => this.hidePlayerControls() }}
-                  containerStyle={{
-                    backgroundColor: 'grey',
-                    justifyContent: 'center',
-                    height: 80,
-
-
-                  }}
-                >
-            
-
-                </Header>
-              ) : null}
-             <ListItem
-                    key={1233}
-                    leftAvatar={{ rounded: false, source: require('../assets/drugs.jpeg') }}
-                    title={"Drugs"}
-                    subtitle={"l.subtitle"}
-                    onPress={() => navigate('Details')}
-                  />
-                  <ListItem
-                    key={1223333}
-                    leftAvatar={{ rounded: false, source: require('../assets/drugs.jpeg') }}
-                    title={"Drugs"}
-                    subtitle={"l.subtitle"}
-                  />
-                  </Content>
-                             </Container >
-
-
-            </View>
           </ScrollView>
         </ScrollableTabView>
 
@@ -423,7 +424,7 @@ export default class Result extends React.Component {
 
           onPressMain={(yo) => {
 
-            { navigate('Add') }
+            { navigate('Add',{data:this.state.data}) }
 
           }}
           showBackground={false}

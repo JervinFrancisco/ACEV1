@@ -5,18 +5,7 @@ import { Container, Header, Content, List, Icon, Left, Body, Right, Switch, Butt
 import Slideshow from 'react-native-image-slider-show';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-const images = [
-  {
-    id: 0,
-    url: 'https://cdn.vox-cdn.com/thumbor/nNsn33uQcSzEN8OzHU8_vCufjl4=/0x0:1800x1013/1820x1213/filters:focal(756x363:1044x651):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/60154183/Webp.net_resizeimage__5_.0.jpg'
-  },
-  {
 
-    id: 1,
-    url: 'https://static1.srcdn.com/wordpress/wp-content/uploads/2018/04/Featured-Super-Saiyan-Blue-Vegeta-Powers-Up.jpg?q=50&fit=crop&w=798&h=407&dpr=1.5'
-
-  }
-]
 const ref = React.createRef();
 
 
@@ -30,32 +19,7 @@ export default class Details extends Component {
       showModal: false,
       position: 0,
       interval: null,
-      dataSource: [
-        {
-          // Simplest usage.
-          id: 0,
-          url: 'https://cdn.vox-cdn.com/thumbor/nNsn33uQcSzEN8OzHU8_vCufjl4=/0x0:1800x1013/1820x1213/filters:focal(756x363:1044x651):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/60154183/Webp.net_resizeimage__5_.0.jpg'
-
-          // width: number
-          // height: number
-          // Optional, if you know the image size, you can set the optimization performance
-
-          // You can pass props to <Image />.
-
-        },
-        {
-          // Simplest usage.
-          id: 1,
-          url: 'https://static1.srcdn.com/wordpress/wp-content/uploads/2018/04/Featured-Super-Saiyan-Blue-Vegeta-Powers-Up.jpg?q=50&fit=crop&w=798&h=407&dpr=1.5'
-
-          // width: number
-          // height: number
-          // Optional, if you know the image size, you can set the optimization performance
-
-          // You can pass props to <Image />.
-
-        }
-      ],
+     dataSource:null
 
     }
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -75,11 +39,17 @@ export default class Details extends Component {
   }
   componentWillMount() {
 
-    this.setState({
-      position: this.state.position === this.state.dataSource.id ? 0 : this.state.position + 1
-    });
 
+  }
 
+  componentDidMount(){
+    const {navigate} = this.props.navigation
+    const { navigation } = this.props
+    const data = navigation.getParam('data', 'NO DATA')
+    console.log("tis the dsata",data)
+    let images=data.src.map((img,i)=>{return {id:i, url:`http://10.70.152.25:3000/${img}`}})
+    let position=this.state.position===images.id?0:this.state.position + 1
+    this.setState({title: data.title, description: data.description, dataSource: images, position:position})
   }
 
   static navigationOptions = {
@@ -119,28 +89,28 @@ export default class Details extends Component {
 
 
        
-     
+     {this.state.dataSource &&
         <Slideshow
 
-          onPress={(yo) => { this.handleOpenModal(yo.image.id) }}
+          onPress={(yo) => { this.handleOpenModal(yo.index) }}
           dataSource={this.state.dataSource}
           position={this.state.position}
           onPositionChanged={position => this.setState({ position })} 
           
           />
 
- 
+     }
 
         <View>
           <Modal visible={this.state.showModal} transparent={true} onRequestClose={this.handleCloseModal} onCancel={() => this.handleCloseModal}>
-            <ImageViewer imageUrls={images} index={this.state.currentImageIndex} />
+            <ImageViewer imageUrls={this.state.dataSource} index={this.state.currentImageIndex} />
           </Modal>
 
               <ListItem itemDivider style ={styles.listLabel}>
-              <Text style ={styles.listLabelText}>Title Of Description</Text>
+              <Text style ={styles.listLabelText}>{this.state.title}</Text>
             </ListItem> 
             <ListItem itemDivider style ={styles.listLabel}>
-              <Text style ={styles.listLabelPara}>Title Of Description</Text>
+              <Text style ={styles.listLabelPara}>{this.state.description}</Text>
             </ListItem> 
             <ListItem itemDivider style ={styles.listLabel}>
              

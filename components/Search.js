@@ -81,41 +81,24 @@ componentDidMount(){
   }
 
   savedData() {
-    // 
-    console.log("make",this.state.make, "model",this.state.model, "year",this.state.year)
-    let year=parseInt(this.state.year)
-    let formData = {
-      "make": "Honda",
-      "model": "Civic",
-      "year": 2019
-    }
- 
+                                        
 let opts ={
-body:JSON.stringify(formData),
-method: "POST",
-headers: { 
- 'Accept': 'application/json',
- 'Content-Type': 'application/json'
+    // body:JSON.stringify(formData),
+    method: "GET",
+        headers: { 
+         'Accept': 'application/json',
+         'Content-Type': 'application/x-www-form-urlencoded',
+         'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTUwYTBjN2M5NTQ5MGI5OWRhYjQxMCIsImlhdCI6MTU1NDQyNDE3NiwiZXhwIjoxNTU0NTEwNTc2fQ.IzHzCaeoSUSAwrROmh5sxmkSCAItTLPbopWWMkYwBxs'
+     }
 }
-}
-const {navigate} = this.props.navigation;
-  return fetch('http://10.70.152.183:3000/api/authVehicle', opts)
-  .then(resp=>resp.json())
-  .then(data=>{
-    let build=data.listings[0].build
-    let car={make:build.make,model:build.model,year:build.year,bodytype:build.body_type}
-    navigate('Result', {data: car})
-  
-
-  })
-  .catch(err=>console.log("Error", err.message))
- 
-    // this.state.car.push(obj)
-    // let carObj=this.state.car
-    // carObj.push(obj)
-    // this.setState({
-    //   car:carObj
-    // })
+const {navigate} = this.props.navigation
+          fetch('http://10.70.152.25:3000/vehicles/honda/civic/2019',opts)
+          .then(resp=>resp.json())
+          .then(data=>{
+            console.log(data)
+            navigate('Result', {data})
+          })
+          .catch(err=>console.log("Error", err.message))
   }
 
   static navigationOptions = {
