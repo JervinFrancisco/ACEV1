@@ -27,7 +27,7 @@ const App = createStackNavigator(
     TestingComponent:TestingComponent
   },
   {
-    initialRouteName: "Search" //temporarily - will/should be 'Login'
+    initialRouteName: "About" //temporarily - will/should be 'Login'
   }
 );
 

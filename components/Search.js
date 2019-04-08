@@ -81,7 +81,7 @@ export default class Search extends React.Component {
     }
 
     const { navigate } = this.props.navigation
-    fetch('http://10.70.153.202:3000/vehicles/honda/civic/2019', opts)
+    fetch('http://192.168.1.60:3000/vehicles/honda/civic/2019', opts)
       .then(resp => {
         console.log(resp)
         if (resp.status != 200) {

@@ -1,9 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 21006,
-  "expoServerNgrokUrl": "https://f3-mc6.anonymous.acev1.exp.direct",
-  "packagerNgrokUrl": "https://packager.f3-mc6.anonymous.acev1.exp.direct",
-  "ngrokPid": 21030
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }
