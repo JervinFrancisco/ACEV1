@@ -16,7 +16,7 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 const App = createStackNavigator(
   {
     Search: Search,
-    // Login: Login,
+    Login: Login,
     Result: Result,
     Details: Details,
     Add: Add,
@@ -27,7 +27,7 @@ const App = createStackNavigator(
     TestingComponent:TestingComponent
   },
   {
-    initialRouteName: "Add" //temporarily - will/should be 'Login'
+    initialRouteName: "Login" //temporarily - will/should be 'Login'
   }
 );
 

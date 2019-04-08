@@ -192,7 +192,7 @@ console.log(this.state.carArea)
                 <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 10}} onPress={this.cameraPressed.bind(this)} >
                         <Icon name='camera' text='camera'/>
                 </Button>
-                <Image source={{uri : this.state.image}} style={{height:100,width:100}}></Image>
+                <Image source={{uri : this.state.image}} style={{height:100,width:100,alignSelf:'center',marginTop: 10}}></Image>
                 
                 <TouchableOpacity   onPress={this.postConcealment} style ={styles.buttonSavedStyle}>
                     <Text style ={{color: "white",  fontWeight:"600",
