@@ -16,6 +16,8 @@ export default class About extends Component {
         headerStyle: {
           backgroundColor: '#0D2847',
         },
+        headerTitle: "About",
+        headerTitleStyle: { color: '#fff' },
     
        
         headerLeft: (
