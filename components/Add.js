@@ -9,16 +9,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 const ref = React.createRef();
 const front = React.createRef();
-<<<<<<< HEAD
-const http = "http://10.70.152.174:3000/"    
+const http = "http://10.70.152.198:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
     chooseFromLibraryButtonTitle: 'Choose From Gallery'
   };
-=======
-const http = "http://10.70.152.25:3000/"    
->>>>>>> d3d0ae7569b3df103a770518c75ec90e4dbb38d8
 
 export default class Add extends Component {
 
@@ -28,14 +24,10 @@ export default class Add extends Component {
         super(props);
         this.state = {
           carArea: "front",
-<<<<<<< HEAD
           imageSource: null,
           location: null,
           long: null,
           lat: null,
-=======
-          image: null
->>>>>>> d3d0ae7569b3df103a770518c75ec90e4dbb38d8
         };
 
 
@@ -56,7 +48,7 @@ export default class Add extends Component {
         fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBwSdoSvVrUCpchMKSm64pnrfU24Vx516c&address=' + `${this.state.lat}` + ',' + `${this.state.long}`  )
         .then((response) => response.json())
         .then((responseJson) => {
-         console.log(JSON.stringify(responseJson));
+         console.log(responseJson);
 
           });
       }
@@ -104,41 +96,55 @@ postConcealment=() => {
   // let bodytype=this.state.vehicleData[0].bodytype
   // let make=this.state.vehicleData[0].make
   // let model=this.state.vehicleData[0].model
-  // let year=this.state.vehicleData[0].year
-  let data=
-    `title=${this.state.title}&description=${this.state.description}&location=Ottawa%2C%20ON&date=2017&referenceNo=${this.state.reference}&countFound=1&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D`
+  // // let year=this.state.vehicleData[0].year
+  // let data=
+  //   `title=${this.state.title}&description=${this.state.description}&location=Ottawa%2C%20ON&date=2017&referenceNo=${this.state.reference}&countFound=1&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D`
 
     console.log(data)
     
-
-    //  // title:this.state.title,
-      // description:this.state.description,
-      // location:"cornwall,On",
-      // date:2019,
-      // referenceNo:this.state.reference,
-      // countFound:countofdiscoveredFound,
-      // discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`,
-      // discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`
-
-
-
-let xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    console.log(this.responseText);
-  }
-});
-
-console.log("ID", id)
-xhr.open("POST", `${http}concealments/${this.state.carArea}/${id}`);
-xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-xhr.setRequestHeader("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDY3MDMyMCwiZXhwIjoxNTU0NzU2NzIwfQ.W26tIzJK1FFCrmRurYiClb7XY_uLurbm3tzu6oW-oMc");
-xhr.setRequestHeader("Cache-Control", "no-cache");
+    let data={
+     title:this.state.title,
+      description:this.state.description,
+      location:"cornwall,On",
+      date:2019,
+      referenceNo:this.state.reference,
+      countFound:countofdiscoveredFound,
+      discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`,
+      discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`
+    }
 
 
-xhr.send(data);
+
+    var XHR = new XMLHttpRequest();
+    var urlEncodedData = "";
+    var urlEncodedDataPairs = [];
+    var name;
+  
+    // Turn the data object into an array of URL-encoded key/value pairs.
+    for(name in data) {
+        console.log(name);
+      urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
+    }
+  
+    // Combine the pairs into a single string and replace all %-encoded spaces to 
+    // the '+' character; matches the behaviour of browser form submissions.
+    urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+  
+  
+
+  
+
+  
+    // Set up our request
+    XHR.open('POST', `${http}concealments/${this.state.carArea}/${id}`);
+  
+    // Add the required HTTP header for form data POST requests
+    XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    XHR.setRequestHeader('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDc1OTUwNiwiZXhwIjoxNTU0ODQ1OTA2fQ.jMcy7ARN999OFfoEHflrzxaOPLY59LGd8r15Lvj_eM4');
+  
+  
+    // Finally, send our data.
+    XHR.send(urlEncodedData);
 
 
 console.log(this.state.carArea)

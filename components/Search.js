@@ -76,16 +76,12 @@ export default class Search extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDY3MDMyMCwiZXhwIjoxNTU0NzU2NzIwfQ.W26tIzJK1FFCrmRurYiClb7XY_uLurbm3tzu6oW-oMc'
+        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDc1OTUwNiwiZXhwIjoxNTU0ODQ1OTA2fQ.jMcy7ARN999OFfoEHflrzxaOPLY59LGd8r15Lvj_eM4'
       }
     }
 
     const { navigate } = this.props.navigation
-<<<<<<< HEAD
-    fetch('http://10.70.152.174:3000/vehicles/honda/civic/2019', opts)
-=======
-    fetch('http://192.168.1.60:3000/vehicles/honda/civic/2019', opts)
->>>>>>> d3d0ae7569b3df103a770518c75ec90e4dbb38d8
+    fetch('http://10.70.152.198:3000/vehicles/honda/civic/2019', opts)
       .then(resp => {
         console.log(resp)
         if (resp.status != 200) {
@@ -111,12 +107,8 @@ export default class Search extends React.Component {
     headerLeft: (
 
       <TouchableOpacity
-<<<<<<< HEAD
         style={{ backgroundColor: 'transparent', paddingLeft:11,paddingRight:18,padding:10,
     }}
-=======
-        style={{ backgroundColor: 'transparent', paddingLeft: 18, paddingRight: 18, padding: 10 }}
->>>>>>> d3d0ae7569b3df103a770518c75ec90e4dbb38d8
         onPress={() => {
           var yo = ref;
           yo.current.props.onPress()
