@@ -9,23 +9,25 @@ import About from './components/About';
 import Tutorial from './components/Tutorial';
 import SideBar from './components/SideBar';
 import Bulletins from './components/Bulletins';
+import TestingComponent from './components/TestingComponent'
 
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 const App = createStackNavigator(
   {
     Search: Search,
-    // Login: Login,
+    Login: Login,
     Result: Result,
     Details: Details,
     Add: Add,
     About:About,
     Tutorial: Tutorial,
     SideBar: SideBar,
-    Bulletins:Bulletins
+    Bulletins:Bulletins,
+    TestingComponent:TestingComponent
   },
   {
-    initialRouteName: "Search" //temporarily - will/should be 'Login'
+    initialRouteName: "Login" //temporarily - will/should be 'Login'
   }
 );
 

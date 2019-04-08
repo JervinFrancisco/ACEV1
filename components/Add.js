@@ -3,18 +3,22 @@ import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, 
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated,  Keyboard, KeyboardAvoidingView  } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import ImagePicker from 'react-native-image-picker';
+import { ImagePicker, Permissions, Camera } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 //import Camera from 'react-native-camera';
 
 const ref = React.createRef();
 const front = React.createRef();
+<<<<<<< HEAD
 const http = "http://10.70.152.174:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
     chooseFromLibraryButtonTitle: 'Choose From Gallery'
   };
+=======
+const http = "http://10.70.152.25:3000/"    
+>>>>>>> d3d0ae7569b3df103a770518c75ec90e4dbb38d8
 
 export default class Add extends Component {
 
@@ -24,10 +28,14 @@ export default class Add extends Component {
         super(props);
         this.state = {
           carArea: "front",
+<<<<<<< HEAD
           imageSource: null,
           location: null,
           long: null,
           lat: null,
+=======
+          image: null
+>>>>>>> d3d0ae7569b3df103a770518c75ec90e4dbb38d8
         };
 
 
@@ -179,27 +187,25 @@ console.log(this.state.carArea)
           carArea: value
         });
       }
-      cameraPressed(ev){
-          console.log('camera')
-          
-            ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-          
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            } else {
-              const source = { uri: response.uri };
-          
-              // You can also display the image using data:
-              // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-          
-              this.setState({
-                imageSource: source,
-              });
-            }
-          });
+
+
+      cameraPressed = async (ev) => {
+        console.log('camera')
+        // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
+        const { status : st , permissions } = await Permissions.askAsync(Permissions.CAMERA);
+        const { status : stR } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        console.log(st,stR);
+        console.log(permissions);
+        if (st === 'granted' && stR === 'granted') {
+          console.log("granted");
+          const { cancelled, uri } = await ImagePicker.launchCameraAsync({allowsEditing: true,});
+          console.log(uri);
+          if(!cancelled) this.setState({image : uri});
+
+
+        } else {
+          throw new Error('Camera permission not granted');
+        } 
       }
 
 
@@ -258,7 +264,7 @@ console.log(this.state.carArea)
                 <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 10}} onPress={this.cameraPressed.bind(this)} >
                         <Icon name='camera' text='camera'/>
                 </Button>
-                <Image source={this.state.imageSource}></Image>
+                <Image source={{uri : this.state.image}} style={{height:100,width:100,alignSelf:'center',marginTop: 10}}></Image>
                 
                 <TouchableOpacity   onPress={()=>{this.postConcealment(),navigate("Result")}} style ={styles.buttonSavedStyle}>
                     <Text style ={{color: "white",  fontWeight:"600",

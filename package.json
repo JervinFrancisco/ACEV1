@@ -24,7 +24,8 @@
     "react-native-image-zoom-viewer": "^2.2.25",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-svg": "^9.3.6",
-    "react-navigation": "^3.3.2"
+    "react-navigation": "^3.3.2",
+    "react-navigation-header-buttons": "^2.2.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

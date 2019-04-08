@@ -15,7 +15,11 @@ import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-co
 const { Circle, Rect, Path } = Svg;
 
 
+<<<<<<< HEAD
 const http = "http://10.70.152.174:3000/"
+=======
+const http = "http://192.168.1.60:3000/"                   
+>>>>>>> d3d0ae7569b3df103a770518c75ec90e4dbb38d8
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();

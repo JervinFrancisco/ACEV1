@@ -17,7 +17,6 @@ export default class Search extends React.Component {
   closeDrawer = () => {
     this.refs.drawer.close()
   };
-
   constructor(props) {
     super(props)
     this.myRef = React.createRef()
@@ -32,11 +31,8 @@ export default class Search extends React.Component {
       drawerOpen: false
       // voice: false,
       // speechToText: "No voice input"
-
     }
-
   }
-
 
   componentDidMount() {
   }
@@ -48,7 +44,7 @@ export default class Search extends React.Component {
     this.setState({ loading: false });
   }
 
-  onValueChange2(value) {
+  makeValueSaved(value) {
     console.log(value);
     this.setState({
       make: value
@@ -57,7 +53,7 @@ export default class Search extends React.Component {
     });
   }
 
-  onValueChange3(value) {
+  modelValueSaved(value) {
     this.setState({
       model: value,
     }, () => {
@@ -65,7 +61,7 @@ export default class Search extends React.Component {
     });
   }
 
-  onValueChange4(value) {
+  yearValueSaved(value) {
     this.setState({
       year: value
     }, () => {
@@ -74,7 +70,6 @@ export default class Search extends React.Component {
   }
 
   savedData() {
-
     let opts = {
       // body:JSON.stringify(formData),
       method: "GET",
@@ -84,33 +79,44 @@ export default class Search extends React.Component {
         'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDY3MDMyMCwiZXhwIjoxNTU0NzU2NzIwfQ.W26tIzJK1FFCrmRurYiClb7XY_uLurbm3tzu6oW-oMc'
       }
     }
+
     const { navigate } = this.props.navigation
+<<<<<<< HEAD
     fetch('http://10.70.152.174:3000/vehicles/honda/civic/2019', opts)
+=======
+    fetch('http://192.168.1.60:3000/vehicles/honda/civic/2019', opts)
+>>>>>>> d3d0ae7569b3df103a770518c75ec90e4dbb38d8
       .then(resp => {
         console.log(resp)
-        if(resp.status != 200){
+        if (resp.status != 200) {
           throw new Error(`${resp.status}`);
         }
-        return resp.json()})
+        return resp.json()
+      })
       .then(data => {
-        console.log("this data was consoled",data)
+        console.log("this data was consoled", data)
         navigate('Result', { data })
       })
       .catch(err => alert(err.message))
-      
+
   }
 
+  /* Navigation Bar */
   static navigationOptions = {
     headerStyle: {
       backgroundColor: '#0D2847',
-
     },
- 
- 
+
+    /* Hamburger Menu */
     headerLeft: (
+
       <TouchableOpacity
+<<<<<<< HEAD
         style={{ backgroundColor: 'transparent', paddingLeft:11,paddingRight:18,padding:10,
     }}
+=======
+        style={{ backgroundColor: 'transparent', paddingLeft: 18, paddingRight: 18, padding: 10 }}
+>>>>>>> d3d0ae7569b3df103a770518c75ec90e4dbb38d8
         onPress={() => {
           var yo = ref;
           yo.current.props.onPress()
@@ -120,6 +126,7 @@ export default class Search extends React.Component {
           source={require('../assets/icons8-menu-26.png')}
         />
       </TouchableOpacity>
+
     ),
     headerRight: (
       <View style={{
@@ -130,7 +137,7 @@ export default class Search extends React.Component {
           style={{ backgroundColor: 'transparent' }}
           onPress={() => {
             var yo = ref2;
-          yo.current.props.onPress()
+            yo.current.props.onPress()
           }}>
           <Image
             style={{ marginLeft: 10 }}
@@ -166,7 +173,6 @@ export default class Search extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-
       <Drawer
         ref={this.myRef}
         content={<SideBar na={this.navigateDrawer} />}
@@ -182,44 +188,35 @@ export default class Search extends React.Component {
           main: { opacity: (2 - ratio) / 0 }
         })}
       >
+
+      {/* MAIN CONTENT */}
+
         <Container style={styles.container}>
           <Content padder>
-            <Form >
-              <ListItem itemDivider style={styles.listLabel}>
+            <Form>
+            <ListItem itemDivider itemDivider style={styles.listLabel}>
                 <Text style={styles.listLabelText}>Make</Text>
               </ListItem>
-              <Item picker style={styles.itemPicker}>
+              
+              <Item picker>
                 <Picker
                   mode="dialog"
-                  androidIcon={<Icon name="arrow-down" />}
-                  style={{ width: 100, height: 60, color: "#fff", /*transform:([{ scaleY: 1.5 }])*/ }}
-                  itemTextStyle={{
-                    fontSize: 50
-                  }}
-                  itemStyle={{
-                    backgroundColor: "#183553",
-                    height: 50,
-                    width: 150
-                  }}
+                  style={{width:100, color:"#fff"}}
                   placeholder="Select Make"
-                  placeholderStyle={{ color: "#bfc6ea" }}
-                  placeholderIconColor="#007aff"
-
                   selectedValue={this.state.make}
-                  onValueChange={this.onValueChange2.bind(this)}
-
-                >
+                  onValueChange={this.makeValueSaved.bind(this)}>
                   {
                     this.state.makes.map(make => (
                       <Picker.Item key={Date.now()} label={make} value={make} />
                     ))
-
                   }
                 </Picker>
               </Item>
+              
               <ListItem itemDivider itemDivider style={styles.listLabel}>
                 <Text style={styles.listLabelText}>Model</Text>
               </ListItem>
+
               <Item picker style={styles.itemPicker}>
                 <Picker
                   mode="dialog"
@@ -229,7 +226,7 @@ export default class Search extends React.Component {
                   placeholderIconColor="#007aff"
 
                   selectedValue={this.state.model}
-                  onValueChange={this.onValueChange3.bind(this)}
+                  onValueChange={this.modelValueSaved.bind(this)}
                 >
                   <Picker.Item label="Civic" value="Civic" />
                   <Picker.Item label="ATM Card" value="key1" />
@@ -250,7 +247,7 @@ export default class Search extends React.Component {
                   placeholderStyle={{ color: "#bfc6ea" }}
                   placeholderIconColor="#007aff"
                   selectedValue={this.state.year}
-                  onValueChange={this.onValueChange4.bind(this)}
+                  onValueChange={this.yearValueSaved.bind(this)}
                 >
                   <Picker.Item label="2019" value="2019" />
                   <Picker.Item label="ATM Card" value="key1" />
@@ -261,7 +258,7 @@ export default class Search extends React.Component {
               </Item>
             </Form>
 
- {/* View Vehicle Button */}
+            {/* View Vehicle Button */}
             <View>
               <TouchableOpacity onPress={() => { this.savedData() }} style={styles.viewVehicleButton}>
                 <Text style={{
@@ -274,7 +271,7 @@ export default class Search extends React.Component {
 
           </Content>
 
-<Container style={{ display: "none" }}>
+          <Container style={{ display: "none" }}>
             <Button onPress={(c) => {
               navigate("Bulletins")
 
@@ -307,7 +304,7 @@ export default class Search extends React.Component {
 }
 const drawerStyles = {
   drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
-  main: { paddingLeft: 3 },
+  /*main: { paddingLeft: 3 },*/
 }
 const styles = StyleSheet.create({
   container: {
@@ -329,11 +326,12 @@ const styles = StyleSheet.create({
   },
 
   itemPicker: {
+    /*
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 1,
     backgroundColor: "#0D2847",
-    textAlign: "center",
+    textAlign: "center",*/
   },
 
   viewVehicleButton: {
