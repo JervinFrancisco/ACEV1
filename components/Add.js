@@ -3,17 +3,17 @@ import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, 
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated,  Keyboard, KeyboardAvoidingView  } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import ImagePicker from 'react-native-image-picker';
+import { ImagePicker, Permissions } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 //import Camera from 'react-native-camera';
 
 const ref = React.createRef();
 const front = React.createRef();
 const http = "http://10.70.152.25:3000/"    
-const options = {
-    title: 'Choose Image',
-    takePhotoButtonTitle: 'Take Photo',
-    chooseFromLibraryButtonTitle: 'Choose From Gallery'
+const camOpts = {
+    allowsEditing: true,
+    quality: 1.0,
+
   };
 
 export default class Add extends Component {
@@ -122,27 +122,18 @@ console.log(this.state.carArea)
           carArea: value
         });
       }
-      cameraPressed(ev){
-          console.log('camera')
-          
-            ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-          
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            } else {
-              const source = { uri: response.uri };
-          
-              // You can also display the image using data:
-              // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-          
-              this.setState({
-                imageSource: source,
-              });
-            }
-          });
+      cameraPressed = async (ev) => {
+        console.log('camera')
+        const { Location, Permissions } = Expo;
+        // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
+        const { status, permissions } = await Permissions.askAsync(Permissions.CAMERA);
+        if (status === 'granted') {
+          console.log("granted");
+          let cam = await ImagePicker.launchCameraAsync(camOpts);
+          console.log(cam);
+        } else {
+          throw new Error('Camera permission not granted');
+        } 
       }
 
 
