@@ -24,7 +24,7 @@ export default class Add extends Component {
         super(props);
         this.state = {
           carArea: "front",
-          imageSource: null
+          image: null
         };
       }
 componentDidMount(){
@@ -131,6 +131,9 @@ console.log(this.state.carArea)
           console.log("granted");
           let cam = await ImagePicker.launchCameraAsync(camOpts);
           console.log(cam);
+          if(!cam.cancelled){
+            this.setState({image : cam.uri});
+          }
         } else {
           throw new Error('Camera permission not granted');
         } 
@@ -138,6 +141,7 @@ console.log(this.state.carArea)
 
 
       render() {
+        let { image } = this.state;
         const { navigate } = this.props.navigation;
         return (
           <KeyboardAwareScrollView
@@ -190,7 +194,7 @@ console.log(this.state.carArea)
                 <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 10}} onPress={this.cameraPressed.bind(this)} >
                         <Icon name='camera' text='camera'/>
                 </Button>
-                <Image source={this.state.imageSource}></Image>
+                <Image source={{uri : image}}></Image>
                 
                 <TouchableOpacity   onPress={this.postConcealment} style ={styles.buttonSavedStyle}>
                     <Text style ={{color: "white",  fontWeight:"600",
