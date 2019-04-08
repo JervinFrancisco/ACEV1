@@ -9,7 +9,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 const ref = React.createRef();
 const front = React.createRef();
-const http = "http://10.70.152.25:3000/"    
+const http = "http://10.70.152.174:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
@@ -24,17 +24,59 @@ export default class Add extends Component {
         super(props);
         this.state = {
           carArea: "front",
-          imageSource: null
+          imageSource: null,
+          location: null,
+          long: null,
+          lat: null,
         };
+
+
       }
+
+      componentWillMount(){
+        
+      }
+      pass = (position) => {
+        this.setState({
+          lat: position.coords.latitude,
+          long: position.coords.longitude
+        });
+        console.log(this.state.lat);
+        console.log(this.state.long);
+        console.log(Date.now())
+
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBwSdoSvVrUCpchMKSm64pnrfU24Vx516c&address=' + `${this.state.lat}` + ',' + `${this.state.long}`  )
+        .then((response) => response.json())
+        .then((responseJson) => {
+         console.log(JSON.stringify(responseJson));
+
+          });
+      }
+      fail = (err) => {
+        console.log('ERROR', err);
+      }
+      getLocation = () => {
+        console.log("load");
+        let opts = { enableHighAccuracy: false, maximumAge: 120000, timeOut: 20000 };
+    
+        navigator.geolocation.getCurrentPosition(this.pass, this.fail, opts);
+       
+    
+      }
+
+
 componentDidMount(){
- 
+
+  this.getLocation()
   const { navigation } = this.props
   const data = navigation.getParam('data', 'NO DATA')
   this.setState({
     vehicleData:data
   })
   console.log("YOOOO",data,"end here")
+ 
+
+ 
 
 }
 postConcealment=() => {
@@ -45,37 +87,50 @@ postConcealment=() => {
   let checkForArea=vehicleDataKeys.filter(vechicleArea=>vechicleArea===this.state.carArea)
   let checkForAreaIndex=checkForArea[0]
   let countFound=this.state.vehicleData[0][checkForAreaIndex].concealment[0].discovered.length
-  console.log(countFound)
+  console.log("YOOO id",id)
   let countofdiscoveredFound=countFound + 1
+
+  
 
 
   // let bodytype=this.state.vehicleData[0].bodytype
   // let make=this.state.vehicleData[0].make
   // let model=this.state.vehicleData[0].model
   // let year=this.state.vehicleData[0].year
+  let data=
+    `title=${this.state.title}&description=${this.state.description}&location=Ottawa%2C%20ON&date=2017&referenceNo=${this.state.reference}&countFound=1&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D`
 
-  let opts ={
-    method: "POST",
-    body:{
-      title:this.state.title,
-      description:this.state.description,
-      location:"cornwall,On",
-      date:2019,
-      referenceNo:this.state.reference,
-      countFound:countofdiscoveredFound,
-      discovered:{"location":"cornwall","userId":this.state.userId,"referenceNo":this.state.reference}
-    },
-    headers: { 
-         'Accept': 'application/json',
-         'Content-Type': 'application/x-www-form-urlencoded',
-         'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTUwYTBjN2M5NTQ5MGI5OWRhYjQxMCIsImlhdCI6MTU1NDQyNDE3NiwiZXhwIjoxNTU0NTEwNTc2fQ.IzHzCaeoSUSAwrROmh5sxmkSCAItTLPbopWWMkYwBxs'
-     }
-}
+    console.log(data)
+    
 
-          fetch(`${http}concealments/${this.state.carArea}/${id}`,opts)
-          .then(resp=>resp.json())
-          .then(data=>{console.log(data)})
-          .catch(err=>console.log("Error", err.message))
+    //  // title:this.state.title,
+      // description:this.state.description,
+      // location:"cornwall,On",
+      // date:2019,
+      // referenceNo:this.state.reference,
+      // countFound:countofdiscoveredFound,
+      // discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`,
+      // discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`
+
+
+
+let xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+console.log("ID", id)
+xhr.open("POST", `${http}concealments/${this.state.carArea}/${id}`);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+xhr.setRequestHeader("x-access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDY3MDMyMCwiZXhwIjoxNTU0NzU2NzIwfQ.W26tIzJK1FFCrmRurYiClb7XY_uLurbm3tzu6oW-oMc");
+xhr.setRequestHeader("Cache-Control", "no-cache");
+
+
+xhr.send(data);
 
 
 console.log(this.state.carArea)
@@ -86,15 +141,17 @@ console.log(this.state.carArea)
         headerStyle: {
           backgroundColor: '#0D2847',
           
-    
+         
         },
+  
         headerTitle: "Add a concealment method",
         headerTitleStyle: { color: '#fff' },
+
         headerLeft: (
           <TouchableOpacity
             style={{
               backgroundColor: 'transparent', flexDirection: 'row',
-              alignSelf: 'flex-start', paddingTop: 12, marginLeft: 10
+              alignSelf: 'flex-start', paddingLeft:17,paddingRight:18,padding:10,
             }}
             onPress={() => {
               var yo = ref;
@@ -147,6 +204,8 @@ console.log(this.state.carArea)
 
 
       render() {
+      console.log(this.state.lat)
+       
         const { navigate } = this.props.navigation;
         return (
           <KeyboardAwareScrollView
@@ -190,7 +249,7 @@ console.log(this.state.carArea)
                   <Label style={styles.listLabelText}>Employee Number</Label>
                   <Input style={styles.inputFields} onChange={(ev)=>{this.setState({userId:ev.nativeEvent.text})}}/>
                 </Item>
-                <Item floatingLabel last>
+                <Item floatingLabel >
                   <Label style={styles.listLabelText}>Reference Number (optional)</Label>
                   <Input style={styles.inputFields} onChange={(ev)=>{this.setState({reference:ev.nativeEvent.text})}}/>
                 </Item>
@@ -201,7 +260,7 @@ console.log(this.state.carArea)
                 </Button>
                 <Image source={this.state.imageSource}></Image>
                 
-                <TouchableOpacity   onPress={this.postConcealment} style ={styles.buttonSavedStyle}>
+                <TouchableOpacity   onPress={()=>{this.postConcealment(),navigate("Result")}} style ={styles.buttonSavedStyle}>
                     <Text style ={{color: "white",  fontWeight:"600",
                                     fontSize: 20,}}>Submit</Text>
                 </TouchableOpacity>
@@ -259,9 +318,11 @@ const styles = StyleSheet.create({
         listLabelText:{
           fontWeight:"600",
           fontSize: 15,
-          color: "#FFF"
+          color: "#FFF",
+
         },
         inputFields:{
           color: "#FFF"
+          , 
         },
   })

@@ -81,11 +81,11 @@ export default class Search extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDU4MzY4MSwiZXhwIjoxNTU0NjcwMDgxfQ.vMVHSy41Kag5Kr8loWfcHGxLhUewiH0J1SBpjk11S_I'
+        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDY3MDMyMCwiZXhwIjoxNTU0NzU2NzIwfQ.W26tIzJK1FFCrmRurYiClb7XY_uLurbm3tzu6oW-oMc'
       }
     }
     const { navigate } = this.props.navigation
-    fetch('http://10.70.153.202:3000/vehicles/honda/civic/2019', opts)
+    fetch('http://10.70.152.174:3000/vehicles/honda/civic/2019', opts)
       .then(resp => {
         console.log(resp)
         if(resp.status != 200){
@@ -109,7 +109,7 @@ export default class Search extends React.Component {
  
     headerLeft: (
       <TouchableOpacity
-        style={{ backgroundColor: 'transparent', paddingLeft:18,paddingRight:18,padding:10,
+        style={{ backgroundColor: 'transparent', paddingLeft:11,paddingRight:18,padding:10,
     }}
         onPress={() => {
           var yo = ref;
