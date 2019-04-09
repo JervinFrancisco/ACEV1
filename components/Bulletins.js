@@ -14,37 +14,7 @@ export default class Bulletins extends Component {
       }
 
       static navigationOptions = {
-        headerStyle: {
-          backgroundColor: '#0D2847',
-          
-    
-        },
         headerTitle: "Bulletins",
-        headerTitleStyle: { color: '#fff' },
-        headerLeft: (
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'transparent', flexDirection: 'row',
-              alignSelf: 'flex-start', paddingTop: 12, marginLeft: 10
-            }}
-            onPress={() => {
-              var yo = ref;
-              yo.current.props.onPress()
-    
-            }}>
-            <Ionicons name="md-arrow-back" size={32} color="white" />
-    
-          </TouchableOpacity>
-        ),
-        headerRight: (
-          <View style={{
-            flexDirection: 'row',
-            alignSelf: 'flex-start', paddingTop: 12, marginRight: 10
-          }}>
-    
-          </View>
-        ),
-    
       }
 
 

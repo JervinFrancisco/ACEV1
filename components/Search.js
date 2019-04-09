@@ -3,12 +3,14 @@ import React from 'react';
 import Nav from './Nav';
 import DropDowns from './DropDowns';
 import SideBar from './SideBar';
+import { Ionicons } from '@expo/vector-icons';
 import { Font, AppLoading } from 'expo';
 import { StyleSheet, Button, TouchableHighlight, Image, TouchableOpacity, View } from 'react-native';
 import Drawer from 'react-native-drawer'
 import { Container, Header, Content, Form, Item, Picker, Icon, Text, ListItem } from 'native-base';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Makes from '../assets/makes.json'
+
 var self
 const ref = React.createRef();
 const ref2 = React.createRef();
@@ -17,6 +19,7 @@ export default class Search extends React.Component {
   closeDrawer = () => {
     this.refs.drawer.close()
   };
+  
   constructor(props) {
     super(props)
     this.myRef = React.createRef()
@@ -99,64 +102,46 @@ export default class Search extends React.Component {
 
   /* Navigation Bar */
   static navigationOptions = {
-    headerStyle: {
-      backgroundColor: '#0D2847',
-    },
-
     /* Hamburger Menu */
     headerLeft: (
-
       <TouchableOpacity
-        style={{ backgroundColor: 'transparent', paddingLeft:11,paddingRight:18,padding:10,
-    }}
+        style={{ 
+          backgroundColor: 'transparent', marginLeft:15}}
         onPress={() => {
           var yo = ref;
           yo.current.props.onPress()
         }}>
-        <Image
-          style={{ marginLeft: 10 }}
-          source={require('../assets/icons8-menu-26.png')}
-        />
+        <Ionicons name="md-menu" size={24} color="white" />
       </TouchableOpacity>
-
     ),
+
     headerRight: (
-      <View style={{
-        flexDirection: 'row',
-        alignSelf: 'flex-start', paddingTop: 12, marginRight: 11
-      }}>
+      <View>
         <TouchableOpacity
           style={{ backgroundColor: 'transparent' }}
           onPress={() => {
             var yo = ref2;
             yo.current.props.onPress()
           }}>
-          <Image
-            style={{ marginLeft: 10 }}
-            source={require('../assets/icons8-ballot-30.png')}
-          />
+          <Ionicons name="md-today" size={24} color="white" />
         </TouchableOpacity>
+
         <TouchableOpacity
           style={{ backgroundColor: 'transparent' }}
           onPress={() => {
             var yo = ref;
             yo.current.props.onPress()
           }}>
-          <Image
-            style={{ marginLeft: 10, marginTop: 3 }}
-            source={require('../assets/icons8-micro-32.png')}
-          />
+          <Ionicons name="md-mic" size={24} color="white" />
         </TouchableOpacity>
       </View>
     ),
-
   }
   navigateDrawer = (ev) => {
     const { navigate } = this.props.navigation;
     navigate(ev)
   }
 
-  //
   render() {
     console.log(Makes)
     if (this.state.loading) {
@@ -184,39 +169,32 @@ export default class Search extends React.Component {
       {/* MAIN CONTENT */}
 
         <Container style={styles.container}>
-          <Content padder>
-            <Form>
-            <ListItem itemDivider itemDivider style={styles.listLabel}>
-                <Text style={styles.listLabelText}>Make</Text>
-              </ListItem>
-              
-              <Item picker>
-                <Picker
-                  mode="dialog"
-                  style={{width:100, color:"#fff"}}
-                  placeholder="Select Make"
-                  selectedValue={this.state.make}
-                  onValueChange={this.makeValueSaved.bind(this)}>
-                  {
-                    this.state.makes.map(make => (
-                      <Picker.Item key={Date.now()} label={make} value={make} />
-                    ))
-                  }
+          <Content>
+            <Form style={styles.mmmForm}>
+
+            <Text style={styles.listLabelText}>MAKE</Text>  
+
+              <Picker
+                mode="dialog"
+                style={styles.itemPicker}
+                placeholder="Select Make"
+                prompt = "Select Make"
+                selectedValue={this.state.make}
+                onValueChange={this.makeValueSaved.bind(this)}>
+                {
+                  this.state.makes.map(make => (
+                    <Picker.Item key={Date.now()} label={make} value={make} />
+                  ))
+                }
                 </Picker>
-              </Item>
               
-              <ListItem itemDivider itemDivider style={styles.listLabel}>
-                <Text style={styles.listLabelText}>Model</Text>
-              </ListItem>
+              <Text style={styles.listLabelText}>MODEL</Text>
 
-              <Item picker style={styles.itemPicker}>
                 <Picker
                   mode="dialog"
-                  style={{ width: 100, color: "#fff", height: 60, /*transform:([{ scaleY: 1.5}])*/ }}
+                  style={styles.itemPicker}
                   placeholder="Select Model"
-                  placeholderStyle={{ color: "#bfc6ea" }}
-                  placeholderIconColor="#007aff"
-
+                  prompt = "Select Model"
                   selectedValue={this.state.model}
                   onValueChange={this.modelValueSaved.bind(this)}
                 >
@@ -226,18 +204,20 @@ export default class Search extends React.Component {
                   <Picker.Item label="Credit Card" value="key3" />
                   <Picker.Item label="Net Banking" value="key4" />
                 </Picker>
-              </Item>
+
+              <Text style={styles.listLabelText}>YEAR</Text>
+              {/*}
               <ListItem itemDivider style={styles.listLabel}>
                 <Text style={styles.listLabelText}>Year</Text>
-              </ListItem>
-              <Item picker style={styles.itemPicker}>
+                </ListItem>*/}
+
                 <Picker
                   mode="dialog"
-
-                  style={{ width: 100, color: "#fff", height: 60, /*transform:([{ scaleY: 1.5 }])*/ }}
+                  style={styles.itemPicker}
                   placeholder="Select Year"
-                  placeholderStyle={{ color: "#bfc6ea" }}
-                  placeholderIconColor="#007aff"
+                  //placeholderStyle={{ color: "#bfc6ea" }}
+                  //placeholderIconColor="#007aff"
+                  prompt = "Select Year"
                   selectedValue={this.state.year}
                   onValueChange={this.yearValueSaved.bind(this)}
                 >
@@ -247,20 +227,14 @@ export default class Search extends React.Component {
                   <Picker.Item label="Credit Card" value="key3" />
                   <Picker.Item label="Net Banking" value="key4" />
                 </Picker>
-              </Item>
-            </Form>
 
             {/* View Vehicle Button */}
             <View>
               <TouchableOpacity onPress={() => { this.savedData() }} style={styles.viewVehicleButton}>
-                <Text style={{
-                  color: "white",
-                  fontWeight: "600",
-                  textAlign: "center",
-                }}>View Vehicle</Text>
+                <Text style={styles.buttonText}>VIEW VEHICLE</Text>
               </TouchableOpacity>
             </View>
-
+            </Form>
           </Content>
 
           <Container style={{ display: "none" }}>
@@ -298,26 +272,40 @@ const drawerStyles = {
   drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
   /*main: { paddingLeft: 3 },*/
 }
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#0D2847"
+    backgroundColor: "#0D2847",
+    padding: 15
+  },
+  
+  mmmForm: {
   },
 
+  /*
   listLabel: {
     marginTop: 40,
     backgroundColor: 'transparent',
     textAlign: 'center',
     justifyContent: "center",
     alignItems: "center",
+  },*/
+
+  itemPicker: {
+    marginBottom: 25,
+    color: "white",
+    backgroundColor: "#173553",
   },
 
   listLabelText: {
     fontWeight: "600",
-    fontSize: 20,
-    color: "#BBB"
+    color: "#BBB",
+    textAlign: "center",
+    letterSpacing: 2.5,
+    marginBottom: 10,
   },
 
-  itemPicker: {
+  itemPicker1: {
     /*
     justifyContent: "center",
     alignItems: "center",
@@ -328,14 +316,21 @@ const styles = StyleSheet.create({
 
   viewVehicleButton: {
     backgroundColor: "#4AA7D1",
-    textTransform: "uppercase",
     borderRadius: 2.5,
     justifyContent: "center",
-    height: 60
+    height: 60,
+    color: "white",
+    fontWeight: "600",
+    textAlign: "center"
   },
 
   buttonHidden: {
     display: "none"
-  }
+  },
 
+  buttonText: {
+    color:"white",
+    fontWeight: "600",
+    textAlign: "center"
+  },
 })

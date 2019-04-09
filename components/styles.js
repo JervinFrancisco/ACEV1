@@ -83,14 +83,11 @@ module.exports = StyleSheet.create({
     height: 30,
     margin: 10,
   },
+  
   picker: {
-    backgroundColor:'white',
-    borderRadius: 0,
-    borderWidth: 0,
     padding:0,
-    borderBottomWidth: 1 / PixelRatio.get(),
-    borderTopWidth: 1 / PixelRatio.get(),
-    borderColor: '#d6d7da',
+    //borderBottomWidth: 1 / PixelRatio.get(),
+    //borderTopWidth: 1 / PixelRatio.get(),
   },
   label: {
     fontSize: 20,
@@ -108,9 +105,7 @@ module.exports = StyleSheet.create({
   },
   button: {
     padding: 15,
-  
-  
- 
+    backgroundColor: "red",
     marginRight:20,
     marginBottom:20,
     marginLeft:20,

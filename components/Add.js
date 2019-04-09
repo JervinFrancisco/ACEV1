@@ -152,39 +152,7 @@ console.log(this.state.carArea)
   // navigate('Result')
 }
       static navigationOptions = {
-        headerStyle: {
-          backgroundColor: '#0D2847',
-          
-         
-        },
-  
         headerTitle: "Add a concealment method",
-        headerTitleStyle: { color: '#fff' },
-
-        headerLeft: (
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'transparent', flexDirection: 'row',
-              alignSelf: 'flex-start', paddingLeft:17,paddingRight:18,padding:10,
-            }}
-            onPress={() => {
-              var yo = ref;
-              yo.current.props.onPress()
-    
-            }}>
-            <Ionicons name="md-arrow-back" size={32} color="white" />
-    
-          </TouchableOpacity>
-        ),
-        headerRight: (
-          <View style={{
-            flexDirection: 'row',
-            alignSelf: 'flex-start', paddingTop: 12, marginRight: 10
-          }}>
-    
-          </View>
-        ),
-    
       }
 
       onValueChange2=(value)=>{
@@ -193,7 +161,6 @@ console.log(this.state.carArea)
           carArea: value
         });
       }
-
 
       cameraPressed = async (ev) => {
         console.log('camera')
