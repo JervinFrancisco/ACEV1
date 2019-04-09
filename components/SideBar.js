@@ -1,3 +1,4 @@
+
 // import React from "react";
 // import { AppRegistry, Image, StatusBar } from "react-native";
 // import { Container, Content, Text, List, ListItem } from "native-base";
@@ -28,6 +29,7 @@ export default class SideBar extends Component {
 
 
   }
+
   navDrawer=()=>{
     this.state.navigateDrawer("About")
   }
@@ -52,16 +54,7 @@ console.log(this.props)
         <Text style={styles.controlPanelWelcome2}>
          ava_miller@cbsa.gc.ca
         </Text>
-     
-        <TouchableOpacity
-        style={styles.button}
-        underlayColor="#B5B5B5"
-        onPress={() => {
-          this.props.onPress();
-        }}>
-        <Text style={{color:"white", fontSize: 18}}>Language</Text>
-      </TouchableOpacity>
-
+        
       <TouchableOpacity
         style={styles.button}
         underlayColor="#B5B5B5"

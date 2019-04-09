@@ -1,1 +1,9 @@
-{}
+{
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://7t-m2c.anonymous.acev1.exp.direct",
+  "packagerNgrokUrl": "https://packager.7t-m2c.anonymous.acev1.exp.direct",
+  "ngrokPid": 63306,
+  "devToolsPort": 19002,
+  "packagerPort": 19004,
+  "packagerPid": 63273
+}

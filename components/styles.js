@@ -1,4 +1,5 @@
 import { StyleSheet, PixelRatio } from 'react-native';
+import { withTheme } from 'react-native-elements';
 const deviceScreen = require('Dimensions').get('window')
 
 module.exports = StyleSheet.create({
@@ -34,8 +35,8 @@ module.exports = StyleSheet.create({
     margin: 10,
     color:'white',
     fontWeight:'bold',
-  
   },
+  
   categoryLabel: {
     fontSize: 15,
     textAlign: 'left',
@@ -103,12 +104,43 @@ module.exports = StyleSheet.create({
     color: '#FFFFFF',
     backgroundColor: '#0D2847'
   },
+  
   button: {
     padding: 15,
     backgroundColor: "red",
     marginRight:20,
     marginBottom:20,
     marginLeft:20,
-   
+  },
+
+  container: {
+    backgroundColor: "#0D2847",
+    padding: 24,
+  },
+
+  menuButton: {
+    width: 50, 
+    height: 50, 
+    alignItems:"center", 
+    justifyContent: "center"
+  },
+
+  largeButton: {
+    backgroundColor: "#4AA7D1",
+    borderRadius: 10,
+    justifyContent: "center",
+    height: 60,
+    color: "white",
+    fontWeight: "600",
+    textAlign: "center",
+    letterSpacing: 1.5,
+    marginTop: 10,
+    elevation: 1
+  },
+
+  largeButtonText: {
+    color:"white",
+    fontWeight: "600",
+    textAlign: "center"
   },
 });

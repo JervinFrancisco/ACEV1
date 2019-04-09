@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem, Label } from 'native-base';
-import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated,  Keyboard, KeyboardAvoidingView  } from 'react-native';
+import { Container, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem, Label } from 'native-base';
+import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, Animated, Keyboard, KeyboardAvoidingView  } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { ImagePicker, Permissions, Camera } from 'expo';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+var s = require('./styles');
+
 //import Camera from 'react-native-camera';
 
 const ref = React.createRef();
@@ -17,9 +19,6 @@ const options = {
   };
 
 export default class Add extends Component {
-
-    
-    
     constructor(props) {
         super(props);
         this.state = {
@@ -30,8 +29,6 @@ export default class Add extends Component {
           lat: null,
           images: [],
         };
-
-
       }
 
       componentWillMount(){
@@ -156,6 +153,13 @@ console.log(this.state.carArea)
 }
       static navigationOptions = {
         headerTitle: "Add a concealment method",
+        headerStyle:{
+          backgroundColor: "#fff",
+        },
+        headerTintColor: "black",
+        headerTitleStyle: {
+          color: "black",
+        },
       }
 
       onValueChange2=(value)=>{
@@ -215,17 +219,15 @@ console.log(this.state.carArea)
           scrollEnabled={true}
           extraScrollHeight ={1000}
         >
-          <Container style={styles.container}>
+          <Container>
             <Content>
               <Form>
-              <ListItem itemDivider style ={styles.listLabel}>
-              <Text style ={styles.listLabelText}>Car Area</Text>
-            </ListItem> 
-                <Item picker style={styles.formItem}>
+                <View style={{flex:1, flexDirection:"row", alignItems:"center", marginLeft:16}}>
+                <Text style={{marginRight:10}}>Car Area</Text>
                   <Picker
                     mode="dropdown"
                     iosIcon={<Icon name="arrow-down" style={{color: "#FFF"}} />}
-                    style={{ width: undefined, color: '#FFF'}}         
+                    //style={{ width: undefined, color: '#FFF'}}    
                     placeholderStyle={{ color: "#FFF" }}
                     placeholderIconColor="#FFF"
                     selectedValue={this.state.carArea}
@@ -236,15 +238,13 @@ console.log(this.state.carArea)
                     <Picker.Item label="Wheels/Undercarriage" value="undercarriage" />
                     <Picker.Item label="Rear/Trunk" value="rear" />
                   </Picker>
-                </Item>
+                </View>
+              
                 <Item floatingLabel>
                   <Label style={styles.listLabelText}>Title</Label>
                   <Input style={styles.inputFields} onChange={(ev)=>{this.setState({title:ev.nativeEvent.text})}}/>
                 </Item>
-                <Item floatingLabel>
-                  <Label style={styles.listLabelText}>Description</Label>
-                  <Input style={styles.inputFields} onChange={(ev)=>{this.setState({description:ev.nativeEvent.text})}}/>
-                </Item>
+                <Textarea rowSpan={5} bordered placeholder="Description" onChange={(ev)=>{this.setState({description:ev.nativeEvent.text})}}/>
                 <Item floatingLabel>
                   <Label style={styles.listLabelText}>Employee Number</Label>
                   <Input style={styles.inputFields} onChange={(ev)=>{this.setState({userId:ev.nativeEvent.text})}}/>
@@ -255,8 +255,9 @@ console.log(this.state.carArea)
                 </Item>
 
               </Form>
-                <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 10}} onPress={this.cameraPressed.bind(this)} >
-                        <Icon name='camera' text='camera'/>
+
+                <Button iconLeft large block style={{backgroundColor:"grey", marginTop: 24, marginLeft: 16, marginRight:16}} onPress={this.cameraPressed.bind(this)} >
+                        <Ionicons name='md-camera' text='camera' size={24} color="white"/>
                 </Button>
 
                 <View style={styles.imageContainer}>
@@ -325,14 +326,9 @@ const styles = StyleSheet.create({
         },
         
         listLabelText:{
-          fontWeight:"600",
-          fontSize: 15,
-          color: "#FFF",
-
         },
+
         inputFields:{
-          color: "#FFF"
-          , 
         },
         imageContainer:{
           flex:1,
