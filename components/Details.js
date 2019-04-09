@@ -68,9 +68,12 @@ export default class Details extends Component {
     const { navigation } = this.props
     const data = navigation.getParam('data', 'NO DATA')
     console.log("tis the dsata", data)
-    let images = data.src.map((img, i) => { return { id: i, url: `http://10.70.152.25:3000/${img}` } })
+    let images = data.src.map((img, i) => { return { id: i, url: `http://10.70.152.198:3000/${img}` } })
     let position = this.state.position === images.id ? 0 : this.state.position + 1
-    this.setState({ title: data.title, description: data.description, dataSource: images, position: position })
+    let [a, ...rest]=data.discovered
+    console.log("rest",rest);
+    console.log("first", a)
+    this.setState({ title: data.title, description: data.description, dataSource: images, position: position, firstDiscovered:a,restDiscovered:rest })
     this.showPlayerControls()
 
   }
@@ -139,39 +142,20 @@ export default class Details extends Component {
       <CollapseHeader style={{ borderBottomWidth:0,borderWidth:0, width: 370, height: 80}}>
         <Separator style={{backgroundColor:"transparent",  flexDirection: 'row'}} bordered>
         <Ionicons style={{ padding: 0}}name="md-eye" size={20} color="grey" />
-          <Text style={{backgroundColor:"transparent",flex: 1, paddingRight: 30, paddingLeft: 5,}}>Last Discovery: Ottawa,ON on March 30th 2019{"\n"}Ref: 123213{"\n"}UserId: 123213 </Text>
-        
+        {this.state.firstDiscovered &&
+          <Text style={{backgroundColor:"transparent",flex: 1, paddingRight: 30, paddingLeft: 5,}}>{`Last Discovery: ${this.state.firstDiscovered.location} on March 30th 2019\nRef: ${this.state.firstDiscovered.referenceNo}\nUserId: ${this.state.firstDiscovered.userId}`}</Text>
+        }
           <Ionicons style={{ padding: 0}}name="md-arrow-dropdown" size={20} color="grey" />
         </Separator>
       </CollapseHeader>
       <CollapseBody>
-        <ListItem >
-          <Text>Aaron Bennet</Text>
+      {this.state.restDiscovered &&
+      this.state.restDiscovered.map((discovery, i)=>(
+        <ListItem key={i} style={{backgroundColor:"transparent",  flexDirection: 'row'}} >
+        <Text style={{backgroundColor:"transparent",flex: 1, paddingRight: 30, paddingLeft: 5,}}>{`Ref: ${discovery.referenceNo}\nUserId: ${discovery.userId}`}</Text>
         </ListItem>
-        <ListItem>
-          <Text>Claire Barclay</Text>
-        </ListItem>
-        <ListItem >
-          <Text>Kelso Brittany</Text>
-        </ListItem>
-        <ListItem >
-          <Text>Aaron Bennet</Text>
-        </ListItem>
-        <ListItem>
-          <Text>Claire Barclay</Text>
-        </ListItem>
-        <ListItem >
-          <Text>Kelso Brittany</Text>
-        </ListItem>
-        <ListItem >
-          <Text>Aaron Bennet</Text>
-        </ListItem>
-        <ListItem>
-          <Text>Claire Barclay</Text>
-        </ListItem>
-        <ListItem >
-          <Text>Kelso Brittany</Text>
-        </ListItem>
+    ))  
+    }
       </CollapseBody>
     </Collapse>
    

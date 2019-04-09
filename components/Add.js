@@ -28,6 +28,7 @@ export default class Add extends Component {
           location: null,
           long: null,
           lat: null,
+          images: [],
         };
 
 
@@ -45,10 +46,13 @@ export default class Add extends Component {
         console.log(this.state.long);
         console.log(Date.now())
 
-        fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBwSdoSvVrUCpchMKSm64pnrfU24Vx516c&address=' + `${this.state.lat}` + ',' + `${this.state.long}`  )
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD-NU9g6gKIAc2cZu1xQ6LwiKISOs0Ia58&address=' + `${this.state.lat}` + ',' + `${this.state.long}`  )
         .then((response) => response.json())
         .then((responseJson) => {
-         console.log(responseJson);
+         console.log(responseJson.results[0])
+         this.setState({
+           location:`${responseJson.results[0].address_components[2].long_name},${responseJson.results[0].address_components[4].long_name}`
+         })
 
           });
       }
@@ -100,17 +104,16 @@ postConcealment=() => {
   // let data=
   //   `title=${this.state.title}&description=${this.state.description}&location=Ottawa%2C%20ON&date=2017&referenceNo=${this.state.reference}&countFound=1&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D`
 
-    console.log(data)
+    console.log(this.state.location)
     
     let data={
      title:this.state.title,
       description:this.state.description,
-      location:"cornwall,On",
+      location:this.state.location,
       date:2019,
       referenceNo:this.state.reference,
       countFound:countofdiscoveredFound,
-      discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`,
-      discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`
+      discovered:`{"location":"${this.state.location}","userId":${this.state.userId},"referenceNo":${this.state.reference}}`
     }
 
 
@@ -167,24 +170,42 @@ console.log(this.state.carArea)
         // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
         const { status : st , permissions } = await Permissions.askAsync(Permissions.CAMERA);
         const { status : stR } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        let id=this.state.vehicleData[0]._id
         console.log(st,stR);
         console.log(permissions);
         if (st === 'granted' && stR === 'granted') {
           console.log("granted");
-          const { cancelled, uri } = await ImagePicker.launchCameraAsync({allowsEditing: true,});
-          console.log(uri);
-          if(!cancelled) this.setState({image : uri});
+          const { cancelled, uri, base64 } = await ImagePicker.launchCameraAsync({allowsEditing: true, base64: true});
+          console.log("uri",uri);
+
+          if(!cancelled){
+
+            //var imageList = this.state.images === null ? [] : this.state.images;
+            
+            var imageList = this.state.images
+            imageList.push(uri)
+            console.log("imagesList", imageList)
+            this.setState({images : imageList})
+            console.log("yo",this.state.images);
+            var formData = new FormData();
+
+            formData.append("file", uri); // number 123456 is immediately converted to a string "123456"
+          
+            var request = new XMLHttpRequest();
+            request.open('POST', `${http}concealments/upload/${this.state.carArea}/${id}`);
+               // Add the required HTTP header for form data POST requests
+               request.setRequestHeader('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDc1OTUwNiwiZXhwIjoxNTU0ODQ1OTA2fQ.jMcy7ARN999OFfoEHflrzxaOPLY59LGd8r15Lvj_eM4');
+  
+            request.send(formData);
+            
+          }
 
 
         } else {
           throw new Error('Camera permission not granted');
         } 
       }
-
-
       render() {
-      console.log(this.state.lat)
-       
         const { navigate } = this.props.navigation;
         return (
           <KeyboardAwareScrollView
@@ -228,7 +249,7 @@ console.log(this.state.carArea)
                   <Label style={styles.listLabelText}>Employee Number</Label>
                   <Input style={styles.inputFields} onChange={(ev)=>{this.setState({userId:ev.nativeEvent.text})}}/>
                 </Item>
-                <Item floatingLabel >
+                <Item floatingLabel last>
                   <Label style={styles.listLabelText}>Reference Number (optional)</Label>
                   <Input style={styles.inputFields} onChange={(ev)=>{this.setState({reference:ev.nativeEvent.text})}}/>
                 </Item>
@@ -237,9 +258,18 @@ console.log(this.state.carArea)
                 <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 10}} onPress={this.cameraPressed.bind(this)} >
                         <Icon name='camera' text='camera'/>
                 </Button>
-                <Image source={{uri : this.state.image}} style={{height:100,width:100,alignSelf:'center',marginTop: 10}}></Image>
+
+                <View style={styles.imageContainer}>
+                {this.state.images && 
                 
-                <TouchableOpacity   onPress={()=>{this.postConcealment(),navigate("Result")}} style ={styles.buttonSavedStyle}>
+                 this.state.images.map((image, i) =>(
+                 
+                 <Image key={i} source={{uri:image}} style={{height:80, width:80, marginTop: 10, marginLeft: 10}}/>
+                 
+                 ))}
+                 </View>
+
+                <TouchableOpacity   onPress={()=>{navigate("Result"),this.postConcealment()}} style ={styles.buttonSavedStyle}>
                     <Text style ={{color: "white",  fontWeight:"600",
                                     fontSize: 20,}}>Submit</Text>
                 </TouchableOpacity>
@@ -304,4 +334,12 @@ const styles = StyleSheet.create({
           color: "#FFF"
           , 
         },
+        imageContainer:{
+          flex:1,
+          flexDirection:'row',
+          justifyContent: 'flex-start',
+          flexWrap: 'wrap',
+        },
   })
+
+  
