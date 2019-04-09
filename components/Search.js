@@ -5,11 +5,12 @@ import DropDowns from './DropDowns';
 import SideBar from './SideBar';
 import { Ionicons } from '@expo/vector-icons';
 import { Font, AppLoading } from 'expo';
-import { StyleSheet, Button, TouchableHighlight, Image, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableHighlight, Image, TouchableOpacity, View } from 'react-native';
 import Drawer from 'react-native-drawer'
-import { Container, Header, Content, Form, Item, Picker, Icon, Text, ListItem } from 'native-base';
+import { Container, Header, Content, Form, Item, Picker, Icon, Text, ListItem, Row, Button } from 'native-base';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Makes from '../assets/makes.json'
+var s = require('./styles')
 
 var self
 const ref = React.createRef();
@@ -105,8 +106,7 @@ export default class Search extends React.Component {
     /* Hamburger Menu */
     headerLeft: (
       <TouchableOpacity
-        style={{ 
-          backgroundColor: 'transparent', marginLeft:15}}
+        style={s.menuButton}
         onPress={() => {
           var yo = ref;
           yo.current.props.onPress()
@@ -116,9 +116,9 @@ export default class Search extends React.Component {
     ),
 
     headerRight: (
-      <View>
+      <View style={{flexDirection:"row", alignItems:"center"}}>
         <TouchableOpacity
-          style={{ backgroundColor: 'transparent' }}
+          style={s.menuButton}
           onPress={() => {
             var yo = ref2;
             yo.current.props.onPress()
@@ -127,7 +127,7 @@ export default class Search extends React.Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={{ backgroundColor: 'transparent' }}
+          style={s.menuButton}
           onPress={() => {
             var yo = ref;
             yo.current.props.onPress()
@@ -161,6 +161,7 @@ export default class Search extends React.Component {
         tapToClose={true}
         panCloseMask={0.0}
         closedDrawerOffset={-3}
+        tweenEasing={"easeOutQuint"}
         tweenHandler={(ratio) => ({
           main: { opacity: (2 - ratio) / 0 }
         })}
@@ -168,12 +169,12 @@ export default class Search extends React.Component {
 
       {/* MAIN CONTENT */}
 
-        <Container style={styles.container}>
+        <Container style={styles.searchScreenContainer}>
           <Content>
             <Form style={styles.mmmForm}>
 
-            <Text style={styles.listLabelText}>MAKE</Text>  
-
+            <View style={styles.pickerListItem}>
+            <Text style={styles.pickerLabelText}>MAKE</Text>  
               <Picker
                 mode="dialog"
                 style={styles.itemPicker}
@@ -188,9 +189,13 @@ export default class Search extends React.Component {
                 }
                 </Picker>
               
-              <Text style={styles.listLabelText}>MODEL</Text>
+              
+            </View>
 
-                <Picker
+            
+            <View style={styles.pickerListItem}>
+            <Text style={styles.pickerLabelText}>MODEL</Text>
+            <Picker
                   mode="dialog"
                   style={styles.itemPicker}
                   placeholder="Select Model"
@@ -204,13 +209,10 @@ export default class Search extends React.Component {
                   <Picker.Item label="Credit Card" value="key3" />
                   <Picker.Item label="Net Banking" value="key4" />
                 </Picker>
-
-              <Text style={styles.listLabelText}>YEAR</Text>
-              {/*}
-              <ListItem itemDivider style={styles.listLabel}>
-                <Text style={styles.listLabelText}>Year</Text>
-                </ListItem>*/}
-
+            </View>
+                
+            <View style={styles.pickerListItem}>
+            <Text style={styles.pickerLabelText}>YEAR</Text>
                 <Picker
                   mode="dialog"
                   style={styles.itemPicker}
@@ -227,13 +229,21 @@ export default class Search extends React.Component {
                   <Picker.Item label="Credit Card" value="key3" />
                   <Picker.Item label="Net Banking" value="key4" />
                 </Picker>
+            </View>
+              
 
-            {/* View Vehicle Button */}
+
             <View>
-              <TouchableOpacity onPress={() => { this.savedData() }} style={styles.viewVehicleButton}>
-                <Text style={styles.buttonText}>VIEW VEHICLE</Text>
+              <TouchableOpacity onPress={() => { this.savedData() }} style={s.largeButton}>
+                <Text style={s.largeButtonText}>VIEW VEHICLE</Text>
               </TouchableOpacity>
             </View>
+
+              {/*}
+            <Button block iconLeft onPress={() => { this.savedData() }} style={{backgroundColor:"#4AA7D1", height: 50}}>
+                <Icon name="car"></Icon>
+                <Text>View Vehicle</Text>
+          </Button>*/}
             </Form>
           </Content>
 
@@ -269,68 +279,50 @@ export default class Search extends React.Component {
 
 }
 const drawerStyles = {
-  drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
-  /*main: { paddingLeft: 3 },*/
+  drawer: { 
+    shadowColor: '#000000', 
+    shadowOpacity: 0.8, 
+    shadowRadius: 3
+  },
+  main: { paddingLeft: 3 },
 }
 
 const styles = StyleSheet.create({
-  container: {
+  searchScreenContainer: {
     backgroundColor: "#0D2847",
-    padding: 15
+    padding: 24,
+    flexDirection:"row",
+    justifyContent:"center",
+    alignItems:"center"
   },
   
   mmmForm: {
-  },
 
-  /*
-  listLabel: {
-    marginTop: 40,
-    backgroundColor: 'transparent',
-    textAlign: 'center',
-    justifyContent: "center",
-    alignItems: "center",
-  },*/
+  },
 
   itemPicker: {
-    marginBottom: 25,
+    //marginBottom: 25,
     color: "white",
     backgroundColor: "#173553",
+    height: 60
   },
 
-  listLabelText: {
+  pickerLabelText: {
     fontWeight: "600",
     color: "#BBB",
-    textAlign: "center",
-    letterSpacing: 2.5,
-    marginBottom: 10,
+    letterSpacing: 1.5,
+    width: "25%"
   },
 
-  itemPicker1: {
-    /*
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 1,
-    backgroundColor: "#0D2847",
-    textAlign: "center",*/
-  },
-
-  viewVehicleButton: {
-    backgroundColor: "#4AA7D1",
-    borderRadius: 2.5,
-    justifyContent: "center",
-    height: 60,
-    color: "white",
-    fontWeight: "600",
-    textAlign: "center"
+  pickerListItem: {
+    flex:1, 
+    flexDirection: "row", 
+    alignItems: "center", 
+    justifyContent:"center",
+    marginBottom: 25
   },
 
   buttonHidden: {
     display: "none"
-  },
-
-  buttonText: {
-    color:"white",
-    fontWeight: "600",
-    textAlign: "center"
   },
 })

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Search from './components/Search';
 import Login from './components/Login';
 import Result from './components/Result';
@@ -11,25 +11,29 @@ import SideBar from './components/SideBar';
 import Bulletins from './components/Bulletins';
 import TestingComponent from './components/TestingComponent'
 
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createAppContainer, createDrawerNavigator, createSwitchNavigator } from "react-navigation";
 
 
-const App = createStackNavigator(
+const MainAppStack = createStackNavigator(
   {
     Search: Search,
     Login: Login,
     Result: Result,
     Details: Details,
     Add: Add,
-    About:About,
-    Tutorial: Tutorial,
-    SideBar: SideBar,
     Bulletins:Bulletins,
-    TestingComponent:TestingComponent
+    About: About,
+    TestingComponent: TestingComponent,
+    Tutorial: Tutorial,
   },
   {
+<<<<<<< HEAD
     initialRouteName: "Result", //temporarily - will/should be 'Login'
+=======
+    initialRouteName: "Search", //temporarily - will/should be 'Login'
+>>>>>>> d9bc4fc6955d6f3cf1a425589e89e7cc624f45d5
     defaultNavigationOptions: {
+      backgroundColor:"#0D2847",
       headerTintColor: "#fff",
       headerTitleStyle: {
         color: "#fff",
@@ -42,5 +46,5 @@ const App = createStackNavigator(
   }
 );
 
-export default createAppContainer(App);
+export default createAppContainer(MainAppStack);
 

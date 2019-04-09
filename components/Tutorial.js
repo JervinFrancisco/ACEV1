@@ -4,6 +4,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { StyleSheet, TouchableHighlight,Image, TouchableOpacity, View} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Container, Content, List, Icon, Left, Body, Right, Switch, Button } from 'native-base';
+import Onboarding from 'react-native-onboarding-swiper';
 
 
 const ref = React.createRef();
@@ -13,39 +14,14 @@ export default class Tutorial extends Component {
     }
 
     static navigationOptions = {
-        headerStyle: {
-          backgroundColor: '#0D2847',
-    
-        },
-    
-       
-        headerLeft: (
-          
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'transparent', paddingLeft:30, paddingRight:18, padding:10,
-            }}
-            onPress={() => {
-              var yo = ref;
-              yo.current.props.onPress()
-    
-            }}>
-            <Ionicons name="md-close" size={32} color="white" />
-    
-          </TouchableOpacity>
-        ),
-        headerRight: (
-          <View style={{
-            flexDirection: 'row',
-            alignSelf: 'flex-start', paddingTop: 12, marginRight: 10
-          }}>
-    
-          </View>
-        ),
-    
+      headerTransparent: true,
+      headerStyle:{
+        backgroundColor: "transparent"
+      }
       }
    
     render() {
+      /*
       const {navigate} = this.props.navigation;
         return (
           <Container>
@@ -54,13 +30,6 @@ export default class Tutorial extends Component {
           require('../assets/tut2.png'),
           require('../assets/tut3.png'),
           require('../assets/tut4.png'),
-          require('../assets/tut5.png'),
-          require('../assets/tut6.png'),
-          require('../assets/tut7.png'),
-          require('../assets/tut8.png'),
-          require('../assets/tut9.png'),
-          require('../assets/tut10.png')
-          
         ]}/>
         <Container style={{ display: "none" }}>
         <Button onPress={() => { navigate("Search")}} ref={ref} title="Press Me" >
@@ -70,8 +39,28 @@ export default class Tutorial extends Component {
       </Container>
 
       
-      )
+      )*/
 
-        
+      return(
+      <Onboarding pages={[
+        {
+          backgroundColor: '#fff',
+          image: <Image source={require('../assets/car-icon.png')} />,
+          title: 'You can do stuff!',
+          subtitle: 'Done with React Native Onboarding Swiper',
+        },
+        {
+          backgroundColor: '#fff',
+          image: <Image source={require('../assets/car-icon.png')} />,
+          title: 'More cool stuff.',
+          subtitle: 'This is a subtitle',
+        },
+        {
+          backgroundColor: '#fff',
+          image: <Image source={require('../assets/car-icon.png')} />,
+          title: 'Even more!',
+          subtitle: 'Another subtitle here',
+        },
+      ]}/>)
       }
   }
