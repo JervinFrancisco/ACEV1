@@ -57,6 +57,7 @@ export default class Result extends React.Component {
       undercarriageSelected: false,
       rearSelected: false,
       centerSelected: false,
+      refresh: false
     }
 
   }
@@ -172,66 +173,86 @@ export default class Result extends React.Component {
   logger = () => {
     console.log("HOOOORAY HOOOOORAY WOOP WWOOOOOOP");
   }
-  rearToggled = async () =>{
+  rearToggled = () =>{
     console.log("rear pressed")
-    await this.tabView.goToPage(3)
-    frontToggle = false;
-    backToggle = true;
-    centerToggle = false;
-    underToggle = false;
+    this.tabView.goToPage(3)
+    this.bToggle()
     this.setState({activeTab : 3})
     console.log(this.tabView.state.currentPage)
 
   };
-  frontToggled = async () =>{
+  frontToggled = () =>{
     console.log("front pressed")
-    await this.tabView.goToPage(0)
+    this.tabView.goToPage(0)
+    this.fToggle()
+    this.setState({activeTab : 0})
+    console.log(this.tabView.state.currentPage)
+  };
+  centerToggled = () =>{
+    console.log("center pressed")
+    this.tabView.goToPage(1)
+    this.cToggle()
+    this.setState({activeTab : 1})
+    console.log(this.tabView.state.currentPage)
+  };
+  underToggled = () =>{
+    console.log("under pressed")
+    this.tabView.goToPage(2)
+    this.uToggle()
+    this.setState({activeTab : 2})
+    console.log(this.tabView.state.currentPage)
+  };
+  fToggle = () =>{
     frontToggle = true;
     backToggle = false;
     centerToggle = false;
     underToggle = false;
-    this.setState({activeTab : 0})
-    console.log(this.tabView.state.currentPage)
-  };
-  centerToggled = async () =>{
-    console.log("center pressed")
-    await this.tabView.goToPage(1)
+    this.setState({refresh : !this.state.refresh});
+  }
+  bToggle = () =>{
+    frontToggle = false;
+    backToggle = true;
+    centerToggle = false;
+    underToggle = false; 
+    this.setState({refresh : !this.state.refresh});
+  }
+  cToggle = () =>{
     frontToggle = false;
     backToggle = false;
     centerToggle = true;
     underToggle = false;
-    this.setState({activeTab : 1})
-    console.log(this.tabView.state.currentPage)
-  };
-  underToggled = async () =>{
-    console.log("under pressed")
-    await this.tabView.goToPage(2)
+    this.setState({refresh : !this.state.refresh});
+  }
+  uToggle = () =>{
     frontToggle = false;
     backToggle = false;
     centerToggle = false;
     underToggle = true;
-    this.setState({activeTab : 2})
-    console.log(this.tabView.state.currentPage)
-  };
-  onScrollTab = async (yo) =>{
-    await this.setState({ activeTab: this.state.activeTab = undefined });
+    this.setState({refresh : !this.state.refresh});
+  }
+  onScrollTab = () =>{
+    
     console.log(this.tabView.state.currentPage);
     switch(this.tabView.state.currentPage){
       case 0:
       console.log("front");
-      this.frontToggled()
+      this.fToggle()
+      this.setState({ activeTab: this.state.activeTab = undefined })
       break;
       case 1:
       console.log("center");
-      this.centerToggled()
+      this.cToggle()
+      this.setState({ activeTab: this.state.activeTab = undefined })
       break;
       case 2:
       console.log("under");
-      this.underToggled()
+      this.uToggle()
+      this.setState({ activeTab: this.state.activeTab = undefined })
       break;
       case 3:
       console.log("rear");
-      this.rearToggled()
+      this.bToggle()
+      this.setState({ activeTab: this.state.activeTab = undefined })
       break;
       default:
       break;
@@ -370,7 +391,7 @@ export default class Result extends React.Component {
             page={this.state.activeTab}
             initialPage={this.state.initialPage}>
             
-            <ScrollView page={this.state.activeTab} tabLabel='Front/Engine'>
+            <ScrollView tabLabel='Front/Engine'>
               <View>
                 <Container>
                   <Content>
@@ -410,7 +431,7 @@ export default class Result extends React.Component {
           
             </ScrollView>
         
-            <ScrollView onScroll={() => this.setState({ activeTab: 1 })} tabLabel="Center/Cabin" >
+            <ScrollView tabLabel="Center/Cabin" >
               <View>
                 <Container>
 
@@ -452,7 +473,7 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView page={this.state.activeTab} tabLabel='Undercarriage/Wheels'>
+            <ScrollView tabLabel='Undercarriage/Wheels'>
               <View>
                 <Container >
                   <Content>
@@ -487,7 +508,7 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView page={this.state.activeTab} tabLabel="Rear/Trunk" >
+            <ScrollView  tabLabel="Rear/Trunk" >
               <View>
                 <Container >
 
@@ -527,9 +548,7 @@ export default class Result extends React.Component {
 
               </View>
             </ScrollView>
-            <ScrollView overScrollMode={'never'} style={{ display: "none" }} >
-
-            </ScrollView>
+          
           </ScrollableTabView>
         }
         <Container style={{ display: "none" }}>
