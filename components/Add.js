@@ -28,7 +28,7 @@ export default class Add extends Component {
           location: null,
           long: null,
           lat: null,
-          images: []
+          images: [],
         };
 
 
@@ -207,8 +207,9 @@ console.log(this.state.carArea)
         console.log(permissions);
         if (st === 'granted' && stR === 'granted') {
           console.log("granted");
-          const { cancelled, uri } = await ImagePicker.launchCameraAsync({allowsEditing: true,});
+          const { cancelled, uri, base64 } = await ImagePicker.launchCameraAsync({allowsEditing: true, base64: true});
           console.log("uri",uri);
+
           if(!cancelled){
 
             //var imageList = this.state.images === null ? [] : this.state.images;
@@ -218,6 +219,14 @@ console.log(this.state.carArea)
             console.log("imagesList", imageList)
             this.setState({images : imageList})
             console.log("yo",this.state.images);
+            var formData = new FormData();
+
+            formData.append("files", base64); // number 123456 is immediately converted to a string "123456"
+          
+            // var request = new XMLHttpRequest();
+            // request.open('POST', `${http}concealments/upload/${this.state.carArea}/${id}`);
+            // request.send(formData);
+            
           }
 
 
