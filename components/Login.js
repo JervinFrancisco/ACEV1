@@ -11,13 +11,22 @@ export default class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isLoading: false
+            isLoading: false,
+            username: null,
+            password: null
         }
       }
 
       loginPressed() {
         console.log("Login pressed");
-        this.props.navigation.navigate('Search');
+        console.log("username",this.state.username);
+        console.log("password",this.state.password)
+        if(this.state.username && this.state.password){
+          this.props.navigation.navigate('Search');
+        }else{
+          alert("Please enter a valid username and password")
+        }
+        
       }
 
 
@@ -29,8 +38,8 @@ export default class Login extends Component {
                 <Text style={styles.titleText}>Search or Add concealment methods using our growing database</Text>
               </View>
               <View style={styles.formView}>
-                <TextInput style={styles.input} placeholder="employee id" placeholderTextColor="#00A9D5"></TextInput>
-                <TextInput style={styles.input} placeholder="password" placeholderTextColor="#00A9D5"></TextInput>
+                <TextInput style={styles.input} placeholder="employee id" placeholderTextColor="#00A9D5" onChange={(ev) => { this.setState({ username: ev.nativeEvent.text }) }}></TextInput>
+                <TextInput secureTextEntry style={styles.input} placeholder="password" placeholderTextColor="#00A9D5" onChange={(ev) => { this.setState({ password: ev.nativeEvent.text }) }}></TextInput>
                 <TouchableOpacity style={styles.loginBtn} onPress={this.loginPressed.bind(this)}><Text style={styles.btnText}>LOGIN</Text></TouchableOpacity>
               </View>
             </KeyboardAvoidingView>
