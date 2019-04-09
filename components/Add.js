@@ -28,6 +28,7 @@ export default class Add extends Component {
           location: null,
           long: null,
           lat: null,
+          images: []
         };
 
 
@@ -205,19 +206,24 @@ console.log(this.state.carArea)
         if (st === 'granted' && stR === 'granted') {
           console.log("granted");
           const { cancelled, uri } = await ImagePicker.launchCameraAsync({allowsEditing: true,});
-          console.log(uri);
-          if(!cancelled) this.setState({image : uri});
+          console.log("uri",uri);
+          if(!cancelled){
+
+            //var imageList = this.state.images === null ? [] : this.state.images;
+            
+            var imageList = this.state.images
+            imageList.push(uri)
+            console.log("imagesList", imageList)
+            this.setState({images : imageList})
+            console.log("yo",this.state.images);
+          }
 
 
         } else {
           throw new Error('Camera permission not granted');
         } 
       }
-
-
       render() {
-      console.log(this.state.lat)
-       
         const { navigate } = this.props.navigation;
         return (
           <KeyboardAwareScrollView
@@ -261,7 +267,7 @@ console.log(this.state.carArea)
                   <Label style={styles.listLabelText}>Employee Number</Label>
                   <Input style={styles.inputFields} onChange={(ev)=>{this.setState({userId:ev.nativeEvent.text})}}/>
                 </Item>
-                <Item floatingLabel >
+                <Item floatingLabel last>
                   <Label style={styles.listLabelText}>Reference Number (optional)</Label>
                   <Input style={styles.inputFields} onChange={(ev)=>{this.setState({reference:ev.nativeEvent.text})}}/>
                 </Item>
@@ -270,9 +276,18 @@ console.log(this.state.carArea)
                 <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 10}} onPress={this.cameraPressed.bind(this)} >
                         <Icon name='camera' text='camera'/>
                 </Button>
-                <Image source={{uri : this.state.image}} style={{height:100,width:100,alignSelf:'center',marginTop: 10}}></Image>
+
+                <View style={styles.imageContainer}>
+                {this.state.images && 
                 
-                <TouchableOpacity   onPress={()=>{this.postConcealment(),navigate("Result")}} style ={styles.buttonSavedStyle}>
+                 this.state.images.map((image, i) =>(
+                 
+                 <Image key={i} source={{uri:image}} style={{height:80, width:80, marginTop: 10, marginLeft: 10}}/>
+                 
+                 ))}
+                 </View>
+
+                <TouchableOpacity   onPress={()=>{navigate("Result"),this.postConcealment()}} style ={styles.buttonSavedStyle}>
                     <Text style ={{color: "white",  fontWeight:"600",
                                     fontSize: 20,}}>Submit</Text>
                 </TouchableOpacity>
@@ -337,4 +352,12 @@ const styles = StyleSheet.create({
           color: "#FFF"
           , 
         },
+        imageContainer:{
+          flex:1,
+          flexDirection:'row',
+          justifyContent: 'flex-start',
+          flexWrap: 'wrap',
+        },
   })
+
+  
