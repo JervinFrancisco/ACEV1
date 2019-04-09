@@ -202,38 +202,13 @@ console.log("posthittttt badllllyyy")
   }
   static navigationOptions = {
     headerStyle: {
-      backgroundColor: '#0D2847',
-
-
+      backgroundColor: "#fff"
     },
-
+    headerTintColor: "#000",
+    headerTitleStyle: {
+      color: "#000",
+    },
     headerTitle: "Add a concealment method",
-    headerTitleStyle: { color: '#fff' },
-
-    headerLeft: (
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'transparent', flexDirection: 'row',
-          alignSelf: 'flex-start', paddingLeft: 17, paddingRight: 18, padding: 10,
-        }}
-        onPress={() => {
-          var yo = ref;
-          yo.current.props.onPress()
-
-        }}>
-        <Ionicons name="md-arrow-back" size={32} color="white" />
-
-      </TouchableOpacity>
-    ),
-    headerRight: (
-      <View style={{
-        flexDirection: 'row',
-        alignSelf: 'flex-start', paddingTop: 12, marginRight: 10
-      }}>
-
-      </View>
-    ),
-
   }
 
   onValueChange2 = (value) => {
@@ -242,7 +217,6 @@ console.log("posthittttt badllllyyy")
       carArea: value
     });
   }
-
 
   cameraPressed = async (ev) => {
     console.log('camera')
@@ -330,25 +304,25 @@ console.log("posthittttt badllllyyy")
         <Container style={styles.container}>
           <Content>
             <Form>
-              <ListItem itemDivider style={styles.listLabel}>
-                <Text style={styles.listLabelText}>Car Area</Text>
-              </ListItem>
-              <Item picker style={styles.formItem}>
-                <Picker
-                  mode="dropdown"
-                  iosIcon={<Icon name="arrow-down" style={{ color: "#FFF" }} />}
-                  style={{ width: undefined, color: '#FFF' }}
-                  placeholderStyle={{ color: "#FFF" }}
-                  placeholderIconColor="#FFF"
-                  selectedValue={this.state.carArea}
-                  onValueChange={this.onValueChange2}
-                >
-                  <Picker.Item label="Front/Engine" value="front" />
-                  <Picker.Item label="Center/Cabin" value="center" />
-                  <Picker.Item label="Wheels/Undercarriage" value="undercarriage" />
-                  <Picker.Item label="Rear/Trunk" value="rear" />
-                </Picker>
-              </Item>
+              <View style={{flexDirection:"row", alignItems:"center"}}>
+                <Text>Car Area</Text>
+                <Item>
+                  <Picker
+                    mode="dropdown"
+                    //iosIcon={<Icon name="arrow-down" style={{ color: "#FFF" }} />}
+                    placeholderStyle={{ color: "#FFF" }}
+                    placeholderIconColor="#FFF"
+                    selectedValue={this.state.carArea}
+                    onValueChange={this.onValueChange2}>
+
+                    <Picker.Item label="Front/Engine" value="front" />
+                    <Picker.Item label="Center/Cabin" value="center" />
+                    <Picker.Item label="Wheels/Undercarriage" value="undercarriage" />
+                    <Picker.Item label="Rear/Trunk" value="rear" />
+                  </Picker>
+                </Item>
+              </View>
+              
               <Item floatingLabel>
                 <Label style={styles.listLabelText}>Title</Label>
                 <Input style={styles.inputFields} onChange={(ev) => { this.setState({ title: ev.nativeEvent.text }) }} />
@@ -367,8 +341,8 @@ console.log("posthittttt badllllyyy")
               </Item>
 
             </Form>
-            <Button iconLeft large block style={{ backgroundColor: '#173553', marginTop: 10 }} onPress={this.cameraPressed.bind(this)} >
-              <Icon name='camera' text='camera' />
+            <Button iconLeft large block style={{ backgroundColor: "grey", marginTop: 10 }} onPress={this.cameraPressed.bind(this)} >
+              <Ionicons name='md-camera' size={24} color="white" />
             </Button>
 
             <View style={styles.imageContainer}>
@@ -381,11 +355,8 @@ console.log("posthittttt badllllyyy")
                 ))}
             </View>
 
-            <TouchableOpacity onPress={() => { navigate("Result"), this.postConcealment() }} style={styles.buttonSavedStyle}>
-              <Text style={{
-                color: "white", fontWeight: "600",
-                fontSize: 20,
-              }}>Submit</Text>
+            <TouchableOpacity onPress={() => { navigate("Result"), this.postConcealment() }} style={s.largeButton}>
+              <Text style={s.largeButtonText}>SUBMIT</Text>
             </TouchableOpacity>
             <Container style={{ display: "none" }}>
               <Button onPress={() => { navigate('Result') }} ref={ref} title="Press Me" >
@@ -403,13 +374,14 @@ console.log("posthittttt badllllyyy")
 
 const styles = StyleSheet.create({
     container: {
-      backgroundColor: "#0D2847"
+      backgroundColor: "#fff",
     },
+
     view: {
         flex: 1
     },
-    buttonSavedStyle:{
 
+    buttonSavedStyle:{
         marginTop: 20,
         borderRadius: 5,
         justifyContent: "center",
@@ -423,12 +395,11 @@ const styles = StyleSheet.create({
       },
       formItem:
       {
-          backgroundColor: '#375B79', 
-          color: '#FFF', 
           borderColor: '#375B79',
           borderBottomColor: '#0D2847',
           marginTop: 5
       },
+
       listLabel: {
         marginTop: 1,
         backgroundColor: 'transparent',
@@ -439,10 +410,13 @@ const styles = StyleSheet.create({
         },
         
         listLabelText:{
+
         },
 
         inputFields:{
+
         },
+        
         imageContainer:{
           flex:1,
           flexDirection:'row',

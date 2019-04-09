@@ -4,6 +4,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { StyleSheet, TouchableHighlight,Image, TouchableOpacity, View} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Container, Content, List, Icon, Left, Body, Right, Switch, Button } from 'native-base';
+import Onboarding from 'react-native-onboarding-swiper';
 
 
 const ref = React.createRef();
@@ -20,6 +21,7 @@ export default class Tutorial extends Component {
       }
    
     render() {
+      /*
       const {navigate} = this.props.navigation;
         return (
           <Container>
@@ -37,8 +39,28 @@ export default class Tutorial extends Component {
       </Container>
 
       
-      )
+      )*/
 
-        
+      return(
+      <Onboarding pages={[
+        {
+          backgroundColor: '#fff',
+          image: <Image source={require('../assets/car-icon.png')} />,
+          title: 'You can do stuff!',
+          subtitle: 'Done with React Native Onboarding Swiper',
+        },
+        {
+          backgroundColor: '#fff',
+          image: <Image source={require('../assets/car-icon.png')} />,
+          title: 'More cool stuff.',
+          subtitle: 'This is a subtitle',
+        },
+        {
+          backgroundColor: '#fff',
+          image: <Image source={require('../assets/car-icon.png')} />,
+          title: 'Even more!',
+          subtitle: 'Another subtitle here',
+        },
+      ]}/>)
       }
   }

@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   image: {
     justifyContent: "center",
     alignItems: "center",
+    
   },
 
   textBody: {

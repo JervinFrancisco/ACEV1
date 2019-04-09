@@ -5,17 +5,16 @@ import DropDowns from './DropDowns';
 import SideBar from './SideBar';
 import { Ionicons } from '@expo/vector-icons';
 import { Font, AppLoading } from 'expo';
-import { StyleSheet, Button, TouchableHighlight, Image, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableHighlight, Image, TouchableOpacity, View } from 'react-native';
 import Drawer from 'react-native-drawer'
-import { Container, Header, Content, Form, Item, Picker, Icon, Text, ListItem } from 'native-base';
-import { createStackNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation';
+import { Container, Header, Content, Form, Item, Picker, Icon, Text, ListItem, Row, Button } from 'native-base';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Makes from '../assets/makes.json'
 var s = require('./styles')
 
 var self
 const ref = React.createRef();
 const ref2 = React.createRef();
-
 export default class Search extends React.Component {
 
   closeDrawer = () => {
@@ -41,14 +40,13 @@ export default class Search extends React.Component {
 
   componentDidMount() {
   }
-  /*
   async componentWillMount() {
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
     });
     this.setState({ loading: false });
-  }*/
+  }
 
   makeValueSaved(value) {
     console.log(value);
@@ -87,7 +85,7 @@ export default class Search extends React.Component {
     }
 
     const { navigate } = this.props.navigation
-    fetch('http:/10.70.136.221:3000/vehicles/honda/civic/2019', opts)
+    fetch('http://10.70.152.198:3000/vehicles/honda/civic/2019', opts)
       .then(resp => {
         console.log(resp)
         if (resp.status != 200) {
@@ -118,7 +116,7 @@ export default class Search extends React.Component {
     ),
 
     headerRight: (
-      <View style={{flex:1,flexDirection:"row",alignItems:"center"}}>
+      <View style={{flexDirection:"row", alignItems:"center"}}>
         <TouchableOpacity
           style={s.menuButton}
           onPress={() => {
@@ -163,8 +161,7 @@ export default class Search extends React.Component {
         tapToClose={true}
         panCloseMask={0.0}
         closedDrawerOffset={-3}
-        tweenEasing={"easeOutCubic"}
-        elevation={3}
+        tweenEasing={"easeOutQuint"}
         tweenHandler={(ratio) => ({
           main: { opacity: (2 - ratio) / 0 }
         })}
@@ -175,12 +172,13 @@ export default class Search extends React.Component {
         <Container style={styles.searchScreenContainer}>
           <Content>
             <Form style={styles.mmmForm}>
+
             <View style={styles.pickerListItem}>
             <Text style={styles.pickerLabelText}>MAKE</Text>  
               <Picker
                 mode="dialog"
                 style={styles.itemPicker}
-                placeholder= "Select Make"
+                placeholder="Select Make"
                 prompt = "Select Make"
                 selectedValue={this.state.make}
                 onValueChange={this.makeValueSaved.bind(this)}>
@@ -190,13 +188,14 @@ export default class Search extends React.Component {
                   ))
                 }
                 </Picker>
-            </View>
               
-              <View style={styles.pickerListItem}>
+              
+            </View>
 
-              <Text style={styles.pickerLabelText}>MODEL</Text>
-
-                <Picker
+            
+            <View style={styles.pickerListItem}>
+            <Text style={styles.pickerLabelText}>MODEL</Text>
+            <Picker
                   mode="dialog"
                   style={styles.itemPicker}
                   placeholder="Select Model"
@@ -210,17 +209,10 @@ export default class Search extends React.Component {
                   <Picker.Item label="Credit Card" value="key3" />
                   <Picker.Item label="Net Banking" value="key4" />
                 </Picker>
-
-              </View>
-              
-
-              <View style={styles.pickerListItem}>
-              <Text style={styles.pickerLabelText}>YEAR</Text>
-              {/*}
-              <ListItem itemDivider style={styles.listLabel}>
-                <Text style={styles.listLabelText}>Year</Text>
-                </ListItem>*/}
-
+            </View>
+                
+            <View style={styles.pickerListItem}>
+            <Text style={styles.pickerLabelText}>YEAR</Text>
                 <Picker
                   mode="dialog"
                   style={styles.itemPicker}
@@ -237,14 +229,21 @@ export default class Search extends React.Component {
                   <Picker.Item label="Credit Card" value="key3" />
                   <Picker.Item label="Net Banking" value="key4" />
                 </Picker>
-              </View>
+            </View>
+              
 
-            {/* View Vehicle Button */}
+
             <View>
               <TouchableOpacity onPress={() => { this.savedData() }} style={s.largeButton}>
                 <Text style={s.largeButtonText}>VIEW VEHICLE</Text>
               </TouchableOpacity>
             </View>
+
+              {/*}
+            <Button block iconLeft onPress={() => { this.savedData() }} style={{backgroundColor:"#4AA7D1", height: 50}}>
+                <Icon name="car"></Icon>
+                <Text>View Vehicle</Text>
+          </Button>*/}
             </Form>
           </Content>
 
@@ -280,8 +279,12 @@ export default class Search extends React.Component {
 
 }
 const drawerStyles = {
-  drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
-  /*main: { paddingLeft: 3 },*/
+  drawer: { 
+    shadowColor: '#000000', 
+    shadowOpacity: 0.8, 
+    shadowRadius: 3
+  },
+  main: { paddingLeft: 3 },
 }
 
 const styles = StyleSheet.create({
@@ -322,5 +325,4 @@ const styles = StyleSheet.create({
   buttonHidden: {
     display: "none"
   },
-  
 })
