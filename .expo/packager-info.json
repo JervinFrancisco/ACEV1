@@ -2,8 +2,8 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://nc-3uv.anonymous.acev1.exp.direct",
   "packagerNgrokUrl": "https://packager.nc-3uv.anonymous.acev1.exp.direct",
-  "ngrokPid": 7659,
+  "ngrokPid": 10568,
   "devToolsPort": 19002,
   "packagerPort": 19004,
-  "packagerPid": 7622
+  "packagerPid": 10554
 }
