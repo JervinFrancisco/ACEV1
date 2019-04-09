@@ -1,20 +1,10 @@
 {
-<<<<<<< HEAD
+  "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "webpackServerPort": null,
-  "expoServerNgrokUrl": "https://5a-x64.anonymous.acev1.exp.direct",
-  "packagerNgrokUrl": "https://packager.5a-x64.anonymous.acev1.exp.direct",
-  "ngrokPid": 20452,
-  "devToolsPort": 19002,
   "packagerPort": 19003,
-  "packagerPid": 20429
-=======
-  "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
->>>>>>> cc11c1c7fe4e29822176b5765fc86872d6936ab3
+  "packagerPid": 23843,
+  "expoServerNgrokUrl": "https://65-nrt.anonymous.acev1.exp.direct",
+  "packagerNgrokUrl": "https://packager.65-nrt.anonymous.acev1.exp.direct",
+  "ngrokPid": 23857,
+  "webpackServerPort": null
 }
