@@ -15,16 +15,14 @@ export default class Login extends Component {
         }
       }
 
-      static navigationOptions = {
-        headerStyle: {
-          backgroundColor: '#0D2847'
-        }
+      loginPressed() {
+        console.log("Login pressed");
       }
 
 
       render() {
           return (
-            <Container style={styles.container}>
+            <KeyboardAvoidingView behavior="padding" style={styles.container}>
               <View style={styles.logoView}>
                 <Image style={styles.logo} source={require("../assets/aceLogo.png")}></Image>
                 <Text style={styles.titleText}>Search or Add concealment methods using our growing database</Text>
@@ -32,9 +30,9 @@ export default class Login extends Component {
               <View style={styles.formView}>
                 <TextInput style={styles.input} placeholder="employee id" placeholderTextColor="#00A9D5"></TextInput>
                 <TextInput style={styles.input} placeholder="password" placeholderTextColor="#00A9D5"></TextInput>
-                <TouchableOpacity style={styles.loginBtn}><Text style={styles.btnText}>LOGIN</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.loginBtn} onPress={this.loginPressed()}><Text style={styles.btnText}>LOGIN</Text></TouchableOpacity>
               </View>
-            </Container>
+            </KeyboardAvoidingView>
           );
       }
 }
@@ -50,9 +48,12 @@ const styles = StyleSheet.create({
     flexGrow: 1
   },
   logo: {
+    width: 150,
+    height: 78
   },
   formView: {
-    padding: 20
+    padding: 20,
+    marginBottom: 170
   },
   titleText: {
     color: "#00A9D5",

@@ -208,14 +208,8 @@ console.log(this.state.carArea)
       render() {
         const { navigate } = this.props.navigation;
         return (
-          <KeyboardAwareScrollView
-          style={{ backgroundColor: '#4c69a5' }}
-          resetScrollToCoords={{ x: 0, y: 100 }}
-          contentContainerStyle={styles.container}
-          scrollEnabled={true}
-          extraScrollHeight ={1000}
-        >
-          <Container style={styles.container}>
+        
+          <Container behavior="padding" style={styles.container}>
             <Content>
               <Form>
               <ListItem itemDivider style ={styles.listLabel}>
@@ -280,7 +274,7 @@ console.log(this.state.carArea)
         </Container>
             </Content>
           </Container>
-          </KeyboardAwareScrollView>
+          
           );
       }
 
