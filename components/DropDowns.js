@@ -10,7 +10,6 @@ export default class DropDowns extends Component {
         }
       }
 
-
       render() {
           return (
             <Text>DropDown</Text>

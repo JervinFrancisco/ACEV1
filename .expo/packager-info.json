@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "expoServerPort": 19000,
   "webpackServerPort": null,
   "expoServerNgrokUrl": "https://5a-x64.anonymous.acev1.exp.direct",
@@ -7,4 +8,13 @@
   "devToolsPort": 19002,
   "packagerPort": 19003,
   "packagerPid": 20429
+=======
+  "devToolsPort": 19002,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
+>>>>>>> cc11c1c7fe4e29822176b5765fc86872d6936ab3
 }

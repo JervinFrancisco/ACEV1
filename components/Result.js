@@ -9,7 +9,7 @@ import { Container, Content, List, Icon, Left, Body, Right, Switch, Button } fro
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { ListItem, withTheme, Header } from 'react-native-elements'
 import { FloatingAction } from 'react-native-floating-action';
-import { Svg } from 'expo';
+import { Svg, LinearGradient } from 'expo';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 
 const { Circle, Rect, Path } = Svg;
@@ -53,7 +53,6 @@ export default class Result extends React.Component {
   showPlayerControls = () => {
     // this.hideWithTimer();
     this.setState({ showPlayerControls: true, });
-
   }
 
   hidePlayerControls() {
@@ -118,28 +117,6 @@ export default class Result extends React.Component {
 
   }
   static navigationOptions = {
-    headerStyle: {
-      backgroundColor: '#0D2847',
-
-
-    },
-
-    headerLeft: (
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'transparent', flexDirection: 'row',
-          alignSelf: 'flex-start', paddingLeft:17,paddingRight:18,padding:10,
-
-        }}
-        onPress={() => {
-          var yo = ref;
-          yo.current.props.onPress()
-
-        }}>
-        <Ionicons name="md-arrow-back" size={32} color="white" />
-
-      </TouchableOpacity>
-    ),
     headerRight: (
       <View style={{
         flexDirection: 'row',
@@ -186,10 +163,7 @@ export default class Result extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <Container >
-        <Container  >
-
-
+      <Container>
           <View style={styles.container2}>
             <Text style={{ color: 'white', fontSize: 25 }}>{this.state.make} {this.state.model} {this.state.year}</Text>
             {
@@ -230,16 +204,9 @@ export default class Result extends React.Component {
                   onPressOut={this.toggle3} cx="241.4" cy="310.41" r="87.57" />
               </Svg>
             }
-
-
-
-
           </View>
-
-        </Container>
-
+{/*}
         {this.state.isLoading &&
-         
          <View style={{
             flex: 1,
             width: '100%',
@@ -253,26 +220,21 @@ export default class Result extends React.Component {
             <ActivityIndicator size="large" color='#C41200' />
           </View>
         }
-
+*/}
         {this.state.isLoading = true &&
           <ScrollableTabView
             refreshControlStyle={{ backgroundColor: 'red' }}
             renderTabBar={() => <ScrollableTabBar onScroll={(yo) => this.setState({ activeTab: this.state.activeTab = undefined })} onPress={(yo) => console.log(yo)} />}
-            style={{ marginTop: -220, backgroundColor: "#0D2847" }}
-            tabBarTextStyle={{ color: "white", fontSize: 27 }}
+            style={{ backgroundColor: "orange" }}
+            tabBarTextStyle={{ color: "white"}}
             tabBarUnderlineStyle={{ backgroundColor: "white" }}
             ref={(tabView) => { this.tabView = tabView; }}
             page={this.state.activeTab}
-            initialPage={this.state.initialPage}
-
-          >
-
- 
-            <ScrollView  tabLabel="Front/Engine"  >
-     
-              <View  >
-                <Container >
-
+            initialPage={this.state.initialPage}>
+            
+            <ScrollView tabLabel="FRONT/ENGINE">
+              <View>
+                <Container>
                   <Content>
                     {this.state.showPlayerControls ? (
                       <Header
@@ -301,7 +263,7 @@ export default class Result extends React.Component {
                     }
 
                     {!this.state.front &&
-                      <Text style={styles.noConcealment}>No Concealment Methods for Front/Engine</Text>
+                      <Text style={styles.noConcealment}>No conealment methods</Text>
                     }
 
                   </Content>
@@ -343,7 +305,7 @@ export default class Result extends React.Component {
                     }
 
                     {!this.state.center &&
-                      <Text style={styles.noConcealment}>No Concealment Methods for Center/Cabin</Text>
+                      <Text style={styles.noConcealment}>No concealment methods</Text>
                     }
                   </Content>
                 </Container >
@@ -355,7 +317,6 @@ export default class Result extends React.Component {
             <ScrollView page={this.state.activeTab} tabLabel='Undercarriage/Wheels'>
               <View>
                 <Container >
-
                   <Content>
                     {this.state.showPlayerControls ? (
                       <Header
@@ -381,12 +342,13 @@ export default class Result extends React.Component {
 
                     }
                     {!this.state.undercarriage &&
-                      <Text style={styles.noConcealment}>No Concealment Method For Undercarriage</Text>
+                      <Text style={styles.noConcealment}>No concealment methods</Text>
                     }
                   </Content>
                 </Container >
               </View>
             </ScrollView>
+
             <ScrollView page={this.state.activeTab} tabLabel="Rear/Trunk" >
               <View>
                 <Container >
@@ -418,8 +380,9 @@ export default class Result extends React.Component {
                     }
 
                     {!this.state.rear &&
-                      <Text style={styles.noConcealment}>No Concealment Method For Rear/Trunk</Text>
+                      <Text style={styles.noConcealment}>No concealment methods</Text>
                     }
+
                   </Content>
                 </Container >
 
@@ -452,9 +415,7 @@ export default class Result extends React.Component {
         <FloatingAction
           color={"#4AA7D1"}
           onPressMain={(yo) => {
-
             { navigate('Add', { data: this.state.data }) }
-
           }}
           showBackground={false}
           onStateChange={(yo) => { yo.isActive ? this.setState({ isActive: false }) : this.setState({ isActive: false }) }}
@@ -485,13 +446,16 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#0D2847"
   },
+
   container2: {
-    backgroundColor: "#0D2847",
-    maxWidth: "auto",
+    backgroundColor: "blue",
+    //maxWidth: "auto",
     height: 250,
-    justifyContent: "center",
-    alignItems: "center",
+    //flex: 1,
+    //justifyContent: "center",
+    //alignItems: "center",
   },
+
   listLabelText: {
     fontWeight: "600",
     fontSize: 15,
@@ -507,7 +471,6 @@ const styles = StyleSheet.create({
   },
 
   buttonSavedStyle: {
-
     marginTop: 20,
     borderRadius: 5,
     justifyContent: "center",

@@ -152,11 +152,19 @@ export default class Add extends Component {
 
     console.log(this.state.carArea)
 
+<<<<<<< HEAD
     // navigate('Result')
   }
   static navigationOptions = {
     headerStyle: {
       backgroundColor: '#0D2847',
+=======
+  // navigate('Result')
+}
+      static navigationOptions = {
+        headerTitle: "Add a concealment method",
+      }
+>>>>>>> cc11c1c7fe4e29822176b5765fc86872d6936ab3
 
 
     },
@@ -256,6 +264,7 @@ export default class Add extends Component {
           // console.log(res)
         });
 
+<<<<<<< HEAD
         // c
         // fetch(`${http}concealments/upload/${this.state.carArea}/${id}`, {
         //   method: 'post',
@@ -351,6 +360,120 @@ export default class Add extends Component {
       </KeyboardAwareScrollView>
     );
   }
+=======
+      cameraPressed = async (ev) => {
+        console.log('camera')
+        // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
+        const { status : st , permissions } = await Permissions.askAsync(Permissions.CAMERA);
+        const { status : stR } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        let id=this.state.vehicleData[0]._id
+        console.log(st,stR);
+        console.log(permissions);
+        if (st === 'granted' && stR === 'granted') {
+          console.log("granted");
+          const { cancelled, uri, base64 } = await ImagePicker.launchCameraAsync({allowsEditing: true, base64: true});
+          console.log("uri",uri);
+
+          if(!cancelled){
+
+            //var imageList = this.state.images === null ? [] : this.state.images;
+            
+            var imageList = this.state.images
+            imageList.push(uri)
+            console.log("imagesList", imageList)
+            this.setState({images : imageList})
+            console.log("yo",this.state.images);
+            var formData = new FormData();
+
+            formData.append("file", uri); // number 123456 is immediately converted to a string "123456"
+          
+            var request = new XMLHttpRequest();
+            request.open('POST', `${http}concealments/upload/${this.state.carArea}/${id}`);
+               // Add the required HTTP header for form data POST requests
+               request.setRequestHeader('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDc1OTUwNiwiZXhwIjoxNTU0ODQ1OTA2fQ.jMcy7ARN999OFfoEHflrzxaOPLY59LGd8r15Lvj_eM4');
+  
+            request.send(formData);
+            
+          }
+
+
+        } else {
+          throw new Error('Camera permission not granted');
+        } 
+      }
+      render() {
+        const { navigate } = this.props.navigation;
+        return (
+        
+          <Container behavior="padding" style={styles.container}>
+            <Content>
+              <Form>
+              <ListItem itemDivider style ={styles.listLabel}>
+              <Text style ={styles.listLabelText}>Car Area</Text>
+            </ListItem> 
+                <Item picker style={styles.formItem}>
+                  <Picker
+                    mode="dropdown"
+                    iosIcon={<Icon name="arrow-down" style={{color: "#FFF"}} />}
+                    style={{ width: undefined, color: '#FFF'}}         
+                    placeholderStyle={{ color: "#FFF" }}
+                    placeholderIconColor="#FFF"
+                    selectedValue={this.state.carArea}
+                    onValueChange={this.onValueChange2}
+                  >
+                    <Picker.Item label="Front/Engine" value="front" />
+                    <Picker.Item label="Center/Cabin" value="center" />
+                    <Picker.Item label="Wheels/Undercarriage" value="undercarriage" />
+                    <Picker.Item label="Rear/Trunk" value="rear" />
+                  </Picker>
+                </Item>
+                <Item floatingLabel>
+                  <Label style={styles.listLabelText}>Title</Label>
+                  <Input style={styles.inputFields} onChange={(ev)=>{this.setState({title:ev.nativeEvent.text})}}/>
+                </Item>
+                <Item floatingLabel>
+                  <Label style={styles.listLabelText}>Description</Label>
+                  <Input style={styles.inputFields} onChange={(ev)=>{this.setState({description:ev.nativeEvent.text})}}/>
+                </Item>
+                <Item floatingLabel>
+                  <Label style={styles.listLabelText}>Employee Number</Label>
+                  <Input style={styles.inputFields} onChange={(ev)=>{this.setState({userId:ev.nativeEvent.text})}}/>
+                </Item>
+                <Item floatingLabel last>
+                  <Label style={styles.listLabelText}>Reference Number (optional)</Label>
+                  <Input style={styles.inputFields} onChange={(ev)=>{this.setState({reference:ev.nativeEvent.text})}}/>
+                </Item>
+
+              </Form>
+                <Button iconLeft large block style={{backgroundColor: '#173553', marginTop: 10}} onPress={this.cameraPressed.bind(this)} >
+                        <Icon name='camera' text='camera'/>
+                </Button>
+
+                <View style={styles.imageContainer}>
+                {this.state.images && 
+                
+                 this.state.images.map((image, i) =>(
+                 
+                 <Image key={i} source={{uri:image}} style={{height:80, width:80, marginTop: 10, marginLeft: 10}}/>
+                 
+                 ))}
+                 </View>
+
+                <TouchableOpacity   onPress={()=>{navigate("Result"),this.postConcealment()}} style ={styles.buttonSavedStyle}>
+                    <Text style ={{color: "white",  fontWeight:"600",
+                                    fontSize: 20,}}>Submit</Text>
+                </TouchableOpacity>
+                <Container style={{ display: "none" }}>
+          <Button onPress={() => { navigate('Result') }} ref={ref} title="Press Me" >
+
+          </Button>
+        </Container>
+            </Content>
+          </Container>
+          
+          );
+      }
+>>>>>>> cc11c1c7fe4e29822176b5765fc86872d6936ab3
 
 
 }

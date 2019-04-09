@@ -13,43 +13,15 @@ export default class About extends Component {
       }
 
       static navigationOptions = {
-        headerStyle: {
-          backgroundColor: '#0D2847',
-        },
         headerTitle: "About",
-        headerTitleStyle: { color: '#fff' },
-    
-       
-        headerLeft: (
-          
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'transparent', paddingLeft:30, paddingRight:18, padding:10,
-            }}
-            onPress={() => {
-              var yo = ref;
-              yo.current.props.onPress()
-    
-            }}>
-            <Ionicons name="md-close" size={32} color="white" />
-    
-          </TouchableOpacity>
-        ),
-        headerRight: (
-          <View style={{
-            flexDirection: 'row',
-            alignSelf: 'flex-start', paddingTop: 12, marginRight: 10
-          }}>
-    
-          </View>
-        ),
-    
       }
 
       render() {
           return (
             <Container style={styles.container} >
-              <Image source={require('../assets/ACEImage.png')} style={styles.image}
+              <Image source={require('../assets/aceLogo.png')} style={styles.image}
+              ></Image>
+              <Image source={require('../assets/dotmatrixlogo.png')} style={styles.image}
               ></Image>
               <Text style={styles.textBody}>This app was developed as a tool for Border Service Officers. 
                 It allows them to Search through vehicules and their concleament methods. 
@@ -75,8 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   image: {
-    width: '100%',
-    height: '20%'
+    
   },
   textBody: {
     marginTop: 20,
@@ -84,9 +55,5 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 20,
     textAlign: 'left',
-
   }
-  
-
-  
 })

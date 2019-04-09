@@ -13,6 +13,7 @@ import TestingComponent from './components/TestingComponent'
 
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
+
 const App = createStackNavigator(
   {
     Search: Search,
@@ -27,7 +28,17 @@ const App = createStackNavigator(
     TestingComponent:TestingComponent
   },
   {
-    initialRouteName: "Search" //temporarily - will/should be 'Login'
+    initialRouteName: "Login", //temporarily - will/should be 'Login'
+    defaultNavigationOptions: {
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        color: "#fff",
+      },
+      headerStyle: {
+        backgroundColor: "#0D2847",
+        elevation: 0,
+      },
+    },
   }
 );
 
