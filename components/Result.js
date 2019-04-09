@@ -11,7 +11,6 @@ import { ListItem, withTheme, Header } from 'react-native-elements'
 import { FloatingAction } from 'react-native-floating-action';
 import { Svg, LinearGradient } from 'expo';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
-var s = require('./styles')
 
 const { Circle, Rect, Path } = Svg;
 
@@ -58,6 +57,7 @@ export default class Result extends React.Component {
       undercarriageSelected: false,
       rearSelected: false,
       centerSelected: false,
+      refresh: false
     }
 
   }
@@ -92,7 +92,7 @@ export default class Result extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDg0ODAzNSwiZXhwIjoxNTU0OTM0NDM1fQ.X4az6qapnIGTlzag_6heV61t4WFGGAiwtTf_TkuWCl4'
+        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDc1OTUwNiwiZXhwIjoxNTU0ODQ1OTA2fQ.jMcy7ARN999OFfoEHflrzxaOPLY59LGd8r15Lvj_eM4'
       }
     }
     const { navigate } = this.props.navigation
@@ -128,19 +128,29 @@ export default class Result extends React.Component {
 
   }
   static navigationOptions = {
-    headerStyle : {
-      backgroundColor: "#05162E",
-    },
-
     headerRight: (
+      <View style={{
+        flexDirection: 'row',
+        alignSelf: 'flex-start', paddingTop: 12, marginRight: 10
+      }}>
         <TouchableOpacity
-          style={s.menuButton}
+          style={{ backgroundColor: 'transparent' }}
           onPress={() => {
             var yo = ref2;
             yo.current.props.onPress()
           }}>
-          <Ionicons name="md-information-circle" size={24} color="white"></Ionicons>
+
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+              resizeMode: 'contain'
+            }}
+            source={require('../assets/info.png')}
+          />
         </TouchableOpacity>
+
+      </View>
     ),
 
   }
@@ -163,67 +173,86 @@ export default class Result extends React.Component {
   logger = () => {
     console.log("HOOOORAY HOOOOORAY WOOP WWOOOOOOP");
   }
-
-  rearToggled = async () =>{
+  rearToggled = () =>{
     console.log("rear pressed")
-    await this.tabView.goToPage(3)
-    frontToggle = false;
-    backToggle = true;
-    centerToggle = false;
-    underToggle = false;
+    this.tabView.goToPage(3)
+    this.bToggle()
     this.setState({activeTab : 3})
     console.log(this.tabView.state.currentPage)
 
   };
-  frontToggled = async () =>{
+  frontToggled = () =>{
     console.log("front pressed")
-    await this.tabView.goToPage(0)
+    this.tabView.goToPage(0)
+    this.fToggle()
+    this.setState({activeTab : 0})
+    console.log(this.tabView.state.currentPage)
+  };
+  centerToggled = () =>{
+    console.log("center pressed")
+    this.tabView.goToPage(1)
+    this.cToggle()
+    this.setState({activeTab : 1})
+    console.log(this.tabView.state.currentPage)
+  };
+  underToggled = () =>{
+    console.log("under pressed")
+    this.tabView.goToPage(2)
+    this.uToggle()
+    this.setState({activeTab : 2})
+    console.log(this.tabView.state.currentPage)
+  };
+  fToggle = () =>{
     frontToggle = true;
     backToggle = false;
     centerToggle = false;
     underToggle = false;
-    this.setState({activeTab : 0})
-    console.log(this.tabView.state.currentPage)
-  };
-  centerToggled = async () =>{
-    console.log("center pressed")
-    await this.tabView.goToPage(1)
+    this.setState({refresh : !this.state.refresh});
+  }
+  bToggle = () =>{
+    frontToggle = false;
+    backToggle = true;
+    centerToggle = false;
+    underToggle = false; 
+    this.setState({refresh : !this.state.refresh});
+  }
+  cToggle = () =>{
     frontToggle = false;
     backToggle = false;
     centerToggle = true;
     underToggle = false;
-    this.setState({activeTab : 1})
-    console.log(this.tabView.state.currentPage)
-  };
-  underToggled = async () =>{
-    console.log("under pressed")
-    await this.tabView.goToPage(2)
+    this.setState({refresh : !this.state.refresh});
+  }
+  uToggle = () =>{
     frontToggle = false;
     backToggle = false;
     centerToggle = false;
     underToggle = true;
-    this.setState({activeTab : 2})
-    console.log(this.tabView.state.currentPage)
-  };
-  onScrollTab = async (yo) =>{
-    await this.setState({ activeTab: this.state.activeTab = undefined });
+    this.setState({refresh : !this.state.refresh});
+  }
+  onScrollTab = () =>{
+    
     console.log(this.tabView.state.currentPage);
     switch(this.tabView.state.currentPage){
       case 0:
       console.log("front");
-      this.frontToggled()
+      this.fToggle()
+      this.setState({ activeTab: this.state.activeTab = undefined })
       break;
       case 1:
       console.log("center");
-      this.centerToggled()
+      this.cToggle()
+      this.setState({ activeTab: this.state.activeTab = undefined })
       break;
       case 2:
       console.log("under");
-      this.underToggled()
+      this.uToggle()
+      this.setState({ activeTab: this.state.activeTab = undefined })
       break;
       case 3:
       console.log("rear");
-      this.rearToggled()
+      this.bToggle()
+      this.setState({ activeTab: this.state.activeTab = undefined })
       break;
       default:
       break;
@@ -235,109 +264,105 @@ export default class Result extends React.Component {
 
     return (
       <Container>
-          <View style={styles.container}>
-                <LinearGradient colors={['#05162E', '#0D2847']} style={{height:200}}>
-                <View style={styles.innerContainer}>
-                  <Text style={styles.titleText}>{this.state.make} {this.state.model} {this.state.year}</Text>
-                  {/*<Text style={styles.titleText}>Mitsubushi Mitsubushi 2009</Text>*}
+          <View style={styles.container2}>
+            <Text style={{ color: 'white', fontSize: 25 }}>{this.state.make} {this.state.model} {this.state.year}</Text>
+            
+               {/*back*/}
+              <Svg height="70%" width="70%" viewBox="0 0 1210.14 411.4">
+                {backToggle &&
+                <Path
                   
-                    {/*back*/}
-                    <Svg height="70%" width="70%" viewBox="0 0 1210.14 411.4">
-                      {backToggle &&
-                      <Path
-                        
-                      
-                        // fill={this.state.activeTab === 3 ? this.state.selectedColor : this.state.notSelectedColor }
-                        fill={this.state.selectedColor}
-                        onPress={this.rearToggled}
-                        // onPressIn={this.toggle}
-                        // onPressOut={this.toggle}
+                 
+                  // fill={this.state.activeTab === 3 ? this.state.selectedColor : this.state.notSelectedColor }
+                  fill={this.state.selectedColor}
+                  onPress={this.rearToggled}
+                  // onPressIn={this.toggle}
+                  // onPressOut={this.toggle}
 
-                        d="M1185.91,166.26c12.7-83.81,4.3-70.22-26-71.11-35.43-1.27-97.6-.85-97.6-.85l-53.85-27.24L986.81,212.63s70.12,7.7,73.81,100.09l0,.8c2.57,9.76,91,9.14,91.4-.8,9.29-8.7,30.32-8.75,34.71-16.93C1218.38,230.44,1185.91,166.26,1185.91,166.26Z"
-                      />
-                      }
-                      {!backToggle &&
-                      <Path
-                      
-                      
-                      fill={this.state.notSelectedColor}
-                      onPress={this.rearToggled}
-                      // onPressIn={this.toggle}
-                      // onPressOut={this.toggle}
+                  d="M1185.91,166.26c12.7-83.81,4.3-70.22-26-71.11-35.43-1.27-97.6-.85-97.6-.85l-53.85-27.24L986.81,212.63s70.12,7.7,73.81,100.09l0,.8c2.57,9.76,91,9.14,91.4-.8,9.29-8.7,30.32-8.75,34.71-16.93C1218.38,230.44,1185.91,166.26,1185.91,166.26Z"
+                />
+                }
+                {!backToggle &&
+                <Path
+                
+                
+                fill={this.state.notSelectedColor}
+                onPress={this.rearToggled}
+                // onPressIn={this.toggle}
+                // onPressOut={this.toggle}
 
-                      d="M1185.91,166.26c12.7-83.81,4.3-70.22-26-71.11-35.43-1.27-97.6-.85-97.6-.85l-53.85-27.24L986.81,212.63s70.12,7.7,73.81,100.09l0,.8c2.57,9.76,91,9.14,91.4-.8,9.29-8.7,30.32-8.75,34.71-16.93C1218.38,230.44,1185.91,166.26,1185.91,166.26Z"
-                    />                
-                      }
-                      
-                      {/* front  */}
-                      {frontToggle && <Path
+                d="M1185.91,166.26c12.7-83.81,4.3-70.22-26-71.11-35.43-1.27-97.6-.85-97.6-.85l-53.85-27.24L986.81,212.63s70.12,7.7,73.81,100.09l0,.8c2.57,9.76,91,9.14,91.4-.8,9.29-8.7,30.32-8.75,34.71-16.93C1218.38,230.44,1185.91,166.26,1185.91,166.26Z"
+              />                
+                }
+                
+                {/* front  */}
+                {frontToggle && <Path
 
-                        
-                        fill={this.state.selectedColor}
-                        
-                        onPress={this.frontToggled}
-                        d="M139.44,284.38c7-29.46,35.65-54.26,35.65-54.26,69.76-52.7,131.76,0,131.76,0h77.51L338.15,124.73a13.71,13.71,0,0,1-2,.7C-10,160.55,16.84,228.24,13.8,234.55c0,52.67,0,78.9,20.55,83.42s26.81,17.61,26.81,17.61h77.42A125,125,0,0,1,139.44,284.38Z" />
-                      }
+                  
+                  fill={this.state.selectedColor}
+                  
+                  onPress={this.frontToggled}
+                  d="M139.44,284.38c7-29.46,35.65-54.26,35.65-54.26,69.76-52.7,131.76,0,131.76,0h77.51L338.15,124.73a13.71,13.71,0,0,1-2,.7C-10,160.55,16.84,228.24,13.8,234.55c0,52.67,0,78.9,20.55,83.42s26.81,17.61,26.81,17.61h77.42A125,125,0,0,1,139.44,284.38Z" />
+                }
 
-                      {!frontToggle && <Path
+                {!frontToggle && <Path
 
-                        
-                        fill={this.state.notSelectedColor}
-                        
-                        onPress={this.frontToggled}
-                        d="M139.44,284.38c7-29.46,35.65-54.26,35.65-54.26,69.76-52.7,131.76,0,131.76,0h77.51L338.15,124.73a13.71,13.71,0,0,1-2,.7C-10,160.55,16.84,228.24,13.8,234.55c0,52.67,0,78.9,20.55,83.42s26.81,17.61,26.81,17.61h77.42A125,125,0,0,1,139.44,284.38Z" />
-                      }
+                  
+                  fill={this.state.notSelectedColor}
+                  
+                  onPress={this.frontToggled}
+                  d="M139.44,284.38c7-29.46,35.65-54.26,35.65-54.26,69.76-52.7,131.76,0,131.76,0h77.51L338.15,124.73a13.71,13.71,0,0,1-2,.7C-10,160.55,16.84,228.24,13.8,234.55c0,52.67,0,78.9,20.55,83.42s26.81,17.61,26.81,17.61h77.42A125,125,0,0,1,139.44,284.38Z" />
+                }
 
-                      {/*undercarriage*/}
-                      {underToggle && <Path 
+                {/*undercarriage*/}
+                {underToggle && <Path 
 
-                        fill={this.state.selectedColor}
-                        onPress={this.underToggled}
-                        d="M875.42,243.74H321.58s26.21,18.61,25.42,91.84H856.7C855.48,317.86,854.7,272.32,875.42,243.74Z" />
-                      }
-                      {!underToggle && <Path 
-                        
-                        fill={this.state.notSelectedColor}
-                        onPress={this.underToggled}
-                        d="M875.42,243.74H321.58s26.21,18.61,25.42,91.84H856.7C855.48,317.86,854.7,272.32,875.42,243.74Z" />
-                      }
-                      
-                      {/*Center*/}
-                      {centerToggle && <Path
-                        onPress={this.centerToggled}
-                        fill={this.state.selectedColor}
-                        d="M990.35,57.9C904.85,6.26,794.79,9.81,794.79,9.81H583.24C504.22,17.12,446.52,59,446.52,59c-50.41,33.39-78.26,50-93.38,58.31l49,112.86H894.35c43.4-34.1,75.18-20.92,75.18-20.92l23.7-149.85ZM658.56,149.1c-85.19,6.93-243.45,8-243.45,8s-9.51-4.55-5.66-13.48c6.41-14.87,27.71-41.89,95.66-80.23,60.75-31.79,122.42-36.61,174.45-35C679,67.06,669.9,119.94,658.56,149.1Zm238.6-5.58c-58,7.68-130.89,7.65-204.52,4.54-6.81-34.18-1.78-86.55,7-113,2.53-10.43,103.92-6.95,139.11,2,40.64,14.38,54.89,53.77,66,100C904,139.45,899.55,142.83,897.16,143.52Z" />}
+                  fill={this.state.selectedColor}
+                  onPress={this.underToggled}
+                  d="M875.42,243.74H321.58s26.21,18.61,25.42,91.84H856.7C855.48,317.86,854.7,272.32,875.42,243.74Z" />
+                }
+                {!underToggle && <Path 
+                  
+                  fill={this.state.notSelectedColor}
+                  onPress={this.underToggled}
+                  d="M875.42,243.74H321.58s26.21,18.61,25.42,91.84H856.7C855.48,317.86,854.7,272.32,875.42,243.74Z" />
+                }
+                
+                {/*Center*/}
+                {centerToggle && <Path
+                  onPress={this.centerToggled}
+                  fill={this.state.selectedColor}
+                  d="M990.35,57.9C904.85,6.26,794.79,9.81,794.79,9.81H583.24C504.22,17.12,446.52,59,446.52,59c-50.41,33.39-78.26,50-93.38,58.31l49,112.86H894.35c43.4-34.1,75.18-20.92,75.18-20.92l23.7-149.85ZM658.56,149.1c-85.19,6.93-243.45,8-243.45,8s-9.51-4.55-5.66-13.48c6.41-14.87,27.71-41.89,95.66-80.23,60.75-31.79,122.42-36.61,174.45-35C679,67.06,669.9,119.94,658.56,149.1Zm238.6-5.58c-58,7.68-130.89,7.65-204.52,4.54-6.81-34.18-1.78-86.55,7-113,2.53-10.43,103.92-6.95,139.11,2,40.64,14.38,54.89,53.77,66,100C904,139.45,899.55,142.83,897.16,143.52Z" />}
 
-                        {!centerToggle && <Path
-                        onPress={this.centerToggled}
-                        fill={this.state.notSelectedColor}
-                        d="M990.35,57.9C904.85,6.26,794.79,9.81,794.79,9.81H583.24C504.22,17.12,446.52,59,446.52,59c-50.41,33.39-78.26,50-93.38,58.31l49,112.86H894.35c43.4-34.1,75.18-20.92,75.18-20.92l23.7-149.85ZM658.56,149.1c-85.19,6.93-243.45,8-243.45,8s-9.51-4.55-5.66-13.48c6.41-14.87,27.71-41.89,95.66-80.23,60.75-31.79,122.42-36.61,174.45-35C679,67.06,669.9,119.94,658.56,149.1Zm238.6-5.58c-58,7.68-130.89,7.65-204.52,4.54-6.81-34.18-1.78-86.55,7-113,2.53-10.43,103.92-6.95,139.11,2,40.64,14.38,54.89,53.77,66,100C904,139.45,899.55,142.83,897.16,143.52Z" />}
-                      
-                      {/*Wheels*/}
-                      {underToggle &&
-                        <Circle 
-                        fill={this.state.selectedColor}
-                        onPress={this.underToggled} cx="957.99" cy="310.67" r="87.57" />
-                      }
-                      {underToggle &&
-                        <Circle 
-                        fill={this.state.selectedColor}
-                        onPress={this.underToggled} cx="241.4" cy="310.41" r="87.57" />
-                      }
-                      
-                      {!underToggle &&
-                        <Circle 
-                        fill={this.state.notSelectedColor}
-                        onPress={this.underToggled} cx="957.99" cy="310.67" r="87.57" />
-                      }
-                      {!underToggle &&
-                        <Circle 
-                        fill={this.state.notSelectedColor}
-                        onPress={this.underToggled} cx="241.4" cy="310.41" r="87.57" />
-                      }
-                    </Svg>
-                    </View>
-                    </LinearGradient>
+                  {!centerToggle && <Path
+                  onPress={this.centerToggled}
+                  fill={this.state.notSelectedColor}
+                  d="M990.35,57.9C904.85,6.26,794.79,9.81,794.79,9.81H583.24C504.22,17.12,446.52,59,446.52,59c-50.41,33.39-78.26,50-93.38,58.31l49,112.86H894.35c43.4-34.1,75.18-20.92,75.18-20.92l23.7-149.85ZM658.56,149.1c-85.19,6.93-243.45,8-243.45,8s-9.51-4.55-5.66-13.48c6.41-14.87,27.71-41.89,95.66-80.23,60.75-31.79,122.42-36.61,174.45-35C679,67.06,669.9,119.94,658.56,149.1Zm238.6-5.58c-58,7.68-130.89,7.65-204.52,4.54-6.81-34.18-1.78-86.55,7-113,2.53-10.43,103.92-6.95,139.11,2,40.64,14.38,54.89,53.77,66,100C904,139.45,899.55,142.83,897.16,143.52Z" />}
+                
+                {/*Wheels*/}
+                {underToggle &&
+                  <Circle 
+                  fill={this.state.selectedColor}
+                  onPress={this.underToggled} cx="957.99" cy="310.67" r="87.57" />
+                }
+                {underToggle &&
+                  <Circle 
+                  fill={this.state.selectedColor}
+                  onPress={this.underToggled} cx="241.4" cy="310.41" r="87.57" />
+                }
+                
+                {!underToggle &&
+                  <Circle 
+                  fill={this.state.notSelectedColor}
+                  onPress={this.underToggled} cx="957.99" cy="310.67" r="87.57" />
+                }
+                {!underToggle &&
+                  <Circle 
+                  fill={this.state.notSelectedColor}
+                  onPress={this.underToggled} cx="241.4" cy="310.41" r="87.57" />
+                }
+              </Svg>
+          
           </View>
 {/*}
         {this.state.isLoading &&
@@ -357,16 +382,16 @@ export default class Result extends React.Component {
 */}
         {this.state.isLoading = true &&
           <ScrollableTabView
-            refreshControlStyle={{}}
+            refreshControlStyle={{ backgroundColor: 'red' }}
             renderTabBar={() => <ScrollableTabBar onScroll={this.onScrollTab} onPress={(yo) => console.log(yo)} />}
-            style={{ backgroundColor: "#0D2847" }}
+            style={{ backgroundColor: "orange" }}
             tabBarTextStyle={{ color: "white"}}
             tabBarUnderlineStyle={{ backgroundColor: "white" }}
             ref={(tabView) => { this.tabView = tabView; }}
             page={this.state.activeTab}
             initialPage={this.state.initialPage}>
             
-            <ScrollView page={this.state.activeTab} tabLabel='FRONT/ENGINE'>
+            <ScrollView tabLabel='Front/Engine'>
               <View>
                 <Container>
                   <Content>
@@ -397,7 +422,7 @@ export default class Result extends React.Component {
                     }
 
                     {!this.state.front &&
-                      <Text style={styles.noConcealment}>No concealment methods</Text>
+                      <Text style={styles.noConcealment}>No conealment methods</Text>
                     }
 
                   </Content>
@@ -406,7 +431,7 @@ export default class Result extends React.Component {
           
             </ScrollView>
         
-            <ScrollView onScroll={() => this.setState({ activeTab: 1 })} tabLabel="CENTER/CABIN" >
+            <ScrollView tabLabel="Center/Cabin" >
               <View>
                 <Container>
 
@@ -448,7 +473,7 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView page={this.state.activeTab} tabLabel='UNDERCARRIAGE/WHEELS'>
+            <ScrollView tabLabel='Undercarriage/Wheels'>
               <View>
                 <Container >
                   <Content>
@@ -483,7 +508,7 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView page={this.state.activeTab} tabLabel="REAR/TRUNK" >
+            <ScrollView  tabLabel="Rear/Trunk" >
               <View>
                 <Container >
 
@@ -523,10 +548,7 @@ export default class Result extends React.Component {
 
               </View>
             </ScrollView>
-            <ScrollView overScrollMode={'never'} tabLabel="Generic"  >
-
-            </ScrollView>
-
+          
           </ScrollableTabView>
         }
         <Container style={{ display: "none" }}>
@@ -582,13 +604,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#0D2847"
   },
 
-  innerContainer: {
+  container2: {
+    backgroundColor: "blue",
     //maxWidth: "auto",
-    height: 200,
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    height: 250,
+    //flex: 1,
+    //justifyContent: "center",
+    //alignItems: "center",
   },
 
   listLabelText: {
@@ -615,6 +637,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#4AA7D1",
     height: 60,
     width: 300
+
   },
 
   buttonHidden: {
@@ -622,15 +645,13 @@ const styles = StyleSheet.create({
   },
 
   noConcealment: {
-    color: "#000",
+    fontSize: 18,
+    color: "white",
+    borderColor: "black",
+    borderWidth: 2,
+    backgroundColor: "grey",
     textAlign: "center",
-    marginTop:50
-  },
-
-  titleText: {
-    fontSize: 24,
-    textAlign: "center",
-    color:"#fff"
+    marginTop: 10
   }
 
 })

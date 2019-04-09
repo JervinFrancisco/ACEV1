@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "expoServerPort": null,
   "expoServerNgrokUrl": null,
   "packagerNgrokUrl": null,
@@ -6,4 +7,13 @@
   "devToolsPort": 19002,
   "packagerPort": null,
   "packagerPid": null
+=======
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://tc-t59.anonymous.acev1.exp.direct",
+  "packagerNgrokUrl": "https://packager.tc-t59.anonymous.acev1.exp.direct",
+  "ngrokPid": 47789,
+  "packagerPort": 19001,
+  "packagerPid": 47769,
+  "devToolsPort": 19002
+>>>>>>> 6537a86f1c728df9aa4b5728a49e5585a124abf3
 }
