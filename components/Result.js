@@ -21,6 +21,10 @@ const ref2 = React.createRef();
 const ref3 = React.createRef();
 const ref4 = React.createRef();
 const front = React.createRef();
+var backToggle = false;
+var frontToggle = true;
+var centerToggle = false;
+var underToggle = false;
 export default class Result extends React.Component {
   timer;
   constructor(props) {
@@ -47,6 +51,12 @@ export default class Result extends React.Component {
       make: null,
       model: null,
       year: null,
+      selectedColor:'#FFF',
+      notSelectedColor:'#7A879B',
+      frontSelected: true,
+      undercarriageSelected: false,
+      rearSelected: false,
+      centerSelected: false,
     }
 
   }
@@ -159,6 +169,75 @@ export default class Result extends React.Component {
     this.setState({ hover4: !this.state.hover4 });
   };
 
+  logger = () => {
+    console.log("HOOOORAY HOOOOORAY WOOP WWOOOOOOP");
+  }
+  rearToggled = async () =>{
+    console.log("rear pressed")
+    await this.tabView.goToPage(3)
+    frontToggle = false;
+    backToggle = true;
+    centerToggle = false;
+    underToggle = false;
+    this.setState({activeTab : 3})
+    console.log(this.tabView.state.currentPage)
+
+  };
+  frontToggled = async () =>{
+    console.log("front pressed")
+    await this.tabView.goToPage(0)
+    frontToggle = true;
+    backToggle = false;
+    centerToggle = false;
+    underToggle = false;
+    this.setState({activeTab : 0})
+    console.log(this.tabView.state.currentPage)
+  };
+  centerToggled = async () =>{
+    console.log("center pressed")
+    await this.tabView.goToPage(1)
+    frontToggle = false;
+    backToggle = false;
+    centerToggle = true;
+    underToggle = false;
+    this.setState({activeTab : 1})
+    console.log(this.tabView.state.currentPage)
+  };
+  underToggled = async () =>{
+    console.log("under pressed")
+    await this.tabView.goToPage(2)
+    frontToggle = false;
+    backToggle = false;
+    centerToggle = false;
+    underToggle = true;
+    this.setState({activeTab : 2})
+    console.log(this.tabView.state.currentPage)
+  };
+  onScrollTab = async (yo) =>{
+    await this.setState({ activeTab: this.state.activeTab = undefined });
+    console.log(this.tabView.state.currentPage);
+    switch(this.tabView.state.currentPage){
+      case 0:
+      console.log("front");
+      this.frontToggled()
+      break;
+      case 1:
+      console.log("center");
+      this.centerToggled()
+      break;
+      case 2:
+      console.log("under");
+      this.underToggled()
+      break;
+      case 3:
+      console.log("rear");
+      this.rearToggled()
+      break;
+      default:
+      break;
+    }
+  }
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -166,44 +245,103 @@ export default class Result extends React.Component {
       <Container>
           <View style={styles.container2}>
             <Text style={{ color: 'white', fontSize: 25 }}>{this.state.make} {this.state.model} {this.state.year}</Text>
-            {
+            
+               {/*back*/}
               <Svg height="70%" width="70%" viewBox="0 0 1210.14 411.4">
+                {backToggle &&
                 <Path
-                  fill={this.state.hover ? 'white' : '#7A879B'}
-                  onPress={() => { this.tabView.goToPage(3), this.setState({ activeTab: 3 }) }}
-                  onPressIn={this.toggle}
-                  onPressOut={this.toggle}
+                  
+                 
+                  // fill={this.state.activeTab === 3 ? this.state.selectedColor : this.state.notSelectedColor }
+                  fill={this.state.selectedColor}
+                  onPress={this.rearToggled}
+                  // onPressIn={this.toggle}
+                  // onPressOut={this.toggle}
 
                   d="M1185.91,166.26c12.7-83.81,4.3-70.22-26-71.11-35.43-1.27-97.6-.85-97.6-.85l-53.85-27.24L986.81,212.63s70.12,7.7,73.81,100.09l0,.8c2.57,9.76,91,9.14,91.4-.8,9.29-8.7,30.32-8.75,34.71-16.93C1218.38,230.44,1185.91,166.26,1185.91,166.26Z"
                 />
+                }
+                {!backToggle &&
                 <Path
+                
+                
+                fill={this.state.notSelectedColor}
+                onPress={this.rearToggled}
+                // onPressIn={this.toggle}
+                // onPressOut={this.toggle}
 
-                  fill={this.state.hover2 ? 'white' : '#7A879B'}
-                  onPressIn={this.toggle2}
-                  onPressOut={this.toggle2}
-                  onPress={() => { this.tabView.goToPage(0), this.setState({ activeTab: 0 }) }}
+                d="M1185.91,166.26c12.7-83.81,4.3-70.22-26-71.11-35.43-1.27-97.6-.85-97.6-.85l-53.85-27.24L986.81,212.63s70.12,7.7,73.81,100.09l0,.8c2.57,9.76,91,9.14,91.4-.8,9.29-8.7,30.32-8.75,34.71-16.93C1218.38,230.44,1185.91,166.26,1185.91,166.26Z"
+              />                
+                }
+                
+                {/* front  */}
+                {frontToggle && <Path
+
+                  
+                  fill={this.state.selectedColor}
+                  
+                  onPress={this.frontToggled}
                   d="M139.44,284.38c7-29.46,35.65-54.26,35.65-54.26,69.76-52.7,131.76,0,131.76,0h77.51L338.15,124.73a13.71,13.71,0,0,1-2,.7C-10,160.55,16.84,228.24,13.8,234.55c0,52.67,0,78.9,20.55,83.42s26.81,17.61,26.81,17.61h77.42A125,125,0,0,1,139.44,284.38Z" />
+                }
 
-                <Path fill={this.state.hover3 ? 'white' : '#7A879B'}
-                  onPressIn={this.toggle3}
-                  onPressOut={this.toggle3}
+                {!frontToggle && <Path
 
-                  onPress={() => { this.tabView.goToPage(2), this.setState({ activeTab: 2 }) }}
+                  
+                  fill={this.state.notSelectedColor}
+                  
+                  onPress={this.frontToggled}
+                  d="M139.44,284.38c7-29.46,35.65-54.26,35.65-54.26,69.76-52.7,131.76,0,131.76,0h77.51L338.15,124.73a13.71,13.71,0,0,1-2,.7C-10,160.55,16.84,228.24,13.8,234.55c0,52.67,0,78.9,20.55,83.42s26.81,17.61,26.81,17.61h77.42A125,125,0,0,1,139.44,284.38Z" />
+                }
+
+                {/*undercarriage*/}
+                {underToggle && <Path 
+
+                  fill={this.state.selectedColor}
+                  onPress={this.underToggled}
                   d="M875.42,243.74H321.58s26.21,18.61,25.42,91.84H856.7C855.48,317.86,854.7,272.32,875.42,243.74Z" />
-                <Path
-                  onPress={() => { this.tabView.goToPage(1), this.setState({ activeTab: 1 }) }}
-                  fill={this.state.hover4 ? 'white' : '#7A879B'}
-                  onPressIn={this.toggle4}
-                  onPressOut={this.toggle4}
-                  d="M990.35,57.9C904.85,6.26,794.79,9.81,794.79,9.81H583.24C504.22,17.12,446.52,59,446.52,59c-50.41,33.39-78.26,50-93.38,58.31l49,112.86H894.35c43.4-34.1,75.18-20.92,75.18-20.92l23.7-149.85ZM658.56,149.1c-85.19,6.93-243.45,8-243.45,8s-9.51-4.55-5.66-13.48c6.41-14.87,27.71-41.89,95.66-80.23,60.75-31.79,122.42-36.61,174.45-35C679,67.06,669.9,119.94,658.56,149.1Zm238.6-5.58c-58,7.68-130.89,7.65-204.52,4.54-6.81-34.18-1.78-86.55,7-113,2.53-10.43,103.92-6.95,139.11,2,40.64,14.38,54.89,53.77,66,100C904,139.45,899.55,142.83,897.16,143.52Z" />
-                <Circle onPress={() => { this.tabView.goToPage(2), this.setState({ activeTab: 2 }) }} fill={this.state.hover3 ? 'white' : '#7A879B'}
-                  onPressIn={this.toggle3}
-                  onPressOut={this.toggle3} cx="957.99" cy="310.67" r="87.57" />
-                <Circle onPress={() => { this.tabView.goToPage(2), this.setState({ activeTab: 2 }) }} fill={this.state.hover3 ? 'white' : '#7A879B'}
-                  onPressIn={this.toggle3}
-                  onPressOut={this.toggle3} cx="241.4" cy="310.41" r="87.57" />
+                }
+                {!underToggle && <Path 
+                  
+                  fill={this.state.notSelectedColor}
+                  onPress={this.underToggled}
+                  d="M875.42,243.74H321.58s26.21,18.61,25.42,91.84H856.7C855.48,317.86,854.7,272.32,875.42,243.74Z" />
+                }
+                
+                {/*Center*/}
+                {centerToggle && <Path
+                  onPress={this.centerToggled}
+                  fill={this.state.selectedColor}
+                  d="M990.35,57.9C904.85,6.26,794.79,9.81,794.79,9.81H583.24C504.22,17.12,446.52,59,446.52,59c-50.41,33.39-78.26,50-93.38,58.31l49,112.86H894.35c43.4-34.1,75.18-20.92,75.18-20.92l23.7-149.85ZM658.56,149.1c-85.19,6.93-243.45,8-243.45,8s-9.51-4.55-5.66-13.48c6.41-14.87,27.71-41.89,95.66-80.23,60.75-31.79,122.42-36.61,174.45-35C679,67.06,669.9,119.94,658.56,149.1Zm238.6-5.58c-58,7.68-130.89,7.65-204.52,4.54-6.81-34.18-1.78-86.55,7-113,2.53-10.43,103.92-6.95,139.11,2,40.64,14.38,54.89,53.77,66,100C904,139.45,899.55,142.83,897.16,143.52Z" />}
+
+                  {!centerToggle && <Path
+                  onPress={this.centerToggled}
+                  fill={this.state.notSelectedColor}
+                  d="M990.35,57.9C904.85,6.26,794.79,9.81,794.79,9.81H583.24C504.22,17.12,446.52,59,446.52,59c-50.41,33.39-78.26,50-93.38,58.31l49,112.86H894.35c43.4-34.1,75.18-20.92,75.18-20.92l23.7-149.85ZM658.56,149.1c-85.19,6.93-243.45,8-243.45,8s-9.51-4.55-5.66-13.48c6.41-14.87,27.71-41.89,95.66-80.23,60.75-31.79,122.42-36.61,174.45-35C679,67.06,669.9,119.94,658.56,149.1Zm238.6-5.58c-58,7.68-130.89,7.65-204.52,4.54-6.81-34.18-1.78-86.55,7-113,2.53-10.43,103.92-6.95,139.11,2,40.64,14.38,54.89,53.77,66,100C904,139.45,899.55,142.83,897.16,143.52Z" />}
+                
+                {/*Wheels*/}
+                {underToggle &&
+                  <Circle 
+                  fill={this.state.selectedColor}
+                  onPress={this.underToggled} cx="957.99" cy="310.67" r="87.57" />
+                }
+                {underToggle &&
+                  <Circle 
+                  fill={this.state.selectedColor}
+                  onPress={this.underToggled} cx="241.4" cy="310.41" r="87.57" />
+                }
+                
+                {!underToggle &&
+                  <Circle 
+                  fill={this.state.notSelectedColor}
+                  onPress={this.underToggled} cx="957.99" cy="310.67" r="87.57" />
+                }
+                {!underToggle &&
+                  <Circle 
+                  fill={this.state.notSelectedColor}
+                  onPress={this.underToggled} cx="241.4" cy="310.41" r="87.57" />
+                }
               </Svg>
-            }
+          
           </View>
 {/*}
         {this.state.isLoading &&
@@ -224,7 +362,7 @@ export default class Result extends React.Component {
         {this.state.isLoading = true &&
           <ScrollableTabView
             refreshControlStyle={{ backgroundColor: 'red' }}
-            renderTabBar={() => <ScrollableTabBar onScroll={(yo) => this.setState({ activeTab: this.state.activeTab = undefined })} onPress={(yo) => console.log(yo)} />}
+            renderTabBar={() => <ScrollableTabBar onScroll={this.onScrollTab} onPress={(yo) => console.log(yo)} />}
             style={{ backgroundColor: "orange" }}
             tabBarTextStyle={{ color: "white"}}
             tabBarUnderlineStyle={{ backgroundColor: "white" }}
@@ -232,7 +370,7 @@ export default class Result extends React.Component {
             page={this.state.activeTab}
             initialPage={this.state.initialPage}>
             
-            <ScrollView tabLabel="FRONT/ENGINE">
+            <ScrollView page={this.state.activeTab} tabLabel='Front/Engine'>
               <View>
                 <Container>
                   <Content>
@@ -274,7 +412,7 @@ export default class Result extends React.Component {
         
             <ScrollView onScroll={() => this.setState({ activeTab: 1 })} tabLabel="Center/Cabin" >
               <View>
-                <Container >
+                <Container>
 
                   <Content>
                     {this.state.showPlayerControls ? (
