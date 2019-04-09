@@ -1,9 +1,9 @@
 {
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://fz-92h.anonymous.acev1.exp.direct",
-  "packagerNgrokUrl": "https://packager.fz-92h.anonymous.acev1.exp.direct",
-  "ngrokPid": 1078,
-  "packagerPort": 19001,
-  "packagerPid": 1056,
+  "expoServerNgrokUrl": "https://mv-n49.anonymous.acev1.exp.direct",
+  "packagerNgrokUrl": "https://packager.mv-n49.anonymous.acev1.exp.direct",
+  "ngrokPid": 1764,
+  "packagerPort": 19003,
+  "packagerPid": 1732,
   "devToolsPort": 19002
 }
