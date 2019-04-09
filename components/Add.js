@@ -46,10 +46,13 @@ export default class Add extends Component {
         console.log(this.state.long);
         console.log(Date.now())
 
-        fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBwSdoSvVrUCpchMKSm64pnrfU24Vx516c&address=' + `${this.state.lat}` + ',' + `${this.state.long}`  )
+        fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD-NU9g6gKIAc2cZu1xQ6LwiKISOs0Ia58&address=' + `${this.state.lat}` + ',' + `${this.state.long}`  )
         .then((response) => response.json())
         .then((responseJson) => {
-         console.log(responseJson);
+         console.log(responseJson.results[0])
+         this.setState({
+           location:`${responseJson.results[0].address_components[2].long_name},${responseJson.results[0].address_components[4].long_name}`
+         })
 
           });
       }
@@ -101,17 +104,16 @@ postConcealment=() => {
   // let data=
   //   `title=${this.state.title}&description=${this.state.description}&location=Ottawa%2C%20ON&date=2017&referenceNo=${this.state.reference}&countFound=1&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D`
 
-    console.log(data)
+    console.log(this.state.location)
     
     let data={
      title:this.state.title,
       description:this.state.description,
-      location:"cornwall,On",
+      location:this.state.location,
       date:2019,
       referenceNo:this.state.reference,
       countFound:countofdiscoveredFound,
-      discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`,
-      discovered:`{"location":"cornwall","userId":${this.state.userId},"referenceNo":${this.state.reference}}`
+      discovered:`{"location":"${this.state.location}","userId":${this.state.userId},"referenceNo":${this.state.reference}}`
     }
 
 
