@@ -80,12 +80,12 @@ export default class Search extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDc1OTUwNiwiZXhwIjoxNTU0ODQ1OTA2fQ.jMcy7ARN999OFfoEHflrzxaOPLY59LGd8r15Lvj_eM4'
+        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDg0ODAzNSwiZXhwIjoxNTU0OTM0NDM1fQ.X4az6qapnIGTlzag_6heV61t4WFGGAiwtTf_TkuWCl4'
       }
     }
 
     const { navigate } = this.props.navigation
-    fetch('http://10.70.152.198:3000/vehicles/honda/civic/2019', opts)
+    fetch('http://10.70.136.221:3000/vehicles/honda/civic/2019', opts)
       .then(resp => {
         console.log(resp)
         if (resp.status != 200) {
