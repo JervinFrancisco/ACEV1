@@ -22,7 +22,6 @@ export default class Details extends Component {
       interval: null,
       dataSource: null,
       showPlayerControls: true,
-
     }
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -57,7 +56,6 @@ export default class Details extends Component {
     }, 4000)
   }
 
-
   componentWillMount() {
 
 
@@ -79,29 +77,6 @@ export default class Details extends Component {
   }
 
   static navigationOptions = {
-    headerStyle: {
-      backgroundColor: '#0D2847',
-
-
-    },
-  
-    headerLeft: (
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'transparent', flexDirection: 'row',
-          alignSelf: 'flex-start', paddingLeft:17,paddingRight:18,padding:10,
-        }}
-        onPress={() => {
-          var yo = ref;
-          yo.current.props.onPress()
-
-        }}>
-        <Ionicons name="md-arrow-back" size={32} color="white" />
-
-      </TouchableOpacity>
-    ),
-
-
 
   }
 
