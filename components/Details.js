@@ -68,7 +68,7 @@ export default class Details extends Component {
     const { navigation } = this.props
     const data = navigation.getParam('data', 'NO DATA')
     console.log("tis the dsata", data)
-    let images = data.src.map((img, i) => { return { id: i, url: `http://10.70.152.198:3000/${img}` } })
+    let images = data.src.map((img, i) => { return { id: i, url: `http://10.70.136.221:3000/${img}` } })
     let position = this.state.position === images.id ? 0 : this.state.position + 1
     let [a, ...rest]=data.discovered
     console.log("rest",rest);
