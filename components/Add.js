@@ -28,7 +28,8 @@ export default class Add extends Component {
           location: null,
           long: null,
           lat: null,
-          images: []
+          images: [],
+          base64: []
         };
 
 
@@ -205,16 +206,20 @@ console.log(this.state.carArea)
         console.log(permissions);
         if (st === 'granted' && stR === 'granted') {
           console.log("granted");
-          const { cancelled, uri } = await ImagePicker.launchCameraAsync({allowsEditing: true,});
+          const { cancelled, uri, base64 } = await ImagePicker.launchCameraAsync({allowsEditing: true, base64: true});
           console.log("uri",uri);
+          console.log("b64",base64);
           if(!cancelled){
 
             //var imageList = this.state.images === null ? [] : this.state.images;
             
             var imageList = this.state.images
             imageList.push(uri)
+            var b64List = this.state.base64
+            b64List.push(base64)
             console.log("imagesList", imageList)
             this.setState({images : imageList})
+            this.setState({base64 : b64List})
             console.log("yo",this.state.images);
           }
 
