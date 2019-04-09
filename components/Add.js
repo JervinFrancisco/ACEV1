@@ -203,6 +203,7 @@ console.log(this.state.carArea)
         // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
         const { status : st , permissions } = await Permissions.askAsync(Permissions.CAMERA);
         const { status : stR } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        let id=this.state.vehicleData[0]._id
         console.log(st,stR);
         console.log(permissions);
         if (st === 'granted' && stR === 'granted') {
@@ -221,11 +222,14 @@ console.log(this.state.carArea)
             console.log("yo",this.state.images);
             var formData = new FormData();
 
-            formData.append("files", base64); // number 123456 is immediately converted to a string "123456"
+            formData.append("file", uri); // number 123456 is immediately converted to a string "123456"
           
-            // var request = new XMLHttpRequest();
-            // request.open('POST', `${http}concealments/upload/${this.state.carArea}/${id}`);
-            // request.send(formData);
+            var request = new XMLHttpRequest();
+            request.open('POST', `${http}concealments/upload/${this.state.carArea}/${id}`);
+               // Add the required HTTP header for form data POST requests
+               request.setRequestHeader('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDc1OTUwNiwiZXhwIjoxNTU0ODQ1OTA2fQ.jMcy7ARN999OFfoEHflrzxaOPLY59LGd8r15Lvj_eM4');
+  
+            request.send(formData);
             
           }
 
