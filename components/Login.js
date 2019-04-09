@@ -17,6 +17,7 @@ export default class Login extends Component {
 
       loginPressed() {
         console.log("Login pressed");
+        this.props.navigation.navigate('Search');
       }
 
 
@@ -30,7 +31,7 @@ export default class Login extends Component {
               <View style={styles.formView}>
                 <TextInput style={styles.input} placeholder="employee id" placeholderTextColor="#00A9D5"></TextInput>
                 <TextInput style={styles.input} placeholder="password" placeholderTextColor="#00A9D5"></TextInput>
-                <TouchableOpacity style={styles.loginBtn} onPress={this.loginPressed()}><Text style={styles.btnText}>LOGIN</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.loginBtn} onPress={this.loginPressed.bind(this)}><Text style={styles.btnText}>LOGIN</Text></TouchableOpacity>
               </View>
             </KeyboardAvoidingView>
           );

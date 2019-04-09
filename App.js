@@ -28,7 +28,7 @@ const App = createStackNavigator(
     TestingComponent:TestingComponent
   },
   {
-    initialRouteName: "Add", //temporarily - will/should be 'Login'
+    initialRouteName: "Login", //temporarily - will/should be 'Login'
     defaultNavigationOptions: {
       headerTintColor: "#fff",
       headerTitleStyle: {
