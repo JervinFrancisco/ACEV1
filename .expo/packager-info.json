@@ -1,10 +1,10 @@
 {
   "expoServerPort": 19000,
   "webpackServerPort": null,
-  "expoServerNgrokUrl": "https://gh-9ce.anonymous.acev1.exp.direct",
-  "packagerNgrokUrl": "https://packager.gh-9ce.anonymous.acev1.exp.direct",
-  "ngrokPid": 18420,
+  "expoServerNgrokUrl": "https://5a-x64.anonymous.acev1.exp.direct",
+  "packagerNgrokUrl": "https://packager.5a-x64.anonymous.acev1.exp.direct",
+  "ngrokPid": 20452,
   "devToolsPort": 19002,
   "packagerPort": 19003,
-  "packagerPid": 18406
+  "packagerPid": 20429
 }
