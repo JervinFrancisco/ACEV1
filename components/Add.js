@@ -156,7 +156,7 @@ postConcealment=() => {
     data.append('location',this.state.location);
     data.append('date',2019);
     data.append('referenceNo',this.state.reference);
-    data.append('userId',this.state.userId);
+    data.append('userId',this.state.userId  );
     data.append('countFound',2019);
     data.append('discovered',`{"location":"${this.state.location}","userId":"qdwsdasda","referenceNo":"1222"}`);
 
