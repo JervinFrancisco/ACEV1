@@ -21,7 +21,7 @@ export default class Login extends Component {
         console.log("Login pressed");
         console.log("username",this.state.username);
         console.log("password",this.state.password)
-        if(this.state.username && this.state.password){
+        if(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(this.state.username) && this.state.password){
           this.props.navigation.navigate('Search');
         }else{
           alert("Please enter a valid username and password")
@@ -35,11 +35,11 @@ export default class Login extends Component {
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
               <View style={styles.logoView}>
                 <Image style={styles.logo} source={require("../assets/aceLogo.png")}></Image>
-                <Text style={styles.titleText}>Search or Add concealment methods using our growing database</Text>
+                <Text style={styles.titleText}>Advanced Conveyance Examinations </Text>
               </View>
               <View style={styles.formView}>
-                <TextInput style={styles.input} placeholder="employee id" placeholderTextColor="#00A9D5" onChange={(ev) => { this.setState({ username: ev.nativeEvent.text }) }}></TextInput>
-                <TextInput secureTextEntry style={styles.input} placeholder="password" placeholderTextColor="#00A9D5" onChange={(ev) => { this.setState({ password: ev.nativeEvent.text }) }}></TextInput>
+                <TextInput style={styles.input} placeholder="employee id/email" placeholderTextColor="#FFF" onChange={(ev) => { this.setState({ username: ev.nativeEvent.text }) }}></TextInput>
+                <TextInput secureTextEntry style={styles.input} placeholder="password" placeholderTextColor="#FFF" onChange={(ev) => { this.setState({ password: ev.nativeEvent.text }) }}></TextInput>
                 <TouchableOpacity style={styles.loginBtn} onPress={this.loginPressed.bind(this)}><Text style={styles.btnText}>LOGIN</Text></TouchableOpacity>
               </View>
             </KeyboardAvoidingView>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 170
   },
   titleText: {
-    color: "#00A9D5",
+    color: "#FFF",
     marginTop: 10,
     width: 190,
     textAlign: 'center'

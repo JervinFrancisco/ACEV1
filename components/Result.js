@@ -195,6 +195,7 @@ export default class Result extends React.Component {
     console.log(this.tabView.state.currentPage)
   };
   fToggle = () =>{
+    console.log("fTogg")
     frontToggle = true;
     backToggle = false;
     centerToggle = false;
@@ -202,6 +203,7 @@ export default class Result extends React.Component {
     this.setState({refresh : !this.state.refresh});
   }
   bToggle = () =>{
+    console.log("bTogg")
     frontToggle = false;
     backToggle = true;
     centerToggle = false;
@@ -209,6 +211,7 @@ export default class Result extends React.Component {
     this.setState({refresh : !this.state.refresh});
   }
   cToggle = () =>{
+    console.log("cTogg")
     frontToggle = false;
     backToggle = false;
     centerToggle = true;
@@ -216,6 +219,7 @@ export default class Result extends React.Component {
     this.setState({refresh : !this.state.refresh});
   }
   uToggle = () =>{
+    console.log("uTogg")
     frontToggle = false;
     backToggle = false;
     centerToggle = false;
@@ -223,32 +227,66 @@ export default class Result extends React.Component {
     this.setState({refresh : !this.state.refresh});
   }
   onScrollTab = () =>{
-    
-    console.log(this.tabView.state.currentPage);
-    switch(this.tabView.state.currentPage){
+    this.setState({ activeTab: this.state.activeTab = undefined });
+    // console.log(this.tabView.state.currentPage);
+    // switch(this.tabView.state.currentPage){
+    //   case 0:
+    //   console.log("front");
+    //   console.log(this.state.activePage);
+    //   console.log(this.state.activeTab);
+    //   this.fToggle()
+      
+    //   return;
+    //   case 1:
+    //   console.log("center");
+    //   this.cToggle()
+
+    //   return;
+    //   case 2:
+    //   console.log("under");
+    //   this.uToggle()
+
+    //   return;
+    //   case 3:
+    //   console.log("rear");
+    //   this.bToggle()
+    //   return;
+    //   default:
+    //   break;
+    //}
+  }
+  onTabChanged = (i, ref) =>{
+    console.log("FROM:",i.from);
+    console.log("To",i.i);
+    console.log(ref);
+
+    switch(i.i){
       case 0:
       console.log("front");
+      console.log(this.state.activePage);
+      console.log(this.state.activeTab);
       this.fToggle()
-      this.setState({ activeTab: this.state.activeTab = undefined })
-      break;
+      
+      return;
       case 1:
       console.log("center");
       this.cToggle()
-      this.setState({ activeTab: this.state.activeTab = undefined })
-      break;
+
+      return;
       case 2:
       console.log("under");
       this.uToggle()
-      this.setState({ activeTab: this.state.activeTab = undefined })
-      break;
+
+      return;
       case 3:
       console.log("rear");
       this.bToggle()
-      this.setState({ activeTab: this.state.activeTab = undefined })
-      break;
+      return;
       default:
       break;
     }
+
+
   }
 
   render() {
@@ -378,6 +416,7 @@ export default class Result extends React.Component {
 */}
         {this.state.isLoading = true &&
           <ScrollableTabView
+          onChangeTab={this.onTabChanged.bind(this)}
             refreshControlStyle={{}}
             renderTabBar={() => <ScrollableTabBar onScroll={this.onScrollTab} onPress={(yo) => console.log(yo)} />}
             style={{ backgroundColor: "#0D2847" }}

@@ -22,7 +22,7 @@ export default class Bulletins extends Component {
           return (
       <Container style={styles.container}>
         <Content>
-          <Card>
+          <Card style={styles.cardContainer}>
             <CardItem style={styles.cards}>
               <Left>
                 <Thumbnail square large source={require('../assets/drugs.jpeg')} />
@@ -79,6 +79,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#0D2847"
   },
   cards: {
+    backgroundColor: "#375B79",
+  },
+  cardContainer: {
     backgroundColor: "#375B79",
   }
 });
