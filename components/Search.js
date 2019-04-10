@@ -85,7 +85,7 @@ export default class Search extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDg0ODAzNSwiZXhwIjoxNTU0OTM0NDM1fQ.X4az6qapnIGTlzag_6heV61t4WFGGAiwtTf_TkuWCl4'
+        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDkyMjc2MCwiZXhwIjoxNTU1MDA5MTYwfQ.9u7ArBsPIu0SbWMVqD4EvmQgOE16UBgMaID1lTHqDfM'
       }
     }
 
@@ -210,10 +210,9 @@ export default class Search extends React.Component {
                   onValueChange={this.modelValueSaved.bind(this)}
                 >
                   <Picker.Item label="Civic" value="Civic" />
-                  <Picker.Item label="ATM Card" value="key1" />
-                  <Picker.Item label="Debit Card" value="key2" />
-                  <Picker.Item label="Credit Card" value="key3" />
-                  <Picker.Item label="Net Banking" value="key4" />
+                  <Picker.Item label="Civic1" value="Civic" />
+                  <Picker.Item label="Civic2" value="Civic" />
+                  <Picker.Item label="Civic3" value="Civic" />
                 </Picker>
             </View>
                 
@@ -230,10 +229,10 @@ export default class Search extends React.Component {
                   onValueChange={this.yearValueSaved.bind(this)}
                 >
                   <Picker.Item label="2019" value="2019" />
-                  <Picker.Item label="ATM Card" value="key1" />
-                  <Picker.Item label="Debit Card" value="key2" />
-                  <Picker.Item label="Credit Card" value="key3" />
-                  <Picker.Item label="Net Banking" value="key4" />
+                  <Picker.Item label="2018" value="2019" />
+                  <Picker.Item label="2017" value="2019" />
+                  <Picker.Item label="2016" value="2019" />
+                  
                 </Picker>
             </View>
               

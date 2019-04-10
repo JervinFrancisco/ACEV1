@@ -80,8 +80,9 @@ export default class Result extends React.Component {
 
   componentWillMount() {
     this.animatedValue = new Animated.Value(0)
-    this.componentDidMount()
-    this.forceUpdate()
+    console.log("HEYYYYYYDEEYRER")
+    // this.componentDidMount()
+    // this.forceUpdate()
   }
 
   componentDidMount() {
@@ -93,7 +94,7 @@ export default class Result extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDg0ODAzNSwiZXhwIjoxNTU0OTM0NDM1fQ.X4az6qapnIGTlzag_6heV61t4WFGGAiwtTf_TkuWCl4'
+        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDkyMjc2MCwiZXhwIjoxNTU1MDA5MTYwfQ.9u7ArBsPIu0SbWMVqD4EvmQgOE16UBgMaID1lTHqDfM'
       }
     }
     const { navigate } = this.props.navigation
@@ -607,7 +608,7 @@ export default class Result extends React.Component {
         <FloatingAction
           color={"#4AA7D1"}
           onPressMain={(yo) => {
-            { navigate('Add', { data: this.state.data }) }
+          navigate('Add', {data:this.state.data})
           }}
           showBackground={false}
           onStateChange={(yo) => { yo.isActive ? this.setState({ isActive: false }) : this.setState({ isActive: false }) }}
