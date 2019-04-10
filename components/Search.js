@@ -16,6 +16,7 @@ var s = require('./styles')
 var self
 const ref = React.createRef();
 const ref2 = React.createRef();
+let arr = []
 export default class Search extends React.Component {
 
   closeDrawer = () => {
@@ -33,17 +34,23 @@ export default class Search extends React.Component {
 
       car: [],
       makes: Makes.makes,
-      make: undefined,
+      make: 'ford',
       model: undefined,
       year: undefined,
       loading: true,
-      drawerOpen: false
+      drawerOpen: false,
+      arrYear: [2019,2018,2017]
       // voice: false,
       // speechToText: "No voice input"
     }
   }
 
   componentDidMount() {
+    
+
+    for(let i = 2019;i > 1989; i--){
+        arr.push(i.toString())
+    }
   }
   async componentWillMount() {
     await Font.loadAsync({
@@ -149,7 +156,9 @@ export default class Search extends React.Component {
   }
 
   render() {
-    console.log(Makes)
+    console.log("cars",this.state.makes,"END") 
+    console.log(Object.keys(this.state.makes)) 
+    console.log("makeeeees","")
     if (this.state.loading) {
       return false;
     }
@@ -160,7 +169,7 @@ export default class Search extends React.Component {
         ref={this.myRef}
         content={<SideBar na={this.navigateDrawer} />}
         type="displace"
-        //styles={drawerStyles}
+        //styles={drawerStyles} 
         openDrawerOffset={0.2}
         //tweenHandler={Drawer.tweenPresets.parallax}
         open={false}
@@ -189,7 +198,7 @@ export default class Search extends React.Component {
                 selectedValue={this.state.make}
                 onValueChange={this.makeValueSaved.bind(this)}>
                 {
-                  this.state.makes.map(make => (
+                  Object.keys(this.state.makes).map(make => (
                     <Picker.Item key={Date.now()} label={make} value={make} />
                   ))
                 }
@@ -209,10 +218,11 @@ export default class Search extends React.Component {
                   selectedValue={this.state.model}
                   onValueChange={this.modelValueSaved.bind(this)}
                 >
-                  <Picker.Item label="Civic" value="Civic" />
-                  <Picker.Item label="Civic1" value="Civic" />
-                  <Picker.Item label="Civic2" value="Civic" />
-                  <Picker.Item label="Civic3" value="Civic" />
+                  {
+                    this.state.makes[this.state.make].models.map(model => (
+                      <Picker.Item key={Date.now()} label={model} value={model} />
+                    ))
+                  }
                 </Picker>
             </View>
                 
@@ -228,10 +238,33 @@ export default class Search extends React.Component {
                   selectedValue={this.state.year}
                   onValueChange={this.yearValueSaved.bind(this)}
                 >
-                  <Picker.Item label="2019" value="2019" />
-                  <Picker.Item label="2018" value="2019" />
-                  <Picker.Item label="2017" value="2019" />
-                  <Picker.Item label="2016" value="2019" />
+
+                  {
+                    arr.map(year =>(
+                      <Picker.Item key={Date.now()} label={year} value={year} />
+                    ))
+                  }
+                  {/* <Picker.Item label="2019" value="2019" />
+                  <Picker.Item label="2018" value="2018" />
+                  <Picker.Item label="2017" value="2017" />
+                  <Picker.Item label="2016" value="2016" />
+                  <Picker.Item label="2015" value="2015" />
+                  <Picker.Item label="2014" value="2014" />
+                  <Picker.Item label="2013" value="2013" />
+                  <Picker.Item label="2012" value="2012" />
+                  <Picker.Item label="2011" value="2011" />
+                  <Picker.Item label="2010" value="2010" />
+                  <Picker.Item label="2009" value="2009" />
+                  <Picker.Item label="2008" value="2008" />
+                  <Picker.Item label="2007" value="2007" />
+                  <Picker.Item label="2006" value="2006" />
+                  <Picker.Item label="2005" value="2005" />
+                  <Picker.Item label="2004" value="2004" />
+                  <Picker.Item label="2003" value="2003" />
+                  <Picker.Item label="2002" value="2002" />
+                  <Picker.Item label="2001" value="2001" />
+                  <Picker.Item label="2000" value="2000" /> */}
+
                   
                 </Picker>
             </View>
