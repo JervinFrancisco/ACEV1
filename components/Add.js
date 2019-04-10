@@ -201,12 +201,9 @@ console.log("posthittttt badllllyyy")
     // navigate('Result')
   }
   static navigationOptions = {
-    headerStyle: {
-      backgroundColor: "#fff"
-    },
-    headerTintColor: "#000",
+    headerTintColor: "#fff",
     headerTitleStyle: {
-      color: "#000",
+      color: "#fff",
     },
     headerTitle: "Add a concealment method",
   }
@@ -305,7 +302,7 @@ console.log("posthittttt badllllyyy")
           <Content>
             <Form>
               <View style={{flexDirection:"row", alignItems:"center"}}>
-                <Text>Car Area</Text>
+                <Text style={{paddingLeft: 16, fontSize: 16}}>Car Area</Text>
                 <Item>
                   <Picker
                     mode="dropdown"
@@ -329,40 +326,38 @@ console.log("posthittttt badllllyyy")
               </Item>
               <Item floatingLabel>
                 <Label style={styles.listLabelText}>Description</Label>
-                <Input style={styles.inputFields} onChange={(ev) => { this.setState({ description: ev.nativeEvent.text }) }} />
+                <Input style={styles.descriptionInput} onChange={(ev) => { this.setState({ description: ev.nativeEvent.text }) }} />
               </Item>
               <Item floatingLabel>
                 <Label style={styles.listLabelText}>Employee Number</Label>
                 <Input style={styles.inputFields} onChange={(ev) => { this.setState({ userId: ev.nativeEvent.text }) }} />
               </Item>
-              <Item floatingLabel last>
+              <Item floatingLabel>
                 <Label style={styles.listLabelText}>Reference Number (optional)</Label>
                 <Input style={styles.inputFields} onChange={(ev) => { this.setState({ reference: ev.nativeEvent.text }) }} />
               </Item>
 
             </Form>
-            <Button iconLeft large block style={{ backgroundColor: "grey", marginTop: 10 }} onPress={this.cameraPressed.bind(this)} >
+            <Button transparent iconLeft large block style={{ backgroundColor: "grey", marginTop: 24, marginLeft: 16, marginRight: 16 }} onPress={this.cameraPressed.bind(this)} >
               <Ionicons name='md-camera' size={24} color="white" />
             </Button>
 
             <View style={styles.imageContainer}>
               {this.state.images &&
-
                 this.state.images.map((image, i) => (
-
                   <Image key={i} source={{ uri: image }} style={{ height: 80, width: 80, marginTop: 10, marginLeft: 10 }} />
-
                 ))}
             </View>
 
-            <TouchableOpacity onPress={() => { navigate("Result"), this.postConcealment() }} style={s.largeButton}>
-              <Text style={s.largeButtonText}>SUBMIT</Text>
-            </TouchableOpacity>
+            <Button block iconLeft onPress={() => { navigate("Result"), this.postConcealment() }} style={{backgroundColor:"#4AA7D1", height: 50, marginTop: 25, marginLeft: 16, marginRight: 16}}>
+                <Text style={{fontSize: 18, color:"#fff"}}>SUBMIT</Text>
+            </Button>
+
             <Container style={{ display: "none" }}>
               <Button onPress={() => { navigate('Result') }} ref={ref} title="Press Me" >
-
               </Button>
             </Container>
+
           </Content>
         </Container>
       </KeyboardAwareScrollView>

@@ -10,6 +10,7 @@ import Drawer from 'react-native-drawer'
 import { Container, Header, Content, Form, Item, Picker, Icon, Text, ListItem, Row, Button } from 'native-base';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Makes from '../assets/makes.json'
+import { ActionSheetProvider, connectActionSheet, } from "@expo/react-native-action-sheet";
 var s = require('./styles')
 
 var self
@@ -20,6 +21,10 @@ export default class Search extends React.Component {
   closeDrawer = () => {
     this.refs.drawer.close()
   };
+
+  showActionsheet = () => {
+    this.ActionSheet.show()
+  }
   
   constructor(props) {
     super(props)
@@ -85,7 +90,7 @@ export default class Search extends React.Component {
     }
 
     const { navigate } = this.props.navigation
-    fetch('http://10.70.136.221:3000/vehicles/honda/civic/2019', opts)
+    fetch('http://10.70.148.22:3000/vehicles/honda/civic/2019', opts)
       .then(resp => {
         console.log(resp)
         if (resp.status != 200) {
@@ -103,7 +108,7 @@ export default class Search extends React.Component {
 
   /* Navigation Bar */
   static navigationOptions = {
-    /* Hamburger Menu */
+
     headerLeft: (
       <TouchableOpacity
         style={s.menuButton}
@@ -126,14 +131,15 @@ export default class Search extends React.Component {
           <Ionicons name="md-today" size={24} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/*<TouchableOpacity
           style={s.menuButton}
           onPress={() => {
-            var yo = ref;
-            yo.current.props.onPress()
+            //var yo = ref;
+            //yo.current.props.onPress()
+            this.showActionsheet
           }}>
-          <Ionicons name="md-mic" size={24} color="white" />
-        </TouchableOpacity>
+          <Ionicons name="md-more" size={24} color="white" />
+        </TouchableOpacity>*/}
       </View>
     ),
   }
@@ -153,9 +159,9 @@ export default class Search extends React.Component {
       <Drawer
         ref={this.myRef}
         content={<SideBar na={this.navigateDrawer} />}
-        type="overlay"
-        styles={drawerStyles}
-        openDrawerOffset={100}
+        type="displace"
+        //styles={drawerStyles}
+        openDrawerOffset={0.2}
         //tweenHandler={Drawer.tweenPresets.parallax}
         open={false}
         tapToClose={true}
@@ -232,18 +238,23 @@ export default class Search extends React.Component {
             </View>
               
 
-
+{/*
             <View>
               <TouchableOpacity onPress={() => { this.savedData() }} style={s.largeButton}>
                 <Text style={s.largeButtonText}>VIEW VEHICLE</Text>
               </TouchableOpacity>
-            </View>
+</View>*/}
 
-              {/*}
-            <Button block iconLeft onPress={() => { this.savedData() }} style={{backgroundColor:"#4AA7D1", height: 50}}>
+<Button block iconLeft onPress={() => { this.savedData() }} style={{backgroundColor:"#4AA7D1", height: 50, marginBottom: 25}}>
                 <Icon name="car"></Icon>
-                <Text>View Vehicle</Text>
-          </Button>*/}
+                <Text style={{fontSize: 18}}>View Vehicle</Text>
+          </Button>
+{/*
+                  <Button block iconLeft transparent light>
+                    <Icon name="mic"></Icon>
+                    <Text style={{fontSize: 16}}>Use Voice</Text>
+</Button>*/}
+          
             </Form>
           </Content>
 
@@ -292,8 +303,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#0D2847",
     padding: 24,
     flexDirection:"row",
-    justifyContent:"center",
-    alignItems:"center"
+    justifyContent:"space-between",
+    alignItems:"center",
   },
   
   mmmForm: {
@@ -308,8 +319,9 @@ const styles = StyleSheet.create({
   },
 
   pickerLabelText: {
+    fontSize: 18,
     fontWeight: "600",
-    color: "#BBB",
+    color: "#84A2C4",
     letterSpacing: 1.5,
     width: "25%"
   },

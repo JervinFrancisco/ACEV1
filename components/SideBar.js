@@ -10,12 +10,13 @@ import {
   SwitchIOS,
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  StyleSheet
 } from 'react-native';
 
+import { Container } from 'native-base'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-import styles from './styles';
-import Button from './Button';
 
 export default class SideBar extends Component {
 
@@ -38,48 +39,69 @@ export default class SideBar extends Component {
     this.state.navigateDrawer("Tutorial")
   }
 
-  drawerTesting=()=>{
-    this.state.navigateDrawer("TestingComponent")
-  }
-
-
 
   render() {
 console.log(this.props)
     return (
+      <Container>
       <View style={styles.controlPanel}>
-        <Text style={styles.controlPanelWelcome}>
-         Ava Miller
-        </Text>
-        <Text style={styles.controlPanelWelcome2}>
-         ava_miller@cbsa.gc.ca
-        </Text>
-        
+        <View style={styles.drawerHeaderContainer}>
+          <Text style={styles.drawerTitleText}>Ava Miller</Text>
+          <Text style={styles.drawerSubtitleText}>ava_miller@cbsa.gc.ca</Text>
+        </View>
+
       <TouchableOpacity
-        style={styles.button}
-        underlayColor="#B5B5B5"
+        style={styles.drawerListItem}
           onPress={this.navDrawer2}>
-        <Text style={{color:"white", fontSize: 18}}>Play Tutorial</Text>
+        <Ionicons name="md-cube" color="white" size={24} style={{marginRight: 10}}></Ionicons>
+        <Text style={{color:"white", fontSize: 18}}>Tutorial</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.button}
-        underlayColor="#B5B5B5"
+        style={styles.drawerListItem}
         onPress={this.navDrawer}>
+        <Ionicons name="md-hammer" color="white" size={24} style={{marginRight: 10}}></Ionicons>
         <Text style={{color:"white", fontSize: 18}}>About Ace</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        underlayColor="#B5B5B5"
-        onPress={this.drawerTesting}>
-        <Text style={{color:"white", fontSize: 18}}>Testing</Text>
-      </TouchableOpacity>
       </View>
+      </Container>
     )
   }
 }
 
+const styles = StyleSheet.create({
+  controlPanel: {
+    flex: 1,
+    backgroundColor:"#05162E",
+    elevation: 2,
+  },
+
+  drawerHeaderContainer: {
+    borderBottomWidth: 2,
+    borderBottomColor: "#0D2847",
+    padding: 16
+  },
+
+  drawerListItem: {
+    height: 64,
+    paddingLeft: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottomWidth: 2,
+    borderBottomColor: "#0D2847",
+  },
+
+  drawerTitleText: {
+    fontSize: 24,
+    color: "#fff"
+  },
+
+  drawerSubtitleText: {
+    fontSize: 18,
+    color: "#84A2C4"
+  }
+
+})
 
 // export default class SideBar extends React.Component {
 //   render() {

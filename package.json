@@ -7,6 +7,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/react-native-action-sheet": "^2.1.0",
     "@valdio/react-native-scrollable-tabview": "^0.8.11",
     "accordion-collapse-react-native": "^0.1.9",
     "expo": "^32.0.0",

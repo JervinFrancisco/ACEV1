@@ -3,6 +3,7 @@ import { createStackNavigator, createAppContainer, createDrawerNavigator, Drawer
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { Drawer, Container, Header, Left, Body, Right, Title, Button, Icon, Content, Picker, Item } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
+
 export default class About extends Component {
     
     constructor(props) {

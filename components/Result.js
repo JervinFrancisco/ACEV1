@@ -16,7 +16,7 @@ var s = require('./styles')
 const { Circle, Rect, Path } = Svg;
 
 
-const http = "http://10.70.136.221:3000/"
+const http = "http://10.70.148.22:3000/"
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();
@@ -131,6 +131,7 @@ export default class Result extends React.Component {
   static navigationOptions = {
     headerStyle : {
       backgroundColor: "#05162E",
+      elevation: 0
     },
 
     headerRight: (
@@ -380,13 +381,13 @@ export default class Result extends React.Component {
             refreshControlStyle={{}}
             renderTabBar={() => <ScrollableTabBar onScroll={this.onScrollTab} onPress={(yo) => console.log(yo)} />}
             style={{ backgroundColor: "#0D2847" }}
-            tabBarTextStyle={{ color: "white"}}
+            tabBarTextStyle={{ color: "white", textAlign:"center", fontSize: 18}}
             tabBarUnderlineStyle={{ backgroundColor: "white" }}
             ref={(tabView) => { this.tabView = tabView; }}
             page={this.state.activeTab}
             initialPage={this.state.initialPage}>
             
-            <ScrollView tabLabel='Front/Engine'>
+            <ScrollView tabLabel={"Front/Engine"}>
               <View>
                 <Container>
                   <Content>
@@ -426,7 +427,7 @@ export default class Result extends React.Component {
           
             </ScrollView>
         
-            <ScrollView tabLabel="Center/Cabin" >
+            <ScrollView tabLabel={"Center/Cabin"} >
               <View>
                 <Container>
 
@@ -468,7 +469,7 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView tabLabel='Undercarriage/Wheels'>
+            <ScrollView tabLabel={"Undercarriage/Wheels"}>
               <View>
                 <Container >
                   <Content>
@@ -503,7 +504,7 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView  tabLabel="Rear/Trunk" >
+            <ScrollView  tabLabel={"Rear/Trunk"} >
               <View>
                 <Container >
 
