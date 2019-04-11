@@ -138,9 +138,32 @@ module.exports = StyleSheet.create({
     elevation: 1
   },
 
+  largeButtonOutline: {
+    borderWidth: 1, 
+    borderColor: "#4AA7D1", 
+    backgroundColor:"transparent",
+    marginLeft:16,
+    marginRight: 16
+  },
+
   largeButtonText: {
     color:"white",
     fontWeight: "600",
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: 16,
   },
+
+  largeButtonOutlineText:{
+    color: "#4AA7D1",
+    fontWeight: "600",
+    textAlign: "center",
+    fontSize: 16,
+  },
+
+  subtitleText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#84A2C4",
+    letterSpacing: 1.5,
+  }
 });

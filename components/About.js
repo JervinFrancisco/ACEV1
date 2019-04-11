@@ -3,6 +3,7 @@ import { createStackNavigator, createAppContainer, createDrawerNavigator, Drawer
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { Drawer, Container, Header, Left, Body, Right, Title, Button, Icon, Content, Picker, Item } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
+var s = require('./styles');
 
 export default class About extends Component {
     
@@ -20,57 +21,65 @@ export default class About extends Component {
       render() {
           return (
             <Container style={styles.container} >
-              <Image source={require('../assets/aceLogo.png')} style={styles.logo}
-              ></Image>
-              <Image source={require('../assets/dotmatrixlogo.png')} style={styles.dmLogo}
-              ></Image>
-              <Text style={styles.textBody}>
-                  The dotMatrix team: 
-              </Text>    
-                  <Text style={styles.textBody}>Jervin Francisco - Team Lead</Text>
-                  <Text style={styles.textBody}>Keanu Reeves - Design Lead</Text>
-                  <Text style={styles.textBody}>Cesar Guerrero - Backend Developer</Text>
-                  <Text style={styles.textBody}>Dharaksinh Raj - Backend Developer</Text>
-                  <Text style={styles.textBody}>Mike Jalowiecki - Frontend Developer</Text>
-              
+              <Image source={require('../assets/dotmatrixlogo.png')} style={styles.logo}></Image>
+                <View style={styles.listPad}>
+                  <Text style={styles.subtitleText}>TEAM LEAD</Text>
+                  <Text style={styles.textBody}>Jervin Francisco</Text>
+                </View>    
+                  
+                <View style={styles.listPad}>
+                  <Text style={styles.subtitleText}>DESIGN LEAD</Text>
+                  <Text style={styles.textBody}>Keanu Reeves</Text>
+                </View>
+
+                <View style={styles.listPad}>
+                  <Text style={styles.subtitleText}>BACKEND DEVELOPER</Text>
+                  <Text style={styles.textBody}>Cesar Guerrero</Text>
+                </View>
+
+                <View style={styles.listPad}>
+                  <Text style={styles.subtitleText}>BACKEND DEVELOPER</Text>
+                  <Text style={styles.textBody}>Dharaksinh Raj</Text>
+                </View>
+
+                <View style={styles.listPad}>
+                  <Text style={styles.subtitleText}>FRONTEND DEVELOPER</Text>
+                  <Text style={styles.textBody}>Mike Jalowiecki</Text>
+                </View>
+                  
             </Container>
           );
       }
-
-
 }
-
 
 const styles = StyleSheet.create({
   container: {
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#0D2847",
-    justifyContent: 'flex-start',
-    alignItems: 'center'
+    padding: 16
   },
+
   logo: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 225,
-    height: 117,
-    padding: 10
-    
-  },
-  dmLogo: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 214,
-    height: 87.5,
-    marginTop: 10,
-    marginBottom: 50
-    
+    marginBottom: 36
   },
 
   textBody: {
-    marginTop: 10,
-    marginLeft: 10,
     color: '#FFF',
-    fontSize: 15,
-    textAlign: 'left',
-    width: 300
+    fontSize: 24,
+    textAlign: 'center',
+  },
+
+  listPad: {
+    marginBottom: 24
+  },
+
+  subtitleText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#84A2C4",
+    letterSpacing: 1.5,
+    textAlign: "center"
   }
+
 })

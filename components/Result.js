@@ -688,12 +688,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  listLabelText: {
-    fontWeight: "600",
-    fontSize: 15,
-    color: "grey"
-  },
-
   itemPicker: {
     justifyContent: "center",
     alignItems: "center",

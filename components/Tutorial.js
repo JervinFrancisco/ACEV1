@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import ImageSlider from 'react-native-image-slider';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { StyleSheet, TouchableHighlight,Image, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, TouchableHighlight,Image, TouchableOpacity, View, Alert} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Container, Content, List, Icon, Left, Body, Right, Switch, Button } from 'native-base';
 import Onboarding from 'react-native-onboarding-swiper';
 
 
 const ref = React.createRef();
+
 export default class Tutorial extends Component {
     constructor(props) {
       super(props);
@@ -18,9 +19,15 @@ export default class Tutorial extends Component {
       headerStyle:{
         backgroundColor: "transparent"
       }
-      }
+    }
+
+    
    
     render() {
+      const Done = ({
+
+      })
+
       /*
       const {navigate} = this.props.navigation;
         return (
@@ -44,22 +51,22 @@ export default class Tutorial extends Component {
       return(
       <Onboarding pages={[
         {
-          backgroundColor: '#fff',
-          image: <Image source={require('../assets/car-icon.png')} />,
-          title: 'You can do stuff!',
-          subtitle: 'Done with React Native Onboarding Swiper',
+          backgroundColor: '#0D2847',
+          image: <Image style={{width:256, height:256}} source={require('../assets/onb_search.png')} />,
+          title: 'Quick and easy search',
+          subtitle: 'Find a vehicle by Make, Model & Year',
         },
         {
-          backgroundColor: '#fff',
-          image: <Image source={require('../assets/car-icon.png')} />,
-          title: 'More cool stuff.',
-          subtitle: 'This is a subtitle',
+          backgroundColor: '#0D2847',
+          image: <Image style={{width:256, height:256}} source={require('../assets/onb_bino.png')} />,
+          title: 'Browse hiding spots',
+          subtitle: 'View a list of concealment methods filtered by four vehicle zones',
         },
         {
-          backgroundColor: '#fff',
-          image: <Image source={require('../assets/car-icon.png')} />,
-          title: 'Even more!',
-          subtitle: 'Another subtitle here',
+          backgroundColor: '#0D2847',
+          image: <Image style={{width:256, height:256}} source={require('../assets/onb_doc.png')} />,
+          title: 'Document new findings',
+          subtitle: 'Create reports for newly discovered and existing concealment methods',
         },
       ]}/>)
       }

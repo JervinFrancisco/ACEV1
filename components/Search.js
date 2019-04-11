@@ -260,7 +260,7 @@ export default class Search extends React.Component {
 
 <Button block iconLeft onPress={() => { this.savedData() }} style={{backgroundColor:"#4AA7D1", height: 50, marginBottom: 25}}>
                 <Icon name="car"></Icon>
-                <Text style={{fontSize: 18}}>View Vehicle</Text>
+                <Text style={s.largeButtonText}>View Vehicle</Text>
           </Button>
 {/*
                   <Button block iconLeft transparent light>
@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
   },
 
   pickerLabelText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
     color: "#84A2C4",
     letterSpacing: 1.5,

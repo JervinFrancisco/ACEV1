@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem, Label } from 'native-base';
-import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated,  Keyboard, KeyboardAvoidingView, TextInput  } from 'react-native';
+import { Alert, View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated,  Keyboard, KeyboardAvoidingView, TextInput  } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import { ImagePicker, Permissions, Camera } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+var s = require('./styles')
 
 export default class Login extends Component {
     
@@ -24,24 +24,50 @@ export default class Login extends Component {
         if(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(this.state.username) && this.state.password){
           this.props.navigation.navigate('Search');
         }else{
-          alert("Please enter a valid username and password")
+          Alert.alert("Login Failed","Invalid email and/or password entered")
         }
         
       }
 
+      static navigationOptions = {
+
+        headerStyle:{
+          backgroundColor: "#020c1c",
+          elevation: 0
+        }
+        }
 
       render() {
           return (
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <KeyboardAvoidingView behavior="padding" style={styles.container} keyboardVerticalOffset="75">
+            <View style={{flex: 1, justifyContent:"center"}}>
               <View style={styles.logoView}>
                 <Image style={styles.logo} source={require("../assets/aceLogo.png")}></Image>
-                <Text style={styles.titleText}>Advanced Conveyance Examinations </Text>
               </View>
-              <View style={styles.formView}>
-                <TextInput style={styles.input} placeholder="employee id/email" placeholderTextColor="#FFF" onChange={(ev) => { this.setState({ username: ev.nativeEvent.text }) }}></TextInput>
-                <TextInput secureTextEntry style={styles.input} placeholder="password" placeholderTextColor="#FFF" onChange={(ev) => { this.setState({ password: ev.nativeEvent.text }) }}></TextInput>
-                <TouchableOpacity style={styles.loginBtn} onPress={this.loginPressed.bind(this)}><Text style={styles.btnText}>LOGIN</Text></TouchableOpacity>
+              
+                  <View style={styles.formView}>
+                  <View style={{marginBottom: 24}}>
+                  <Item style={styles.textInput} >
+                      <Icon name="md-person" style={{color:"#fff", marginLeft: 16, width: 24}}/>
+                      <Input style={styles.textInputText} placeholder="Email" placeholderTextColor="grey" onChange={(ev) => { this.setState({ username: ev.nativeEvent.text }) }}/>
+                    </Item>
+
+                    <Item style={styles.textInput}>
+                      <Icon active name="md-lock" style={{color:"#fff", marginLeft: 16, width: 24}}/>
+                      <Input style={styles.textInputText} secureTextEntry placeholder="Password" placeholderTextColor="grey" onChange={(ev) => { this.setState({ password: ev.nativeEvent.text }) }}/>
+                    </Item>
+    {/*}
+                    <TextInput style={styles.input} placeholder="employee id/email" placeholderTextColor="#FFF" onChange={(ev) => { this.setState({ username: ev.nativeEvent.text }) }}></TextInput>
+                    <TextInput secureTextEntry style={styles.input} placeholder="password" placeholderTextColor="#FFF" onChange={(ev) => { this.setState({ password: ev.nativeEvent.text }) }}></TextInput>
+              */}
+                  </View>
+                    
+                    <Button block style={s.largeButtonOutline} onPress={this.loginPressed.bind(this)}>
+                      <Text style={s.largeButtonOutlineText}>LOGIN</Text>
+                    </Button>
+                  </View>
               </View>
+              
             </KeyboardAvoidingView>
           );
       }
@@ -49,48 +75,36 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#0D2847",
+    backgroundColor: "#020c1c",
     flex: 1
   },
+
   logoView: {
     alignItems: 'center',
     justifyContent: 'center',
-    flexGrow: 1
+    marginBottom: 36
+    //flexGrow: 1
   },
-  logo: {
-    width: 150,
-    height: 78
-  },
-  formView: {
-    padding: 20,
-    marginBottom: 170
-  },
-  titleText: {
-    color: "#FFF",
-    marginTop: 10,
-    width: 190,
-    textAlign: 'center'
-  },
-  input: {
-    height: 40,
-    backgroundColor: '#0D3D58',
-    marginBottom: 20,
-    color: '#FFF',
-    paddingHorizontal: 10,
-    opacity: 0.7
-  },
-  loginBtn: {
-    backgroundColor: "#0D2847",
-    borderWidth: 1,
-    borderColor: '#00A9D5',
-    borderRadius: 3,
-    paddingVertical: 15
-  },
-  btnText: {
-    color: "#00A9D5",
-    textAlign: 'center',
-    fontWeight: '800'
 
+  logo: {
+    width: 350,
+    height: 69
+  },
+
+  formView: {
+    //backgroundColor: "red"
+  },
+
+  textInput: {
+    backgroundColor: "#0D2847", 
+    borderColor: "transparent",
+    //borderColor:"transparent",
+    marginBottom: 2,
+  },
+
+  textInputText: {
+    color:"#fff",
+    fontSize: 16
   }
 
 })

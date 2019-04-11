@@ -14,7 +14,7 @@ import {
   StyleSheet
 } from 'react-native';
 
-import { Container } from 'native-base'
+import { Container, Button, Icon } from 'native-base'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
@@ -54,15 +54,23 @@ console.log(this.props)
         style={styles.drawerListItem}
           onPress={this.navDrawer2}>
         <Ionicons name="md-cube" color="white" size={24} style={{marginRight: 10}}></Ionicons>
-        <Text style={{color:"white", fontSize: 18}}>Tutorial</Text>
+        <Text style={{color:"white", fontSize: 16}}>Tutorial</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.drawerListItem}
         onPress={this.navDrawer}>
         <Ionicons name="md-hammer" color="white" size={24} style={{marginRight: 10}}></Ionicons>
-        <Text style={{color:"white", fontSize: 18}}>About Ace</Text>
+        <Text style={{color:"white", fontSize: 16}}>About ACE</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.drawerListItem}
+        onPress={this.navDrawer}>
+        <Ionicons name="md-power" color="white" size={24} style={{marginRight: 10}}></Ionicons>
+        <Text style={{color:"white", fontSize: 16}}>Sign Out</Text>
+      </TouchableOpacity>
+
       </View>
       </Container>
     )
@@ -72,8 +80,9 @@ console.log(this.props)
 const styles = StyleSheet.create({
   controlPanel: {
     flex: 1,
-    backgroundColor:"#05162E",
+    //backgroundColor:"#05162E",
     elevation: 2,
+    backgroundColor:"#020c1c"
   },
 
   drawerHeaderContainer: {
@@ -87,8 +96,9 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     flexDirection: "row",
     alignItems: "center",
-    borderBottomWidth: 2,
-    borderBottomColor: "#0D2847",
+    //borderBottomWidth: 2,
+    //borderBottomColor: "#0D2847",
+    
   },
 
   drawerTitleText: {
@@ -97,7 +107,7 @@ const styles = StyleSheet.create({
   },
 
   drawerSubtitleText: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#84A2C4"
   }
 
