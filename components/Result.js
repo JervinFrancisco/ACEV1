@@ -87,7 +87,7 @@ export default class Result extends React.Component {
   }
  
   handleOnNavigateBack = () => {
-    const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation; 
     // console.log("AM I EVEN GETTING HERE?")
     navigate('Result')
     // this.setState({
