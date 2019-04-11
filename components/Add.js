@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem, Label } from 'native-base';
 import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, Animated, Keyboard, KeyboardAvoidingView  } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createAppContainer, StackActions, NavigationActions } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { ImagePicker, Permissions, Camera } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -11,7 +11,7 @@ var s = require('./styles');
 
 const ref = React.createRef();
 const front = React.createRef();
-const http = "http://10.70.158.155:3000/"    
+const http = "http://10.70.159.94:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
@@ -28,7 +28,8 @@ export default class Add extends Component {
           long: null,
           lat: null,
           images: [],
-          vehicleData: null
+          vehicleData: null,
+          foo: true
         };
       }
 
@@ -77,7 +78,6 @@ componentDidMount(){
   })
   console.log("YOOOO",data,"end here")
  
-
   }
 //   postConcealment(){
 //     console.log("reference", this.state.reference, "title", this.state.title, "description", this.state.description, "userID", this.state.userId, "area", this.state.carArea)
@@ -100,7 +100,8 @@ componentDidMount(){
 // }
 postConcealment=() => {
   console.log("reference",this.state.reference,"title",this.state.title,"description",this.state.description,"userID",this.state.userId,"area",this.state.carArea)
-  const {navigate} = this.props.navigation
+  const {navigate, goBack, isFocused, dangerouslyGetParent} = this.props.navigation
+  const { navigation } = this.props
   let id=this.state.vehicleData[0]._id
   console.log("sdasdsad",this.state.vehicleData)
 
@@ -188,12 +189,20 @@ console.log("this is data",data);
       method: 'post',
       headers: {
         "Content-Type": "application/json",
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDkyMjc2MCwiZXhwIjoxNTU1MDA5MTYwfQ.9u7ArBsPIu0SbWMVqD4EvmQgOE16UBgMaID1lTHqDfM",
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWY4OTE5NjJhNDRmMDUzZTg4MmNlZSIsImlhdCI6MTU1NTAwNzgwMCwiZXhwIjoxNTU1MDk0MjAwfQ.IpBNZOpaIeJX2ZZtrUOwkefz47WpYVOEcUmFsmQWWxs",
         "Content-Type": "multipart/form-data",
       },
       body: data
     }).then(res => {
+      console.log("GOING BACK")
+      console.log(isFocused(this));
+      const onNavigateBack = navigation.getParam('onNavigateBack','NoData')
+      onNavigateBack(true)
+      // this.props.navigation.state.params.onNavigateBack(this.state.foo)
+      // this.props.navigation.goBack()
       // console.log(res)
+    }).catch(err =>{
+      console.log("Error: ",err);
     });
 
 
@@ -362,7 +371,7 @@ console.log("this is data",data);
                 ))}
             </View>
 
-            <Button block iconLeft onPress={()=>{this.postConcealment(), navigate('Result')}} style={{backgroundColor:"#4AA7D1", height: 50, marginTop: 25, marginLeft: 16, marginRight: 16}}>
+            <Button block iconLeft onPress={()=>{this.postConcealment()}} style={{backgroundColor:"#4AA7D1", height: 50, marginTop: 25, marginLeft: 16, marginRight: 16}}>
                 <Text style={{fontSize: 18, color:"#fff"}}>SUBMIT</Text>
             </Button>
 

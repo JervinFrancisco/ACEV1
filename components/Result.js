@@ -16,7 +16,7 @@ var s = require('./styles')
 const { Circle, Rect, Path } = Svg;
 
 
-const http = "http://10.70.158.155:3000/"
+const http = "http://10.70.159.94:3000/"
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();
@@ -85,30 +85,52 @@ export default class Result extends React.Component {
     // this.componentDidMount()
     // this.forceUpdate()
   }
+ 
+  handleOnNavigateBack = () => {
+    const { navigate } = this.props.navigation;
+    // console.log("AM I EVEN GETTING HERE?")
+    navigate('Result')
+    // this.setState({
+    //   refresh:!this.state.refresh
+    // })
+    console.log("am i getting here")
+    this.fetchandrefetch(this.state.data)
+    
+  }
 
   componentDidMount() {
   
     // http://localhost:3000/concealments/5ca50af07c95490b99dab412
+ 
+    const { navigate } = this.props.navigation
+    const { navigation } = this.props
+    const data = navigation.getParam('data', 'NO DATA')
+    // let addNewData=navigation.getParam('addNewData', 'NO DATA')
+    // addNewData();
+    this.fetchandrefetch(data)
+    console.log("HEYYYY", data)
+    this.setState({ make: data[0].make, model: data[0].model, year: data[0].year })
+
+    this.setState({ data: data,
+      methodHave:false, })
+    
+    Animated.timing(this.animatedValue, {
+      toValue: 150,
+      duration: 1500
+    }).start();
+
+
+  }
+  fetchandrefetch=(data)=>{
     let opts = {
       // body:JSON.stringify(formData),
       method: "GET",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDkyMjc2MCwiZXhwIjoxNTU1MDA5MTYwfQ.9u7ArBsPIu0SbWMVqD4EvmQgOE16UBgMaID1lTHqDfM'
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWY4OTE5NjJhNDRmMDUzZTg4MmNlZSIsImlhdCI6MTU1NTAwNzgwMCwiZXhwIjoxNTU1MDk0MjAwfQ.IpBNZOpaIeJX2ZZtrUOwkefz47WpYVOEcUmFsmQWWxs"
       }
     }
-    const { navigate } = this.props.navigation
-    const { navigation } = this.props
-    const data = navigation.getParam('data', 'NO DATA')
-    // let addNewData=navigation.getParam('addNewData', 'NO DATA')
-    // addNewData();
-
-    console.log("HEYYYY", data)
-    this.setState({ make: data[0].make, model: data[0].model, year: data[0].year })
-
-    this.setState({ data: data,
-      methodHave:false, })
     fetch(`${http}concealments/${data[0].make}/${data[0].model}/${data[0].year}`, opts)
       .then(resp => resp.json())
       .then(data => {
@@ -128,13 +150,24 @@ export default class Result extends React.Component {
         })
       })
       .catch(err => console.log("Error", err.message))
-    Animated.timing(this.animatedValue, {
-      toValue: 150,
-      duration: 1500
-    }).start();
-
 
   }
+
+  shouldComponentUpdate(){
+    console.log("SHOULD THE COMPONENT UPDATE?!")
+    return true;
+  }
+
+  componentDidUpdate(){
+    console.log("CONSOLE DID UPDAAAAAAAATE");
+  }
+
+  componentWillUpdate(){
+    console.log("CONSOLE WIIIIILLLL UPDAAAAAATE");
+    
+  }
+
+
   static navigationOptions = {
     headerStyle : {
       backgroundColor: "#05162E",
@@ -156,18 +189,7 @@ export default class Result extends React.Component {
   tabView(c) {
     this.setState(activePage)
   }
-  toggle = () => {
-    this.setState({ hover: !this.state.hover });
-  };
-  toggle2 = () => {
-    this.setState({ hover2: !this.state.hover2 });
-  };
-  toggle3 = () => {
-    this.setState({ hover3: !this.state.hover3 });
-  };
-  toggle4 = () => {
-    this.setState({ hover4: !this.state.hover4 });
-  };
+  
 
   logger = () => {
     console.log("HOOOORAY HOOOOORAY WOOP WWOOOOOOP");
@@ -647,7 +669,8 @@ export default class Result extends React.Component {
           color={"#4AA7D1"}
           onPressMain={(yo) => {
             this.setState({ methodHave :true})
-          navigate('Add', {data:this.state.data})
+          navigate('Add', {data:this.state.data,
+                          onNavigateBack: this.handleOnNavigateBack})
           }}
           showBackground={false}
           onStateChange={(yo) => { yo.isActive ? this.setState({ isActive: false }) : this.setState({ isActive: false }) }}
