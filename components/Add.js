@@ -11,7 +11,7 @@ var s = require('./styles');
 
 const ref = React.createRef();
 const front = React.createRef();
-const http = "http://10.70.148.22:3000/"    
+const http = "http://10.70.158.155:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
@@ -220,6 +220,7 @@ console.log("this is data",data);
       carArea: value
     });
   }
+
 
   cameraPressed = async (ev) => {
  

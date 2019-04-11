@@ -16,7 +16,7 @@ var s = require('./styles')
 const { Circle, Rect, Path } = Svg;
 
 
-const http = "http://10.70.148.22:3000/"
+const http = "http://10.70.158.155:3000/"
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();
@@ -59,6 +59,7 @@ export default class Result extends React.Component {
       rearSelected: false,
       centerSelected: false,
       refresh: false,
+      methodHave:false
     }
 
   }
@@ -100,10 +101,14 @@ export default class Result extends React.Component {
     const { navigate } = this.props.navigation
     const { navigation } = this.props
     const data = navigation.getParam('data', 'NO DATA')
+    // let addNewData=navigation.getParam('addNewData', 'NO DATA')
+    // addNewData();
+
     console.log("HEYYYY", data)
     this.setState({ make: data[0].make, model: data[0].model, year: data[0].year })
 
-    this.setState({ data: data })
+    this.setState({ data: data,
+      methodHave:false, })
     fetch(`${http}concealments/${data[0].make}/${data[0].model}/${data[0].year}`, opts)
       .then(resp => resp.json())
       .then(data => {
@@ -113,6 +118,7 @@ export default class Result extends React.Component {
         let center = data[0].center.concealment.length > 0 ? data[0].center.concealment : null
         console.log("this is all the data", data[0]._id);
         this.setState({
+          
           data: data,
           undercarriage: undercarriage,
           front: front,
@@ -289,9 +295,41 @@ export default class Result extends React.Component {
 
 
   }
+ refetch=()=>{
+   this.setState({methodHave:false});
+  let opts = {
+    // body:JSON.stringify(formData),
+    method: "GET",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDkyMjc2MCwiZXhwIjoxNTU1MDA5MTYwfQ.9u7ArBsPIu0SbWMVqD4EvmQgOE16UBgMaID1lTHqDfM'
+    }
+  }
+  fetch(`${http}concealments/${this.state.make}/${this.state.model}/${this.state.year}`, opts)
+  .then(resp => resp.json())
+  .then(data => {
+    let rear = data[0].rear.concealment.length > 0 ? data[0].rear.concealment : null
+    let front = data[0].front.concealment.length > 0 ? data[0].front.concealment : null
+    let undercarriage = data[0].undercarriage.concealment.length > 0 ? data[0].undercarriage.concealment : null
+    let center = data[0].center.concealment.length > 0 ? data[0].center.concealment : null
+    console.log("this is all the data", data[0]._id);
+    this.setState({
+      
+      data: data,
+      undercarriage: undercarriage,
+      front: front,
+      rear: rear,
+      center: center,
+      isLoading: false
+    })
+  })
+ }
 
   render() {
-    const { navigate } = this.props.navigation;
+    if(this.state.methodHave) {this.refetch()
+    }
+      const { navigate } = this.props.navigation;
 
     return (
       <Container>
@@ -608,6 +646,7 @@ export default class Result extends React.Component {
         <FloatingAction
           color={"#4AA7D1"}
           onPressMain={(yo) => {
+            this.setState({ methodHave :true})
           navigate('Add', {data:this.state.data})
           }}
           showBackground={false}
