@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem, Label } from 'native-base';
-import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, Animated, Keyboard, KeyboardAvoidingView  } from 'react-native';
+import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, Animated, Keyboard, KeyboardAvoidingView, ActivityIndicator   } from 'react-native';
 import { createStackNavigator, createAppContainer, StackActions, NavigationActions } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { ImagePicker, Permissions, Camera } from 'expo';
@@ -11,7 +11,7 @@ var s = require('./styles');
 
 const ref = React.createRef();
 const front = React.createRef();
-const http = "http://10.70.159.94:3000/"    
+const http = "http://10.70.204.251:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
@@ -29,7 +29,10 @@ export default class Add extends Component {
           lat: null,
           images: [],
           vehicleData: null,
-          foo: true
+          foo: true,
+          zone: null,
+          zones: ['Front/Engine','Center/Cabin','Undercarriage/Wheels','Rear/Trunk'],
+          isLoading: false
         };
       }
 
@@ -45,14 +48,12 @@ export default class Add extends Component {
           lat: position.coords.latitude,
           long: position.coords.longitude
         });
-        console.log(this.state.lat);
-        console.log(this.state.long);
-        console.log(Date.now())
+     
 
         fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD-NU9g6gKIAc2cZu1xQ6LwiKISOs0Ia58&address=' + `${this.state.lat}` + ',' + `${this.state.long}`  )
         .then((response) => response.json())
         .then((responseJson) => {
-         console.log(responseJson.results[0])
+     
          this.setState({
            location:`${responseJson.results[0].address_components[2].long_name},${responseJson.results[0].address_components[4].long_name}`
          })
@@ -77,10 +78,20 @@ componentDidMount(){
   this.getLocation()
   const { navigation } = this.props
   const data = navigation.getParam('data', 'NO DATA')
+  this.setState({vehicleData: data})
+
+  const zone = navigation.getParam('zone','noData')
   this.setState({
-    vehicleData:data
+    zone
   })
-  console.log("YOOOO",data,"end here")
+  console.log('zone', zone)
+  var newArray = this.state.zones.filter( (word) => word != zone)
+  newArray.unshift(zone)
+ 
+  this.setState({
+    zones: newArray
+  })
+  //console.log("YOOOO",data,"end here")
  
   }
 //   postConcealment(){
@@ -102,21 +113,40 @@ componentDidMount(){
 //     let countofdiscoveredFound = countFound + 1
 
 // }
-
-
-postConcealment=() => {
-  console.log("reference",this.state.reference,"title",this.state.title,"description",this.state.description,"userID",this.state.userId,"area",this.state.carArea)
-  const {navigate, goBack, isFocused, dangerouslyGetParent} = this.props.navigation
+postConcealment= async () => {
+ const {navigate, goBack, isFocused, dangerouslyGetParent} = this.props.navigation
   const { navigation } = this.props
   let id=this.state.vehicleData[0]._id
-  console.log("sdasdsad",this.state.vehicleData)
-
+ 
   let vehicleDataKeys=Object.keys(this.state.vehicleData[0])
   let checkForArea=vehicleDataKeys.filter(vechicleArea=>vechicleArea===this.state.carArea)
   let checkForAreaIndex=checkForArea[0]
   let countFound=1
-  console.log("YOOO id",id)
+
   let countofdiscoveredFound=countFound + 1
+
+  const scone = navigation.getParam('zone','noData')
+  console.log("WHERE THE HECK IS THE ZONE: ",scone)
+  switch(this.state.zone){
+    case 'Front/Engine':
+    console.log("front hit")
+    await this.setState({carArea: 'front'})
+    break;
+    case 'Center/Cabin':
+    console.log("center hit")
+    await this.setState({carArea: 'center'})
+    break;
+    case 'Undercarriage/Wheels':
+    console.log("under carriage hit")
+    await this.setState({carArea: 'undercarriage'})
+    break;
+    case 'Rear/Trunk':
+    console.log("trunk hit")
+    await this.setState({carArea: 'rear'})
+    break;
+    default:
+    break;
+  }
 
   
 
@@ -128,7 +158,7 @@ postConcealment=() => {
   // let data=
   //   `title=${this.state.title}&description=${this.state.description}&location=Ottawa%2C%20ON&date=2017&referenceNo=${this.state.reference}&countFound=1&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D`
 
-    console.log(this.state.location)
+   
 
     // let data = {
     //   title: this.state.title,
@@ -164,7 +194,7 @@ postConcealment=() => {
     data.append('date',2019);
     data.append('referenceNo',this.state.reference);
     data.append('userId',this.state.userId  );
-    data.append('countFound',2019);
+    // data.append('countFound',2019);
     data.append('discovered',`{"location":"${this.state.location}","userId":"qdwsdasda","referenceNo":"1222"}`);
 
 
@@ -181,32 +211,35 @@ postConcealment=() => {
     //   });
     // }
     const photos = this.state.images
-    console.log(photos)
+
 photos.forEach((photo) => {
-  // console.log(photo);
+
     data.append('file', {
     uri: photo,
     type: 'image/jpeg', // or photo.type
     name: photo
   });  
 });
-console.log("this is data",data);
+
     fetch(`${http}concealments/${this.state.carArea}/${id}`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json",
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWY4OTE5NjJhNDRmMDUzZTg4MmNlZSIsImlhdCI6MTU1NTAwNzgwMCwiZXhwIjoxNTU1MDk0MjAwfQ.IpBNZOpaIeJX2ZZtrUOwkefz47WpYVOEcUmFsmQWWxs",
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWEzZTViZjJlMjkzMWUzMTYwZmRkNSIsImlhdCI6MTU1NTAzMDgzOSwiZXhwIjoxNTU1MTE3MjM5fQ.l907gfjYDWDBEEFjyMAvk1BD8RjTXqIOCv7RuPo8XaY",
         "Content-Type": "multipart/form-data",
       },
       body: data
     }).then(res => {
-      console.log("GOING BACK")
-      console.log(isFocused(this));
+  
+
       const onNavigateBack = navigation.getParam('onNavigateBack','NoData')
       onNavigateBack(true)
+      this.setState({
+        isLoading: false
+      })
       // this.props.navigation.state.params.onNavigateBack(this.state.foo)
       // this.props.navigation.goBack()
-      // console.log(res)
+
     }).catch(err =>{
       console.log("Error: ",err);
     });
@@ -230,7 +263,7 @@ console.log("this is data",data);
 
 
   onValueChange2 = (value) => {
-    console.log("value", value)
+
     this.setState({
       carArea: value
     });
@@ -318,7 +351,12 @@ console.log("this is data",data);
   }
   render() {
     const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
+
+    
+
     return (
+   
       <KeyboardAwareScrollView
         style={{ backgroundColor: '#4c69a5' }}
         resetScrollToCoords={{ x: 0, y: 100 }}
@@ -326,8 +364,23 @@ console.log("this is data",data);
         scrollEnabled={true}
         extraScrollHeight={1000}
       >
+
+      
         <Container style={styles.container}>
+
+         {this.state.isLoading  &&
+        <ActivityIndicator size="large" color="#4AA7D" 
+        style ={{  
+        justifyContent: "center",
+        marginTop: 200,
+        alignItems: "center",
+  
+       
+}} />
+       }
+         {!this.state.isLoading  &&
           <Content>
+        
             <Form>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Text style={{paddingLeft: 16, fontSize: 16}}>Car Area</Text>
@@ -340,10 +393,12 @@ console.log("this is data",data);
                     selectedValue={this.state.carArea}
                     onValueChange={this.onValueChange2}>
 
-                    <Picker.Item label="Front/Engine" value="front" />
-                    <Picker.Item label="Center/Cabin" value="center" />
-                    <Picker.Item label="Wheels/Undercarriage" value="undercarriage" />
-                    <Picker.Item label="Rear/Trunk" value="rear" />
+                  {
+                    this.state.zones.map(zone =>(
+                      <Picker.Item key={Date.now()} label={zone} value={zone} />
+                    ))
+                  }
+
                   </Picker>
                 </Item>
               </View>
@@ -376,11 +431,12 @@ console.log("this is data",data);
                   <Image key={i} source={{ uri: image }} style={{ height: 80, width: 80, marginTop: 10, marginLeft: 10 }} />
                 ))}
             </View>
-
+    
+      
             <Button block iconLeft onPress={()=>{this.postConcealment()}} style={{backgroundColor:"#4AA7D1", height: 50, marginTop: 25, marginLeft: 16, marginRight: 16}}>
                 <Text style={{fontSize: 16, fontWeight:"600", color:"#fff"}}>SUBMIT</Text>
             </Button>
-
+        
             <Container style={{ display: "none" }}>
               <Button onPress={() => { 
       
@@ -388,9 +444,11 @@ console.log("this is data",data);
                 }} ref={ref} title="Press Me" >
               </Button>
             </Container>
-
+          
           </Content>
+         }
         </Container>
+        
       </KeyboardAwareScrollView>
     );
   }

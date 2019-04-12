@@ -16,7 +16,7 @@ var s = require('./styles')
 const { Circle, Rect, Path } = Svg;
 
 
-const http = "http://10.70.159.94:3000/"
+const http = "http://10.70.204.251:3000/"
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();
@@ -60,6 +60,7 @@ export default class Result extends React.Component {
       centerSelected: false,
       refresh: false,
       methodHave:false,
+      currentTab: null,
       makeTitle: null,
       modelTitle: null,
       yearTitle: null
@@ -137,7 +138,7 @@ export default class Result extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWY4OTE5NjJhNDRmMDUzZTg4MmNlZSIsImlhdCI6MTU1NTAwNzgwMCwiZXhwIjoxNTU1MDk0MjAwfQ.IpBNZOpaIeJX2ZZtrUOwkefz47WpYVOEcUmFsmQWWxs"
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWEzZTViZjJlMjkzMWUzMTYwZmRkNSIsImlhdCI6MTU1NTAzMDgzOSwiZXhwIjoxNTU1MTE3MjM5fQ.l907gfjYDWDBEEFjyMAvk1BD8RjTXqIOCv7RuPo8XaY"
       }
     }
     fetch(`${http}concealments/${data[0].make}/${data[0].model}/${data[0].year}`, opts)
@@ -149,7 +150,7 @@ export default class Result extends React.Component {
         let center = data[0].center.concealment.length > 0 ? data[0].center.concealment : null
         console.log("this is all the data", data[0]._id);
         this.setState({
-          
+          id:data[0]._id,
           data: data,
           undercarriage: undercarriage,
           front: front,
@@ -159,22 +160,21 @@ export default class Result extends React.Component {
         })
       })
       .catch(err => console.log("Error", err.message))
-
   }
 
-  shouldComponentUpdate(){
-    console.log("SHOULD THE COMPONENT UPDATE?!")
-    return true;
-  }
+  // shouldComponentUpdate(){
+  //   //console.log("SHOULD THE COMPONENT UPDATE?!")
+  //   return true;
+  // }
 
-  componentDidUpdate(){
-    console.log("CONSOLE DID UPDAAAAAAAATE");
-  }
+  // componentDidUpdate(){
+  //   //console.log("CONSOLE DID UPDAAAAAAAATE");
+  // }
 
-  componentWillUpdate(){
-    console.log("CONSOLE WIIIIILLLL UPDAAAAAATE");
+  // componentWillUpdate(){
+  //   //console.log("CONSOLE WIIIIILLLL UPDAAAAAATE");
     
-  }
+  // }
 
 
   static navigationOptions = {
@@ -293,73 +293,49 @@ export default class Result extends React.Component {
     //   break;
     //}
   }
-  onTabChanged = (i, ref) =>{
+  onTabChanged =  async (i, ref) =>{
     console.log("FROM:",i.from);
     console.log("To",i.i);
-    console.log(ref);
-
+    
     switch(i.i){
       case 0:
       console.log("front");
-      console.log(this.state.activePage);
-      console.log(this.state.activeTab);
       this.fToggle()
+      await this.setState({currentTab : 'Front/Engine'})
+      console.log(this.state.currentTab)
       
       return;
       case 1:
       console.log("center");
       this.cToggle()
+      await this.setState({currentTab : 'Center/Cabin'})
+      console.log(this.state.currentTab)
 
       return;
       case 2:
       console.log("under");
       this.uToggle()
+      await this.setState({currentTab : 'Undercarriage/Wheels'})
+      console.log(this.state.currentTab)
 
       return;
       case 3:
       console.log("rear");
       this.bToggle()
+      await this.setState({currentTab : 'Rear/Trunk'})
+      console.log(this.state.currentTab)
       return;
       default:
       break;
     }
 
+    
+
 
   }
- refetch=()=>{
-   this.setState({methodHave:false});
-  let opts = {
-    // body:JSON.stringify(formData),
-    method: "GET",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDkyMjc2MCwiZXhwIjoxNTU1MDA5MTYwfQ.9u7ArBsPIu0SbWMVqD4EvmQgOE16UBgMaID1lTHqDfM'
-    }
-  }
-  fetch(`${http}concealments/${this.state.make}/${this.state.model}/${this.state.year}`, opts)
-  .then(resp => resp.json())
-  .then(data => {
-    let rear = data[0].rear.concealment.length > 0 ? data[0].rear.concealment : null
-    let front = data[0].front.concealment.length > 0 ? data[0].front.concealment : null
-    let undercarriage = data[0].undercarriage.concealment.length > 0 ? data[0].undercarriage.concealment : null
-    let center = data[0].center.concealment.length > 0 ? data[0].center.concealment : null
-    console.log("this is all the data", data[0]._id);
-    this.setState({
-      
-      data: data,
-      undercarriage: undercarriage,
-      front: front,
-      rear: rear,
-      center: center,
-      isLoading: false
-    })
-  })
- }
 
   render() {
-    if(this.state.methodHave) {this.refetch()
-    }
+
       const { navigate } = this.props.navigation;
 
     return (
@@ -484,7 +460,13 @@ export default class Result extends React.Component {
           </View>
         }
 */}
-        {this.state.isLoading = true &&
+        {this.state.isLoading  &&
+         <ActivityIndicator size="large" color="#0000ff" />
+        }
+
+          {!this.state.isLoading  &&
+       
+   
           <ScrollableTabView
           onChangeTab={this.onTabChanged.bind(this)}
             refreshControlStyle={{}}
@@ -496,8 +478,8 @@ export default class Result extends React.Component {
             page={this.state.activeTab}
             initialPage={this.state.initialPage}>
             
-            <ScrollView tabLabel={"Front/Engine"}>
-              <View>
+            <ScrollView tabLabel={"Front/Engine"} style={styles.scroller}>
+              <View style={styles.scroller}>
                 <Container>
                   <Content>
                     {this.state.showPlayerControls ? (
@@ -520,7 +502,7 @@ export default class Result extends React.Component {
                           key={concealment._id}
                           leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
                           title={concealment.title}
-                          onPress={() => navigate('Details', { data: concealment })}
+                          onPress={() => navigate('Details', { data: concealment, id:this.state.id })}
                         />
                       ), )
 
@@ -536,8 +518,8 @@ export default class Result extends React.Component {
           
             </ScrollView>
         
-            <ScrollView tabLabel={"Center/Cabin"} >
-              <View>
+            <ScrollView tabLabel={"Center/Cabin"} style={styles.scroller}>
+              <View style={styles.scroller}>
                 <Container>
 
                   <Content>
@@ -578,8 +560,8 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView tabLabel={"Undercarriage/Wheels"}>
-              <View>
+            <ScrollView tabLabel={"Undercarriage/Wheels"} style={styles.scroller}>
+              <View style={styles.scroller}>
                 <Container >
                   <Content>
                     {this.state.showPlayerControls ? (
@@ -613,8 +595,8 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView  tabLabel={"Rear/Trunk"} >
-              <View>
+            <ScrollView  tabLabel={"Rear/Trunk"} style={styles.scroller}>
+              <View style={styles.scroller}>
                 <Container >
 
                   <Content>
@@ -655,7 +637,8 @@ export default class Result extends React.Component {
             </ScrollView>
           
           </ScrollableTabView>
-        }
+               }
+      
         <Container style={{ display: "none" }}>
           <Button onPress={() => { navigate('Search') }} ref={ref} title="Press Me" >
 
@@ -678,8 +661,9 @@ export default class Result extends React.Component {
           color={"#4AA7D1"}
           onPressMain={(yo) => {
             this.setState({ methodHave :true})
-          navigate('Add', {data:this.state.data,
-                          onNavigateBack: this.handleOnNavigateBack})
+            navigate('Add', {data:this.state.data,
+                             onNavigateBack: this.handleOnNavigateBack,
+                             zone:this.state.currentTab})
           }}
           showBackground={false}
           onStateChange={(yo) => { yo.isActive ? this.setState({ isActive: false }) : this.setState({ isActive: false }) }}
@@ -760,6 +744,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     color:"#fff"
-  }
+  },
+  scroller: {
+    height: 400,
+    marginBottom: 2
+  },
 
 })

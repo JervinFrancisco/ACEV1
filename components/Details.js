@@ -9,6 +9,7 @@ import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-co
 import { Divider } from 'react-native-elements';
 
 const ref = React.createRef();
+const http = "http://10.70.204.251:3000/"    
 
 
 export default class Details extends Component {
@@ -57,8 +58,51 @@ export default class Details extends Component {
     }, 4000)
   }
 
-  componentWillMount() {
 
+
+  
+  postDiscovered(){
+    console.log("postDiscovered",this.state.data)
+    let formData={
+      "location":this.state.data.location,
+        "referenceNo":this.state.data.referenceNo,
+        "userID":this.state.data.userId,
+    }
+    var XHR = new XMLHttpRequest();
+var urlEncodedData = "";
+var urlEncodedDataPairs = [];
+var name;
+
+// Turn the data object into an array of URL-encoded key/value pairs.
+for(name in formData) {
+console.log(name);
+urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(formData[name]));
+}
+
+// Combine the pairs into a single string and replace all %-encoded spaces to 
+// the '+' character; matches the behaviour of browser form submissions.
+urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+
+// Define what happens on successful data submission
+XHR.addEventListener('load', function(event) {
+alert('Yeah! Data sent and response loaded.');
+});
+
+// Define what happens in case of error
+XHR.addEventListener('error', function(event) {
+alert('Oops! Something goes wrong.');
+});
+
+// Set up our request
+XHR.open('POST', `${http}concealments/front/discovered/${this.state.parentid}/${this.state.data._id}`);
+
+// Add the required HTTP header for form data POST requests
+XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWEzZTViZjJlMjkzMWUzMTYwZmRkNSIsImlhdCI6MTU1NTAzMDgzOSwiZXhwIjoxNTU1MTE3MjM5fQ.l907gfjYDWDBEEFjyMAvk1BD8RjTXqIOCv7RuPo8XaY");
+
+
+// Finally, send our data.
+XHR.send(urlEncodedData);
 
   }
 
@@ -66,13 +110,14 @@ export default class Details extends Component {
     const { navigate } = this.props.navigation
     const { navigation } = this.props
     const data = navigation.getParam('data', 'NO DATA')
-    console.log("tis the dsata", data)
+    const parentid = navigation.getParam('id', 'NO DATA')
     let images = data.src.map((img, i) => { return { id: i, url: `http://10.70.158.155:3000/${img}` } })
+
     let position = this.state.position === images.id ? 0 : this.state.position + 1
     let [a, ...rest]=data.discovered
     console.log("rest",rest);
     console.log("first", a)
-    this.setState({ title: data.title, description: data.description, dataSource: images, position: position, firstDiscovered:a,restDiscovered:rest })
+    this.setState({ title: data.title, description: data.description, dataSource: images, position: position, firstDiscovered:a,restDiscovered:rest,data,parentid })
     this.showPlayerControls()
 
   }
@@ -83,7 +128,8 @@ export default class Details extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
-
+console.log("dsadasd",this.state.images)
+  
 
     return (
       <Container>
@@ -146,11 +192,13 @@ export default class Details extends Component {
         </ScrollView>
         {this.state.showPlayerControls ? (
           <Footer style ={styles.bottomView} >
-            <FooterTab style= {{backgroundColor:'#fff' }}>
-            <Ionicons style={{marginTop:6.5, marginLeft:10}}name="md-eye" size={24} color="white" />
-                <Text style={{color:"white", fontSize: 16}}>Discovered something here?</Text>
-              <Button  >
-                <Text  style={{color:"white", fontSize: 16, fontWeight: "600"}}>YES</Text>
+            <FooterTab style= {{backgroundColor:'#0D2847' }}>
+            <Ionicons style={{marginTop:6.5, marginLeft:10}}name="md-eye" size={32} color="white" />
+                <Text style={{width:230, color:"white", fontSize: 17, marginTop:13.5, marginLeft:18}}>Discovered Something Here?</Text>
+          
+      
+              <Button onPress={()=>{this.postDiscovered()}} >
+                <Text  style={{color:"white", fontSize: 17}}> Yes</Text>
               </Button>
               <Button>
                 <Text style={{color:"white", fontSize: 16, fontWeight:"600"}}>NO</Text>

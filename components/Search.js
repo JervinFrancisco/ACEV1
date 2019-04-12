@@ -5,7 +5,7 @@ import DropDowns from './DropDowns';
 import SideBar from './SideBar';
 import { Ionicons } from '@expo/vector-icons';
 import { Font, AppLoading } from 'expo';
-import { StyleSheet, TouchableHighlight, Image, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableHighlight, Image, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import Drawer from 'react-native-drawer'
 import { Container, Header, Content, Form, Item, Picker, Icon, Text, ListItem, Row, Button } from 'native-base';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
@@ -35,12 +35,13 @@ export default class Search extends React.Component {
       car: [],
       makes: Makes.makes,
       make: 'Ford',
-      model: undefined,
-      year: undefined,
-      loading: true,
+      model: 'Aerostar',
+      year: '2019',
+      isLoading: false,
       drawerOpen: false,
       arrYear: [2019,2018,2017],
-      data: null
+      data: null,
+      loading:true
       
       // voice: false,
       // speechToText: "No voice input"
@@ -88,27 +89,33 @@ export default class Search extends React.Component {
   }
 
   savedData() {
+    this.setState({
+      isLoading: true
+    })
     let opts = {
       // body:JSON.stringify(formData),
       method: "GET",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWY4OTE5NjJhNDRmMDUzZTg4MmNlZSIsImlhdCI6MTU1NTAwNzgwMCwiZXhwIjoxNTU1MDk0MjAwfQ.IpBNZOpaIeJX2ZZtrUOwkefz47WpYVOEcUmFsmQWWxs"
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWEzZTViZjJlMjkzMWUzMTYwZmRkNSIsImlhdCI6MTU1NTAzMDgzOSwiZXhwIjoxNTU1MTE3MjM5fQ.l907gfjYDWDBEEFjyMAvk1BD8RjTXqIOCv7RuPo8XaY"
       }
     }
 
     const { navigate } = this.props.navigation
-    fetch('http://10.70.159.94:3000/vehicles/honda/civic/2019', opts)
+    fetch('http://10.70.204.251:3000/vehicles/honda/civic/2019', opts)
       .then(resp => {
         console.log(resp)
         if (resp.status != 200) {
           throw new Error(`${resp.status}`);
         }
         return resp.json()
+        
       })
       .then(data => {
-
+        this.setState({
+          isLoading: false
+        })
         console.log("this data was consoled", data)
         navigate('Result', { data: data, make:this.state.make, model:this.state.model, year: this.state.year })
       })
@@ -261,10 +268,17 @@ export default class Search extends React.Component {
               </TouchableOpacity>
 </View>*/}
 
-<Button block iconLeft onPress={() => { this.savedData() }} style={{backgroundColor:"#4AA7D1", height: 50, marginBottom: 25}}>
-                <Icon name="car"></Icon>
-                <Text style={{fontSize: 18}}>View Vehicle</Text>
-          </Button>
+  {this.state.isLoading  &&
+         <ActivityIndicator size="large" color="#ffffff" />
+        }
+  
+  {!this.state.isLoading  &&
+    <Button block iconLeft onPress={() => { this.savedData() }} style={{backgroundColor:"#4AA7D1", height: 50, marginBottom: 25}}>
+    <Icon name="car"></Icon>
+    <Text style={{fontSize: 18}}>View Vehicle</Text>
+</Button>
+        }
+
 {/*
                   <Button block iconLeft transparent light>
                     <Icon name="mic"></Icon>
