@@ -333,6 +333,7 @@ export default class Result extends React.Component {
 
 
   }
+<<<<<<< HEAD
  refetch=()=>{
    this.setState({methodHave:false});
   let opts = {
@@ -365,10 +366,11 @@ export default class Result extends React.Component {
     })
   })
  }
+=======
+>>>>>>> 92a2a6c3c4250b29b13ceaf213590811df2ce27a
 
   render() {
-    if(this.state.methodHave) {this.refetch()
-    }
+
       const { navigate } = this.props.navigation;
 
     return (
@@ -505,8 +507,8 @@ export default class Result extends React.Component {
             page={this.state.activeTab}
             initialPage={this.state.initialPage}>
             
-            <ScrollView tabLabel={"Front/Engine"}>
-              <View>
+            <ScrollView tabLabel={"Front/Engine"} style={styles.scroller}>
+              <View style={styles.scroller}>
                 <Container>
                   <Content>
                     {this.state.showPlayerControls ? (
@@ -545,8 +547,8 @@ export default class Result extends React.Component {
           
             </ScrollView>
         
-            <ScrollView tabLabel={"Center/Cabin"} >
-              <View>
+            <ScrollView tabLabel={"Center/Cabin"} style={styles.scroller}>
+              <View style={styles.scroller}>
                 <Container>
 
                   <Content>
@@ -587,8 +589,8 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView tabLabel={"Undercarriage/Wheels"}>
-              <View>
+            <ScrollView tabLabel={"Undercarriage/Wheels"} style={styles.scroller}>
+              <View style={styles.scroller}>
                 <Container >
                   <Content>
                     {this.state.showPlayerControls ? (
@@ -622,8 +624,8 @@ export default class Result extends React.Component {
               </View>
             </ScrollView>
 
-            <ScrollView  tabLabel={"Rear/Trunk"} >
-              <View>
+            <ScrollView  tabLabel={"Rear/Trunk"} style={styles.scroller}>
+              <View style={styles.scroller}>
                 <Container >
 
                   <Content>
@@ -770,6 +772,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     color:"#fff"
-  }
+  },
+  scroller: {
+    height: 400,
+    marginBottom: 2
+  },
 
 })
