@@ -192,13 +192,13 @@ console.log("dsadasd",this.state.images)
         </ScrollView>
         {this.state.showPlayerControls ? (
           <Footer style ={styles.bottomView} >
-            <FooterTab style= {{backgroundColor:'#0D2847' }}>
-            <Ionicons style={{marginTop:6.5, marginLeft:10}}name="md-eye" size={32} color="white" />
-                <Text style={{width:230, color:"white", fontSize: 17, marginTop:13.5, marginLeft:18}}>Discovered Something Here?</Text>
+            <FooterTab style= {{backgroundColor:'#333' }}>
+            <Ionicons style={{marginTop:6.5, marginLeft:10}}name="md-eye" size={24} color="white" />
+                <Text style={{width:230, color:"white", fontSize: 16, marginTop:13.5, marginLeft:18}}>Discovered something here?</Text>
           
       
               <Button onPress={()=>{this.postDiscovered()}} >
-                <Text  style={{color:"white", fontSize: 17}}> Yes</Text>
+                <Text  style={{color:"white", fontSize: 16, fontWeight:"600"}}>YES</Text>
               </Button>
               <Button>
                 <Text style={{color:"white", fontSize: 16, fontWeight:"600"}}>NO</Text>
