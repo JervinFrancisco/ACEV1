@@ -1,7 +1,7 @@
 {
     "makes":{
-            "ford" : {
-                "make_name": "ford",
+            "Ford" : {
+                "make_name": "Ford",
                 "models": ["Aerostar",
                     "Aspire",
                     "Bronco",
@@ -52,7 +52,7 @@
                     "ZX2 Escort"
                 ]}
             ,     
-        "honda": {
+        "Honda": {
                 "make_name":"honda",
                 "models": ["Accord",
                     "Amaze",
@@ -123,7 +123,7 @@
                 ]}
             
         ,
-         "toyota": {
+         "Toyota": {
                 "make_name":"toyota",
                 "models": ["4Runner",
                     "Agya",
