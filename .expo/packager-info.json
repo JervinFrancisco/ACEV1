@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "devToolsPort": 19002,
   "expoServerPort": null,
   "packagerPort": null,
@@ -7,14 +6,4 @@
   "expoServerNgrokUrl": null,
   "packagerNgrokUrl": null,
   "ngrokPid": null
-=======
-  "packagerPort": 19001,
-  "packagerPid": 36905,
-  "expoServerPort": 19000,
-  "webpackServerPort": null,
-  "expoServerNgrokUrl": "https://w9-hzu.anonymous.acev1.exp.direct",
-  "packagerNgrokUrl": "https://packager.w9-hzu.anonymous.acev1.exp.direct",
-  "ngrokPid": 36929,
-  "devToolsPort": 19002
->>>>>>> 3652fbf53f5a0eaf47e4a04298415827d61c4d4a
 }
