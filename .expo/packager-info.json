@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "packagerPort": 19001,
   "packagerPid": 38724,
@@ -8,3 +9,6 @@
   "ngrokPid": 38744,
   "devToolsPort": 19002
 }
+=======
+{}
+>>>>>>> d429163fe1a320a3a3118153f048882ae37152ce

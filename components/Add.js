@@ -11,7 +11,7 @@ var s = require('./styles');
 
 const ref = React.createRef();
 const front = React.createRef();
-const http = "http://10.70.158.155:3000/"    
+const http = "http://10.70.204.251:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
@@ -44,14 +44,12 @@ export default class Add extends Component {
           lat: position.coords.latitude,
           long: position.coords.longitude
         });
-        console.log(this.state.lat);
-        console.log(this.state.long);
-        console.log(Date.now())
+     
 
         fetch('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD-NU9g6gKIAc2cZu1xQ6LwiKISOs0Ia58&address=' + `${this.state.lat}` + ',' + `${this.state.long}`  )
         .then((response) => response.json())
         .then((responseJson) => {
-         console.log(responseJson.results[0])
+     
          this.setState({
            location:`${responseJson.results[0].address_components[2].long_name},${responseJson.results[0].address_components[4].long_name}`
          })
@@ -76,19 +74,19 @@ componentDidMount(){
   this.getLocation()
   const { navigation } = this.props
   const data = navigation.getParam('data', 'NO DATA')
+  this.setState({vehicleData: data})
+
   const zone = navigation.getParam('zone','noData')
   this.setState({
-    vehicleData:data,
-    zone:zone
+    zone
   })
-  
+  console.log('zone', zone)
   var newArray = this.state.zones.filter( (word) => word != zone)
   newArray.unshift(zone)
-  console.log("THE NEW ZONE ARRAY SHOULD BE SHOWING UP RIGHT HERE:",newArray) 
+ 
   this.setState({
     zones: newArray
   })
-
   //console.log("YOOOO",data,"end here")
  
   }
@@ -111,19 +109,46 @@ componentDidMount(){
 //     let countofdiscoveredFound = countFound + 1
 
 // }
-postConcealment=() => {
-  console.log("reference",this.state.reference,"title",this.state.title,"description",this.state.description,"userID",this.state.userId,"area",this.state.carArea)
-  const {navigate, goBack, isFocused, dangerouslyGetParent} = this.props.navigation
+postConcealment= async () => {
+ const {navigate, goBack, isFocused, dangerouslyGetParent} = this.props.navigation
   const { navigation } = this.props
   let id=this.state.vehicleData[0]._id
-  console.log("sdasdsad",this.state.vehicleData)
-
+ 
   let vehicleDataKeys=Object.keys(this.state.vehicleData[0])
   let checkForArea=vehicleDataKeys.filter(vechicleArea=>vechicleArea===this.state.carArea)
   let checkForAreaIndex=checkForArea[0]
+<<<<<<< HEAD
   // let countFound=1
   console.log("YOOO id",id)
   // let countofdiscoveredFound=countFound + 1
+=======
+  let countFound=1
+
+  let countofdiscoveredFound=countFound + 1
+>>>>>>> d429163fe1a320a3a3118153f048882ae37152ce
+
+  const scone = navigation.getParam('zone','noData')
+  console.log("WHERE THE HECK IS THE ZONE: ",scone)
+  switch(this.state.zone){
+    case 'Front/Engine':
+    console.log("front hit")
+    await this.setState({carArea: 'front'})
+    break;
+    case 'Center/Cabin':
+    console.log("center hit")
+    await this.setState({carArea: 'center'})
+    break;
+    case 'Undercarriage/Wheels':
+    console.log("under carriage hit")
+    await this.setState({carArea: 'undercarriage'})
+    break;
+    case 'Rear/Trunk':
+    console.log("trunk hit")
+    await this.setState({carArea: 'rear'})
+    break;
+    default:
+    break;
+  }
 
   
 
@@ -135,7 +160,7 @@ postConcealment=() => {
   // let data=
   //   `title=${this.state.title}&description=${this.state.description}&location=Ottawa%2C%20ON&date=2017&referenceNo=${this.state.reference}&countFound=1&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D`
 
-    console.log(this.state.location)
+   
 
     // let data = {
     //   title: this.state.title,
@@ -188,9 +213,9 @@ postConcealment=() => {
     //   });
     // }
     const photos = this.state.images
-    console.log(photos)
+
 photos.forEach((photo) => {
-  // console.log(photo);
+
     data.append('file', {
     uri: photo,
     type: 'image/jpeg', // or photo.type
@@ -198,21 +223,25 @@ photos.forEach((photo) => {
   });  
 });
 
+<<<<<<< HEAD
 this.setState({
   isLoading: true
 })
 console.log("this is data",data);
     fetch(`${http}concealments/${this.state.zone}/${id}`, {
+=======
+    fetch(`${http}concealments/${this.state.carArea}/${id}`, {
+>>>>>>> d429163fe1a320a3a3118153f048882ae37152ce
       method: 'post',
       headers: {
         "Content-Type": "application/json",
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTAzMDcyMiwiZXhwIjoxNTU1MTE3MTIyfQ.lmKMdhAV-c-xoWTSKs3gh1s2k6jG4n0kLdG82qx30pI",
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWEzZTViZjJlMjkzMWUzMTYwZmRkNSIsImlhdCI6MTU1NTAzMDgzOSwiZXhwIjoxNTU1MTE3MjM5fQ.l907gfjYDWDBEEFjyMAvk1BD8RjTXqIOCv7RuPo8XaY",
         "Content-Type": "multipart/form-data",
       },
       body: data
     }).then(res => {
-      console.log("GOING BACK")
-      console.log(isFocused(this));
+  
+
       const onNavigateBack = navigation.getParam('onNavigateBack','NoData')
       onNavigateBack(true)
       this.setState({
@@ -220,7 +249,7 @@ console.log("this is data",data);
       })
       // this.props.navigation.state.params.onNavigateBack(this.state.foo)
       // this.props.navigation.goBack()
-      // console.log(res)
+
     }).catch(err =>{
       console.log("Error: ",err);
     });
@@ -244,7 +273,7 @@ console.log("this is data",data);
 
 
   onValueChange2 = (value) => {
-    console.log("value", value)
+
     this.setState({
       carArea: value
     });
@@ -332,6 +361,10 @@ console.log("this is data",data);
   }
   render() {
     const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
+
+    
+
     return (
    
       <KeyboardAwareScrollView
