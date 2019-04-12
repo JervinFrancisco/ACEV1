@@ -33,6 +33,10 @@ export default class Add extends Component {
         };
       }
 
+      static navigationOptions = {
+        headerTitle: "Add a concealment method",
+      }
+
       componentWillMount(){
         
       }
@@ -98,6 +102,8 @@ componentDidMount(){
 //     let countofdiscoveredFound = countFound + 1
 
 // }
+
+
 postConcealment=() => {
   console.log("reference",this.state.reference,"title",this.state.title,"description",this.state.description,"userID",this.state.userId,"area",this.state.carArea)
   const {navigate, goBack, isFocused, dangerouslyGetParent} = this.props.navigation
@@ -360,7 +366,7 @@ console.log("this is data",data);
               </Item>
 
             </Form>
-            <Button transparent iconLeft large block style={{ backgroundColor: "grey", marginTop: 24, marginLeft: 16, marginRight: 16 }} onPress={this.cameraPressed.bind(this)} >
+            <Button transparent iconLeft large block style={{ backgroundColor: "grey", marginTop: 24, marginLeft: 16, marginRight: 16, height: 50 }} onPress={this.cameraPressed.bind(this)} >
               <Ionicons name='md-camera' size={24} color="white" />
             </Button>
 
@@ -372,7 +378,7 @@ console.log("this is data",data);
             </View>
 
             <Button block iconLeft onPress={()=>{this.postConcealment()}} style={{backgroundColor:"#4AA7D1", height: 50, marginTop: 25, marginLeft: 16, marginRight: 16}}>
-                <Text style={{fontSize: 18, color:"#fff"}}>SUBMIT</Text>
+                <Text style={{fontSize: 16, fontWeight:"600", color:"#fff"}}>SUBMIT</Text>
             </Button>
 
             <Container style={{ display: "none" }}>
@@ -395,6 +401,7 @@ console.log("this is data",data);
 const styles = StyleSheet.create({
     container: {
       backgroundColor: "#fff",
+      paddingTop: 16,
     },
 
     view: {

@@ -6,6 +6,7 @@ import Slideshow from 'react-native-image-slider-show';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
+import { Divider } from 'react-native-elements';
 
 const ref = React.createRef();
 
@@ -106,13 +107,14 @@ export default class Details extends Component {
             <ImageViewer imageUrls={this.state.dataSource} index={this.state.currentImageIndex} />
           </Modal>
 
-          <ListItem itemDivider style={styles.listLabel}>
-            <Text style={styles.listLabelText}>{this.state.title}</Text>
-          </ListItem>
-          <ListItem itemDivider style={styles.listLabel}>
-            <Text style={styles.listLabelPara}>{this.state.description}</Text>
-          </ListItem>
-          <ListItem itemDivider style={styles.listLabel}>
+
+            <Text style={styles.reportTitle}>{this.state.title}</Text>
+            <Divider style={{ backgroundColor: 'lightgrey' }}></Divider>
+            <Text style={styles.reportDescription}>{this.state.description}</Text>
+            <Divider style={{ backgroundColor: 'lightgrey' }}></Divider>
+            
+
+
           <Collapse>
       <CollapseHeader style={{ borderBottomWidth:0,borderWidth:0, width: 370, height: 90}}>
         <Separator style={{backgroundColor:"transparent",  flexDirection: 'row'}} bordered>
@@ -120,7 +122,7 @@ export default class Details extends Component {
         {this.state.firstDiscovered &&
           <Text style={{backgroundColor:"transparent",flex: 1, paddingRight: 30, paddingLeft: 5,}}>{`Last Discovery: ${this.state.firstDiscovered.location} on March 30th 2019\nRef: ${this.state.firstDiscovered.referenceNo}\nUserId: ${this.state.firstDiscovered.userId}`}</Text>
         }
-          <Ionicons style={{ padding: 0}}name="md-arrow-dropdown" size={20} color="grey" />
+          <Ionicons style={{ padding: 0}}name="md-arrow-dropdown" size={24} color="grey" />
         </Separator>
       </CollapseHeader>
       <CollapseBody>
@@ -133,30 +135,25 @@ export default class Details extends Component {
     }
       </CollapseBody>
     </Collapse>
-   
-          </ListItem>
+
         
           <Container style={{ display: "none" }}>
-            <Button onPress={() => { navigate('Result') }} ref={ref} title="Press Me" >
-
-            </Button>
-
+            <Button onPress={() => { navigate('Result') }} ref={ref} title="Press Me" ></Button>
           </Container>
 
         </View>
+
         </ScrollView>
         {this.state.showPlayerControls ? (
           <Footer style ={styles.bottomView} >
-            <FooterTab style= {{backgroundColor:'#0D2847' }}>
-            <Ionicons style={{marginTop:6.5, marginLeft:10}}name="md-eye" size={32} color="white" />
-                <Text style={{width:230, color:"white", fontSize: 17, marginTop:13.5, marginLeft:18}}>Discovered Something Here?</Text>
-          
-      
+            <FooterTab style= {{backgroundColor:'#fff' }}>
+            <Ionicons style={{marginTop:6.5, marginLeft:10}}name="md-eye" size={24} color="white" />
+                <Text style={{color:"white", fontSize: 16}}>Discovered something here?</Text>
               <Button  >
-                <Text  style={{color:"white", fontSize: 17}}> Yes</Text>
+                <Text  style={{color:"white", fontSize: 16, fontWeight: "600"}}>YES</Text>
               </Button>
               <Button>
-                <Text style={{color:"white", fontSize: 17}}>No</Text>
+                <Text style={{color:"white", fontSize: 16, fontWeight:"600"}}>NO</Text>
               </Button>
             </FooterTab>
           </Footer>
@@ -174,16 +171,23 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70
   },
-  listLabelText: {
-    fontWeight: "600",
-    fontSize: 30,
-    color: "black"
-  },
-  listLabelPara: {
 
-    fontSize: 20,
-    color: "black"
+  reportTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    padding: 16
   },
+
+  reportDescription: {
+    fontSize: 16,
+    padding: 16
+  },
+
+  reportSmallText: {
+
+  },
+
+
   listLabel: {
     marginTop: 1,
     backgroundColor: 'transparent',

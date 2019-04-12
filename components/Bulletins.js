@@ -94,9 +94,9 @@ export default class Bulletins extends Component {
               <Left>
                 <Thumbnail square large source={require('../assets/drugs.jpeg')} />
                 <Body>
-                  <Text style={{color:"#FFF"}}>Hidden pocket in glove compartement</Text>
-                  <Text style={{color:"#BBB"}} note>Toyota Corolla 2018</Text>
-                  <Text style={{color:"#BBB"}} note>added 3 days ago</Text>
+                  <Text style={{color:"black"}}>Hidden pocket in glove compartement</Text>
+                  <Text style={{color:"grey"}} note>Toyota Corolla 2018</Text>
+                  <Text style={{color:"grey"}} note>added 3 days ago</Text>
                 </Body>
               </Left>
             </CardItem>
@@ -108,9 +108,9 @@ export default class Bulletins extends Component {
               <Left>
                 <Thumbnail square large source={require('../assets/drugs.jpeg')} />
                 <Body>
-                  <Text style={{color:"#FFF"}}>Fake cupholder</Text>
-                  <Text style={{color:"#BBB"}} note>Mazda 6 2019</Text>
-                  <Text style={{color:"#BBB"}} note>added 6 days ago</Text>
+                  <Text style={{color:"black"}}>Fake cupholder</Text>
+                  <Text style={{color:"grey"}} note>Mazda 6 2019</Text>
+                  <Text style={{color:"grey"}} note>added 6 days ago</Text>
                 </Body>
               </Left>
             </CardItem>
@@ -122,9 +122,9 @@ export default class Bulletins extends Component {
               <Left>
                 <Thumbnail square large source={require('../assets/drugs.jpeg')} />
                 <Body>
-                  <Text style={{color:"#FFF"}}>Shifter knob</Text>
-                  <Text style={{color:"#BBB"}} note>Honda Civic 2019</Text>
-                  <Text style={{color:"#BBB"}} note>added 6 days ago</Text>
+                  <Text style={{color:"black"}}>Shifter knob</Text>
+                  <Text style={{color:"grey"}} note>Honda Civic 2019</Text>
+                  <Text style={{color:"grey"}} note>added 6 days ago</Text>
                 </Body>
               </Left>
             </CardItem>
@@ -140,12 +140,12 @@ export default class Bulletins extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#0D2847"
+    backgroundColor: "lightgrey"
   },
   cards: {
-    backgroundColor: "#375B79",
+    //backgroundColor: "#375B79",
   },
   cardContainer: {
-    backgroundColor: "#375B79",
+    //backgroundColor: "#375B79",
   }
 });
