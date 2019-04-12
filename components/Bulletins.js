@@ -102,7 +102,7 @@ export default class Bulletins extends Component {
             </CardItem>
           </Card>
           </TouchableOpacity>   
-          <TouchableOpacity key={1} onPress={() => navigate('Details', { data:this.state.fakeData2 })}> 
+          <TouchableOpacity key={2} onPress={() => navigate('Details', { data:this.state.fakeData2 })}> 
           <Card>
             <CardItem style={styles.cards}>
               <Left>
@@ -116,7 +116,7 @@ export default class Bulletins extends Component {
             </CardItem>
           </Card>
           </TouchableOpacity> 
-          <TouchableOpacity key={1} onPress={() => navigate('Details', { data:this.state.fakeData3 })}> 
+          <TouchableOpacity key={3} onPress={() => navigate('Details', { data:this.state.fakeData3 })}> 
           <Card>
             <CardItem style={styles.cards}>
               <Left>
