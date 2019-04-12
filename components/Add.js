@@ -11,7 +11,7 @@ var s = require('./styles');
 
 const ref = React.createRef();
 const front = React.createRef();
-const http = "http://10.70.159.94:3000/"    
+const http = "http://10.70.158.155:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
@@ -220,7 +220,7 @@ photos.forEach((photo) => {
       method: 'post',
       headers: {
         "Content-Type": "application/json",
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWY4OTE5NjJhNDRmMDUzZTg4MmNlZSIsImlhdCI6MTU1NTAwNzgwMCwiZXhwIjoxNTU1MDk0MjAwfQ.IpBNZOpaIeJX2ZZtrUOwkefz47WpYVOEcUmFsmQWWxs",
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTAzMDcyMiwiZXhwIjoxNTU1MTE3MTIyfQ.lmKMdhAV-c-xoWTSKs3gh1s2k6jG4n0kLdG82qx30pI",
         "Content-Type": "multipart/form-data",
       },
       body: data

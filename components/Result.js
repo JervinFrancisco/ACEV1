@@ -16,7 +16,7 @@ var s = require('./styles')
 const { Circle, Rect, Path } = Svg;
 
 
-const http = "http://10.70.159.94:3000/"
+const http = "http://10.70.158.155:3000/"
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();
@@ -138,7 +138,7 @@ export default class Result extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYWY4OTE5NjJhNDRmMDUzZTg4MmNlZSIsImlhdCI6MTU1NTAwNzgwMCwiZXhwIjoxNTU1MDk0MjAwfQ.IpBNZOpaIeJX2ZZtrUOwkefz47WpYVOEcUmFsmQWWxs"
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTAzMDcyMiwiZXhwIjoxNTU1MTE3MTIyfQ.lmKMdhAV-c-xoWTSKs3gh1s2k6jG4n0kLdG82qx30pI"
       }
     }
     fetch(`${http}concealments/${data[0].make}/${data[0].model}/${data[0].year}`, opts)
@@ -334,7 +334,40 @@ export default class Result extends React.Component {
 
 
   }
+<<<<<<< HEAD
 
+=======
+ refetch=()=>{
+   this.setState({methodHave:false});
+  let opts = {
+    // body:JSON.stringify(formData),
+    method: "GET",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTAzMDcyMiwiZXhwIjoxNTU1MTE3MTIyfQ.lmKMdhAV-c-xoWTSKs3gh1s2k6jG4n0kLdG82qx30pI'
+    }
+  }
+  fetch(`${http}concealments/${this.state.make}/${this.state.model}/${this.state.year}`, opts)
+  .then(resp => resp.json())
+  .then(data => {
+    let rear = data[0].rear.concealment.length > 0 ? data[0].rear.concealment : null
+    let front = data[0].front.concealment.length > 0 ? data[0].front.concealment : null
+    let undercarriage = data[0].undercarriage.concealment.length > 0 ? data[0].undercarriage.concealment : null
+    let center = data[0].center.concealment.length > 0 ? data[0].center.concealment : null
+    console.log("this is all the data", data[0]._id);
+    this.setState({
+      
+      data: data,
+      undercarriage: undercarriage,
+      front: front,
+      rear: rear,
+      center: center,
+      isLoading: false
+    })
+  })
+ }
+>>>>>>> 3652fbf53f5a0eaf47e4a04298415827d61c4d4a
 
   render() {
 
