@@ -29,7 +29,9 @@ export default class Add extends Component {
           lat: null,
           images: [],
           vehicleData: null,
-          foo: true
+          foo: true,
+          zone: null,
+          zones: ['Front/Engine','Center/Cabin','Undercarriage/Wheels','Rear/Trunk']
         };
       }
 
@@ -73,10 +75,20 @@ componentDidMount(){
   this.getLocation()
   const { navigation } = this.props
   const data = navigation.getParam('data', 'NO DATA')
+  const zone = navigation.getParam('zone','noData')
   this.setState({
-    vehicleData:data
+    vehicleData:data,
+    zone:zone
   })
-  console.log("YOOOO",data,"end here")
+  
+  var newArray = this.state.zones.filter( (word) => word != zone)
+  newArray.unshift(zone)
+  console.log("THE NEW ZONE ARRAY SHOULD BE SHOWING UP RIGHT HERE:",newArray) 
+  this.setState({
+    zones: newArray
+  })
+
+  //console.log("YOOOO",data,"end here")
  
   }
 //   postConcealment(){
@@ -334,10 +346,12 @@ console.log("this is data",data);
                     selectedValue={this.state.carArea}
                     onValueChange={this.onValueChange2}>
 
-                    <Picker.Item label="Front/Engine" value="front" />
-                    <Picker.Item label="Center/Cabin" value="center" />
-                    <Picker.Item label="Wheels/Undercarriage" value="undercarriage" />
-                    <Picker.Item label="Rear/Trunk" value="rear" />
+                  {
+                    this.state.zones.map(zone =>(
+                      <Picker.Item key={Date.now()} label={zone} value={zone} />
+                    ))
+                  }
+
                   </Picker>
                 </Item>
               </View>

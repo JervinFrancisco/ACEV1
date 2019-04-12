@@ -60,6 +60,7 @@ export default class Result extends React.Component {
       centerSelected: false,
       refresh: false,
       methodHave:false,
+      currentTab: null,
       makeTitle: null,
       modelTitle: null,
       yearTitle: null
@@ -162,19 +163,19 @@ export default class Result extends React.Component {
 
   }
 
-  shouldComponentUpdate(){
-    console.log("SHOULD THE COMPONENT UPDATE?!")
-    return true;
-  }
+  // shouldComponentUpdate(){
+  //   //console.log("SHOULD THE COMPONENT UPDATE?!")
+  //   return true;
+  // }
 
-  componentDidUpdate(){
-    console.log("CONSOLE DID UPDAAAAAAAATE");
-  }
+  // componentDidUpdate(){
+  //   //console.log("CONSOLE DID UPDAAAAAAAATE");
+  // }
 
-  componentWillUpdate(){
-    console.log("CONSOLE WIIIIILLLL UPDAAAAAATE");
+  // componentWillUpdate(){
+  //   //console.log("CONSOLE WIIIIILLLL UPDAAAAAATE");
     
-  }
+  // }
 
 
   static navigationOptions = {
@@ -293,36 +294,43 @@ export default class Result extends React.Component {
     //   break;
     //}
   }
-  onTabChanged = (i, ref) =>{
+  onTabChanged =  async (i, ref) =>{
     console.log("FROM:",i.from);
     console.log("To",i.i);
-    console.log(ref);
-
+    
     switch(i.i){
       case 0:
       console.log("front");
-      console.log(this.state.activePage);
-      console.log(this.state.activeTab);
       this.fToggle()
+      await this.setState({currentTab : 'Front/Engine'})
+      console.log(this.state.currentTab)
       
       return;
       case 1:
       console.log("center");
       this.cToggle()
+      await this.setState({currentTab : 'Center/Cabin'})
+      console.log(this.state.currentTab)
 
       return;
       case 2:
       console.log("under");
       this.uToggle()
+      await this.setState({currentTab : 'Undercarriage/Wheels'})
+      console.log(this.state.currentTab)
 
       return;
       case 3:
       console.log("rear");
       this.bToggle()
+      await this.setState({currentTab : 'Rear/Trunk'})
+      console.log(this.state.currentTab)
       return;
       default:
       break;
     }
+
+    
 
 
   }
@@ -678,8 +686,9 @@ export default class Result extends React.Component {
           color={"#4AA7D1"}
           onPressMain={(yo) => {
             this.setState({ methodHave :true})
-          navigate('Add', {data:this.state.data,
-                          onNavigateBack: this.handleOnNavigateBack})
+            navigate('Add', {data:this.state.data,
+                             onNavigateBack: this.handleOnNavigateBack,
+                             zone:this.state.currentTab})
           }}
           showBackground={false}
           onStateChange={(yo) => { yo.isActive ? this.setState({ isActive: false }) : this.setState({ isActive: false }) }}
