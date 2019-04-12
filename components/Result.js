@@ -502,7 +502,7 @@ export default class Result extends React.Component {
                           key={concealment._id}
                           leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
                           title={concealment.title}
-                          onPress={() => navigate('Details', { data: concealment, id:this.state.id })}
+                          onPress={() => navigate('Details', { data: concealment, id:this.state.id ,zone:this.state.currentTab})}
                         />
                       ), )
 
@@ -544,7 +544,7 @@ export default class Result extends React.Component {
                           key={concealment._id}
                           leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
                           title={concealment.title}
-                          onPress={() => navigate('Details', { data: concealment })}
+                          onPress={() => navigate('Details', { data: concealment, id:this.state.id ,zone:this.state.currentTab})}
                         />
                       ), )
 
@@ -582,7 +582,7 @@ export default class Result extends React.Component {
                           key={concealment._id}
                           leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
                           title={concealment.title}
-                          onPress={() => navigate('Details', { data: concealment })}
+                          onPress={() => navigate('Details', { data: concealment, id:this.state.id ,zone:this.state.currentTab})}
                         />
                       ), )
 
@@ -620,7 +620,7 @@ export default class Result extends React.Component {
                           key={concealment._id}
                           leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
                           title={concealment.title}
-                          onPress={() => navigate('Details', { data: concealment })}
+                          onPress={() => navigate('Details', { data: concealment, id:this.state.id ,zone:this.state.currentTab})}
                         />
                       ), )
                     }

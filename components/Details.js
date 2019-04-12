@@ -61,12 +61,32 @@ export default class Details extends Component {
 
 
   
-  postDiscovered(){
+  async postDiscovered(){
     console.log("postDiscovered",this.state.data)
     let formData={
       "location":this.state.data.location,
         "referenceNo":this.state.data.referenceNo,
         "userID":this.state.data.userId,
+    }
+    switch(this.state.zone){
+      case 'Front/Engine':
+      console.log("front hit")
+      await this.setState({carArea: 'front'})
+      break;
+      case 'Center/Cabin':
+      console.log("center hit")
+      await this.setState({carArea: 'center'})
+      break;
+      case 'Undercarriage/Wheels':
+      console.log("under carriage hit")
+      await this.setState({carArea: 'undercarriage'})
+      break;
+      case 'Rear/Trunk':
+      console.log("trunk hit")
+      await this.setState({carArea: 'rear'})
+      break;
+      default:
+      break;
     }
     var XHR = new XMLHttpRequest();
 var urlEncodedData = "";
@@ -94,7 +114,7 @@ alert('Oops! Something goes wrong.');
 });
 
 // Set up our request
-XHR.open('POST', `${http}concealments/front/discovered/${this.state.parentid}/${this.state.data._id}`);
+XHR.open('POST', `${http}concealments/${this.state.carArea}/discovered/${this.state.parentid}/${this.state.data._id}`);
 
 // Add the required HTTP header for form data POST requests
 XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -112,12 +132,13 @@ XHR.send(urlEncodedData);
     const data = navigation.getParam('data', 'NO DATA')
     const parentid = navigation.getParam('id', 'NO DATA')
     let images = data.src.map((img, i) => { return { id: i, url: `http://10.70.158.155:3000/${img}` } })
+    const zone = navigation.getParam('zone', 'NO DATA')
 
     let position = this.state.position === images.id ? 0 : this.state.position + 1
     let [a, ...rest]=data.discovered
-    console.log("rest",rest);
+    console.log("zone",zone);
     console.log("first", a)
-    this.setState({ title: data.title, description: data.description, dataSource: images, position: position, firstDiscovered:a,restDiscovered:rest,data,parentid })
+    this.setState({ title: data.title, description: data.description, dataSource: images, position: position, firstDiscovered:a,restDiscovered:rest,data,parentid,zone })
     this.showPlayerControls()
 
   }
