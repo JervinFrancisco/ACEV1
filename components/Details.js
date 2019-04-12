@@ -114,7 +114,7 @@ export default class Details extends Component {
           </ListItem>
           <ListItem itemDivider style={styles.listLabel}>
           <Collapse>
-      <CollapseHeader style={{ borderBottomWidth:0,borderWidth:0, width: 370, height: 80}}>
+      <CollapseHeader style={{ borderBottomWidth:0,borderWidth:0, width: 370, height: 90}}>
         <Separator style={{backgroundColor:"transparent",  flexDirection: 'row'}} bordered>
         <Ionicons style={{ padding: 0}}name="md-eye" size={20} color="grey" />
         {this.state.firstDiscovered &&

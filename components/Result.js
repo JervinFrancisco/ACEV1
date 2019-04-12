@@ -59,7 +59,11 @@ export default class Result extends React.Component {
       rearSelected: false,
       centerSelected: false,
       refresh: false,
-      methodHave:false
+      methodHave:false,
+      makeTitle: null,
+      modelTitle: null,
+      yearTitle: null
+
     }
 
   }
@@ -87,7 +91,7 @@ export default class Result extends React.Component {
   }
  
   handleOnNavigateBack = () => {
-    const { navigate } = this.props.navigation; 
+    const { navigate } = this.props.navigation;
     // console.log("AM I EVEN GETTING HERE?")
     navigate('Result')
     // this.setState({
@@ -105,6 +109,11 @@ export default class Result extends React.Component {
     const { navigate } = this.props.navigation
     const { navigation } = this.props
     const data = navigation.getParam('data', 'NO DATA')
+    const make = navigation.getParam('make', 'NO DATA')
+    const model = navigation.getParam('model', 'NO DATA')
+    const year = navigation.getParam('year', 'NO DATA')
+    this.setState({makeTitle:make, modelTitle:model, yearTitle:year})
+    console.log
     // let addNewData=navigation.getParam('addNewData', 'NO DATA')
     // addNewData();
     this.fetchandrefetch(data)
@@ -358,7 +367,7 @@ export default class Result extends React.Component {
           <View style={styles.container}>
                 <LinearGradient colors={['#05162E', '#0D2847']} style={{height:200}}>
                 <View style={styles.innerContainer}>
-                  <Text style={styles.titleText}>{this.state.make} {this.state.model} {this.state.year}</Text>
+                  <Text style={styles.titleText}>{this.state.makeTitle} {this.state.modelTitle} {this.state.yearTitle}</Text>
                   {/*<Text style={styles.titleText}>Mitsubushi Mitsubushi 2009</Text>*}
             
                {/*back*/}
@@ -709,6 +718,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  listLabelText: {
+    fontWeight: "600",
+    fontSize: 15,
+    color: "grey"
   },
 
   itemPicker: {

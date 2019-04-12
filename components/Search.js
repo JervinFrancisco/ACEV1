@@ -34,12 +34,14 @@ export default class Search extends React.Component {
 
       car: [],
       makes: Makes.makes,
-      make: 'ford',
+      make: 'Ford',
       model: undefined,
       year: undefined,
       loading: true,
       drawerOpen: false,
-      arrYear: [2019,2018,2017]
+      arrYear: [2019,2018,2017],
+      data: null
+      
       // voice: false,
       // speechToText: "No voice input"
     }
@@ -106,8 +108,9 @@ export default class Search extends React.Component {
         return resp.json()
       })
       .then(data => {
+
         console.log("this data was consoled", data)
-        navigate('Result', { data })
+        navigate('Result', { data: data, make:this.state.make, model:this.state.model, year: this.state.year })
       })
       .catch(err => alert(err.message))
 
@@ -260,7 +263,7 @@ export default class Search extends React.Component {
 
 <Button block iconLeft onPress={() => { this.savedData() }} style={{backgroundColor:"#4AA7D1", height: 50, marginBottom: 25}}>
                 <Icon name="car"></Icon>
-                <Text style={s.largeButtonText}>View Vehicle</Text>
+                <Text style={{fontSize: 18}}>View Vehicle</Text>
           </Button>
 {/*
                   <Button block iconLeft transparent light>
@@ -332,7 +335,7 @@ const styles = StyleSheet.create({
   },
 
   pickerLabelText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "600",
     color: "#84A2C4",
     letterSpacing: 1.5,
