@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem, Label } from 'native-base';
-import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, Animated, Keyboard, KeyboardAvoidingView  } from 'react-native';
+import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, Animated, Keyboard, KeyboardAvoidingView, ActivityIndicator   } from 'react-native';
 import { createStackNavigator, createAppContainer, StackActions, NavigationActions } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { ImagePicker, Permissions, Camera } from 'expo';
@@ -31,8 +31,17 @@ export default class Add extends Component {
           vehicleData: null,
           foo: true,
           zone: null,
-          zones: ['Front/Engine','Center/Cabin','Undercarriage/Wheels','Rear/Trunk']
+          zones: ['Front/Engine','Center/Cabin','Undercarriage/Wheels','Rear/Trunk'],
+          isLoading: false,
+          validateTextENumber:false,
+      validateDescription:false,
+      validateTitle:false,
+      photos:false, 
         };
+      }
+
+      static navigationOptions = {
+        headerTitle: "Add a concealment method",
       }
 
       componentWillMount(){
@@ -109,6 +118,35 @@ componentDidMount(){
 
 // }
 postConcealment= async () => {
+  if(!this.state.title || !this.state.description || !this.state.userId || !this.state.reference || (this.state.images.length===0)){
+    if(!this.state.title){
+    this.setState({
+      validateTitle:true
+    })
+  }
+  if(!this.state.description){
+    this.setState({
+      validateDescription:true,
+    })
+  }
+  if(!this.state.userId ){
+    this.setState({
+    validateTextENumber:true,
+    })
+  }
+  if(!this.state.reference){
+    this.setState({
+    reference:12345
+    })
+  }
+  if(this.state.images.length===0){
+    this.setState({
+      photos:true
+      })
+  }
+    return false
+  }
+
  const {navigate, goBack, isFocused, dangerouslyGetParent} = this.props.navigation
   const { navigation } = this.props
   let id=this.state.vehicleData[0]._id
@@ -189,7 +227,7 @@ postConcealment= async () => {
     data.append('date',2019);
     data.append('referenceNo',this.state.reference);
     data.append('userId',this.state.userId  );
-    data.append('countFound',2019);
+    // data.append('countFound',2019);
     data.append('discovered',`{"location":"${this.state.location}","userId":"qdwsdasda","referenceNo":"1222"}`);
 
 
@@ -216,11 +254,15 @@ photos.forEach((photo) => {
   });  
 });
 
+this.setState({
+  isLoading: true
+})
+console.log("this is data",data);
     fetch(`${http}concealments/${this.state.carArea}/${id}`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json",
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTAzMDcyMiwiZXhwIjoxNTU1MTE3MTIyfQ.lmKMdhAV-c-xoWTSKs3gh1s2k6jG4n0kLdG82qx30pI",
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWEzZTViZjJlMjkzMWUzMTYwZmRkNSIsImlhdCI6MTU1NTAzMDgzOSwiZXhwIjoxNTU1MTE3MjM5fQ.l907gfjYDWDBEEFjyMAvk1BD8RjTXqIOCv7RuPo8XaY",
         "Content-Type": "multipart/form-data",
       },
       body: data
@@ -229,6 +271,9 @@ photos.forEach((photo) => {
 
       const onNavigateBack = navigation.getParam('onNavigateBack','NoData')
       onNavigateBack(true)
+      this.setState({
+        isLoading: false
+      })
       // this.props.navigation.state.params.onNavigateBack(this.state.foo)
       // this.props.navigation.goBack()
 
@@ -281,7 +326,7 @@ photos.forEach((photo) => {
         var imageList = this.state.images
         imageList.push(uri)
        
-        this.setState({ images: imageList })
+        this.setState({ images: imageList, photos:false })
     
         // const data = new FormData();
         // data.append('name', 'testName'); // you can append anyone.
@@ -348,6 +393,7 @@ photos.forEach((photo) => {
     
 
     return (
+   
       <KeyboardAwareScrollView
         style={{ backgroundColor: '#4c69a5' }}
         resetScrollToCoords={{ x: 0, y: 100 }}
@@ -355,8 +401,23 @@ photos.forEach((photo) => {
         scrollEnabled={true}
         extraScrollHeight={1000}
       >
+
+      
         <Container style={styles.container}>
+
+         {this.state.isLoading  &&
+        <ActivityIndicator size="large" color="#4AA7D" 
+        style ={{  
+        justifyContent: "center",
+        marginTop: 200,
+        alignItems: "center",
+  
+       
+}} />
+       }
+         {!this.state.isLoading  &&
           <Content>
+        
             <Form>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Text style={{paddingLeft: 16, fontSize: 16}}>Car Area</Text>
@@ -380,16 +441,17 @@ photos.forEach((photo) => {
               </View>
               
               <Item floatingLabel>
-                <Label style={styles.listLabelText}>Title</Label>
-                <Input style={styles.inputFields} onChange={(ev) => { this.setState({ title: ev.nativeEvent.text }) }} />
+              
+                <Label style={styles.listLabelText}>Title {this.state.validateTitle&&<Text style={{color:'red', fontStyle:'italic'}}> * required</Text>}</Label>
+                <Input style={styles.inputFields} onChange={(ev) => { this.setState({ title: ev.nativeEvent.text, validateTitle:false }) }} />
               </Item>
               <Item floatingLabel>
-                <Label style={styles.listLabelText}>Description</Label>
-                <Input style={styles.descriptionInput} onChange={(ev) => { this.setState({ description: ev.nativeEvent.text }) }} />
+                <Label style={styles.listLabelText}>Description {this.state.validateDescription&&<Text style={{color:'red', fontStyle:'italic'}}> * required</Text>}</Label>
+                <Input style={styles.descriptionInput} onChange={(ev) => { this.setState({ description: ev.nativeEvent.text,validateDescription:false }) }} />
               </Item>
               <Item floatingLabel>
-                <Label style={styles.listLabelText}>Employee Number</Label>
-                <Input style={styles.inputFields} onChange={(ev) => { this.setState({ userId: ev.nativeEvent.text }) }} />
+                <Label style={styles.listLabelText}>Employee Number {this.state.validateTextENumber&&<Text style={{color:'red', fontStyle:'italic'}}> * required</Text>}</Label>
+                <Input style={styles.inputFields} onChange={(ev) => { this.setState({ userId: ev.nativeEvent.text, validateTextENumber:false }) }} />
               </Item>
               <Item floatingLabel>
                 <Label style={styles.listLabelText}>Reference Number (optional)</Label>
@@ -397,7 +459,7 @@ photos.forEach((photo) => {
               </Item>
 
             </Form>
-            <Button transparent iconLeft large block style={{ backgroundColor: "grey", marginTop: 24, marginLeft: 16, marginRight: 16 }} onPress={this.cameraPressed.bind(this)} >
+            <Button transparent iconLeft large block style={{ backgroundColor: "grey", marginTop: 24, marginLeft: 16, marginRight: 16, height: 50 }} onPress={this.cameraPressed.bind(this)} >
               <Ionicons name='md-camera' size={24} color="white" />
             </Button>
 
@@ -407,11 +469,12 @@ photos.forEach((photo) => {
                   <Image key={i} source={{ uri: image }} style={{ height: 80, width: 80, marginTop: 10, marginLeft: 10 }} />
                 ))}
             </View>
-
+    
+      
             <Button block iconLeft onPress={()=>{this.postConcealment()}} style={{backgroundColor:"#4AA7D1", height: 50, marginTop: 25, marginLeft: 16, marginRight: 16}}>
-                <Text style={{fontSize: 18, color:"#fff"}}>SUBMIT</Text>
+                <Text style={{fontSize: 16, fontWeight:"600", color:"#fff"}}>SUBMIT</Text>
             </Button>
-
+        
             <Container style={{ display: "none" }}>
               <Button onPress={() => { 
       
@@ -419,9 +482,11 @@ photos.forEach((photo) => {
                 }} ref={ref} title="Press Me" >
               </Button>
             </Container>
-
+          
           </Content>
+         }
         </Container>
+        
       </KeyboardAwareScrollView>
     );
   }
@@ -432,6 +497,7 @@ photos.forEach((photo) => {
 const styles = StyleSheet.create({
     container: {
       backgroundColor: "#fff",
+      paddingTop: 16,
     },
 
     view: {

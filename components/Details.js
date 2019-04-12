@@ -6,8 +6,10 @@ import Slideshow from 'react-native-image-slider-show';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
+import { Divider } from 'react-native-elements';
 
 const ref = React.createRef();
+const http = "http://10.70.158.155:3000/"    
 
 
 export default class Details extends Component {
@@ -56,8 +58,71 @@ export default class Details extends Component {
     }, 4000)
   }
 
-  componentWillMount() {
 
+
+  
+  async postDiscovered(){
+    console.log("postDiscovered",this.state.data)
+    let formData={
+      "location":this.state.data.location,
+        "referenceNo":this.state.data.referenceNo,
+        "userID":this.state.data.userId,
+    }
+    switch(this.state.zone){
+      case 'Front/Engine':
+      console.log("front hit")
+      await this.setState({carArea: 'front'})
+      break;
+      case 'Center/Cabin':
+      console.log("center hit")
+      await this.setState({carArea: 'center'})
+      break;
+      case 'Undercarriage/Wheels':
+      console.log("under carriage hit")
+      await this.setState({carArea: 'undercarriage'})
+      break;
+      case 'Rear/Trunk':
+      console.log("trunk hit")
+      await this.setState({carArea: 'rear'})
+      break;
+      default:
+      break;
+    }
+    var XHR = new XMLHttpRequest();
+var urlEncodedData = "";
+var urlEncodedDataPairs = [];
+var name;
+
+// Turn the data object into an array of URL-encoded key/value pairs.
+for(name in formData) {
+console.log(name);
+urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(formData[name]));
+}
+
+// Combine the pairs into a single string and replace all %-encoded spaces to 
+// the '+' character; matches the behaviour of browser form submissions.
+urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+
+// Define what happens on successful data submission
+XHR.addEventListener('load', function(event) {
+alert('Yeah! Data sent and response loaded.');
+});
+
+// Define what happens in case of error
+XHR.addEventListener('error', function(event) {
+alert('Oops! Something goes wrong.');
+});
+
+// Set up our request
+XHR.open('POST', `${http}concealments/${this.state.carArea}/discovered/${this.state.parentid}/${this.state.data._id}`);
+
+// Add the required HTTP header for form data POST requests
+XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTAzMDcyMiwiZXhwIjoxNTU1MTE3MTIyfQ.lmKMdhAV-c-xoWTSKs3gh1s2k6jG4n0kLdG82qx30pI");
+
+
+// Finally, send our data.
+XHR.send(urlEncodedData);
 
   }
 
@@ -65,14 +130,15 @@ export default class Details extends Component {
     const { navigate } = this.props.navigation
     const { navigation } = this.props
     const data = navigation.getParam('data', 'NO DATA')
-    console.log("tis the dsata", data.src)
+    const parentid = navigation.getParam('id', 'NO DATA')
     let images = data.src.map((img, i) => { return { id: i, url: `http://10.70.158.155:3000/${img}` } })
+    const zone = navigation.getParam('zone', 'NO DATA')
 
     let position = this.state.position === images.id ? 0 : this.state.position + 1
     let [a, ...rest]=data.discovered
-    console.log("rest",rest);
+    console.log("zone",zone);
     console.log("first", a)
-    this.setState({ title: data.title, description: data.description, dataSource: images, position: position, firstDiscovered:a,restDiscovered:rest })
+    this.setState({ title: data.title, description: data.description, dataSource: images, position: position, firstDiscovered:a,restDiscovered:rest,data,parentid,zone })
     this.showPlayerControls()
 
   }
@@ -108,13 +174,14 @@ console.log("dsadasd",this.state.images)
             <ImageViewer imageUrls={this.state.dataSource} index={this.state.currentImageIndex} />
           </Modal>
 
-          <ListItem itemDivider style={styles.listLabel}>
-            <Text style={styles.listLabelText}>{this.state.title}</Text>
-          </ListItem>
-          <ListItem itemDivider style={styles.listLabel}>
-            <Text style={styles.listLabelPara}>{this.state.description}</Text>
-          </ListItem>
-          <ListItem itemDivider style={styles.listLabel}>
+
+            <Text style={styles.reportTitle}>{this.state.title}</Text>
+            <Divider style={{ backgroundColor: 'lightgrey' }}></Divider>
+            <Text style={styles.reportDescription}>{this.state.description}</Text>
+            <Divider style={{ backgroundColor: 'lightgrey' }}></Divider>
+            
+
+
           <Collapse>
       <CollapseHeader style={{ borderBottomWidth:0,borderWidth:0, width: 370, height: 90}}>
         <Separator style={{backgroundColor:"transparent",  flexDirection: 'row'}} bordered>
@@ -122,7 +189,7 @@ console.log("dsadasd",this.state.images)
         {this.state.firstDiscovered &&
           <Text style={{backgroundColor:"transparent",flex: 1, paddingRight: 30, paddingLeft: 5,}}>{`Last Discovery: ${this.state.firstDiscovered.location} on March 30th 2019\nRef: ${this.state.firstDiscovered.referenceNo}\nUserId: ${this.state.firstDiscovered.userId}`}</Text>
         }
-          <Ionicons style={{ padding: 0}}name="md-arrow-dropdown" size={20} color="grey" />
+          <Ionicons style={{ padding: 0}}name="md-arrow-dropdown" size={24} color="grey" />
         </Separator>
       </CollapseHeader>
       <CollapseBody>
@@ -135,30 +202,27 @@ console.log("dsadasd",this.state.images)
     }
       </CollapseBody>
     </Collapse>
-   
-          </ListItem>
+
         
           <Container style={{ display: "none" }}>
-            <Button onPress={() => { navigate('Result') }} ref={ref} title="Press Me" >
-
-            </Button>
-
+            <Button onPress={() => { navigate('Result') }} ref={ref} title="Press Me" ></Button>
           </Container>
 
         </View>
+
         </ScrollView>
         {this.state.showPlayerControls ? (
           <Footer style ={styles.bottomView} >
-            <FooterTab style= {{backgroundColor:'#0D2847' }}>
-            <Ionicons style={{marginTop:6.5, marginLeft:10}}name="md-eye" size={32} color="white" />
-                <Text style={{width:230, color:"white", fontSize: 17, marginTop:13.5, marginLeft:18}}>Discovered Something Here?</Text>
+            <FooterTab style= {{backgroundColor:'#333' }}>
+            <Ionicons style={{marginTop:6.5, marginLeft:10}}name="md-eye" size={24} color="white" />
+                <Text style={{width:230, color:"white", fontSize: 16, marginTop:13.5, marginLeft:18}}>Discovered something here?</Text>
           
       
-              <Button  >
-                <Text  style={{color:"white", fontSize: 17}}> Yes</Text>
+              <Button onPress={()=>{this.postDiscovered()}} >
+                <Text  style={{color:"white", fontSize: 16, fontWeight:"600"}}>YES</Text>
               </Button>
               <Button>
-                <Text style={{color:"white", fontSize: 17}}>No</Text>
+                <Text style={{color:"white", fontSize: 16, fontWeight:"600"}}>NO</Text>
               </Button>
             </FooterTab>
           </Footer>
@@ -176,16 +240,23 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70
   },
-  listLabelText: {
-    fontWeight: "600",
-    fontSize: 30,
-    color: "black"
-  },
-  listLabelPara: {
 
-    fontSize: 20,
-    color: "black"
+  reportTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    padding: 16
   },
+
+  reportDescription: {
+    fontSize: 16,
+    padding: 16
+  },
+
+  reportSmallText: {
+
+  },
+
+
   listLabel: {
     marginTop: 1,
     backgroundColor: 'transparent',

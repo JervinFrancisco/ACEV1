@@ -139,7 +139,7 @@ export default class Result extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTAzMDcyMiwiZXhwIjoxNTU1MTE3MTIyfQ.lmKMdhAV-c-xoWTSKs3gh1s2k6jG4n0kLdG82qx30pI"
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWEzZTViZjJlMjkzMWUzMTYwZmRkNSIsImlhdCI6MTU1NTAzMDgzOSwiZXhwIjoxNTU1MTE3MjM5fQ.l907gfjYDWDBEEFjyMAvk1BD8RjTXqIOCv7RuPo8XaY"
       }
     }
     fetch(`${http}concealments/${data[0].make}/${data[0].model}/${data[0].year}`, opts)
@@ -151,7 +151,7 @@ export default class Result extends React.Component {
         let center = data[0].center.concealment.length > 0 ? data[0].center.concealment : null
         console.log("this is all the data", data[0]._id);
         this.setState({
-          
+          id:data[0]._id,
           data: data,
           undercarriage: undercarriage,
           front: front,
@@ -161,7 +161,6 @@ export default class Result extends React.Component {
         })
       })
       .catch(err => console.log("Error", err.message))
-
   }
 
   // shouldComponentUpdate(){
@@ -515,7 +514,13 @@ export default class Result extends React.Component {
           </View>
         }
 */}
-        {this.state.isLoading = true &&
+        {this.state.isLoading  &&
+         <ActivityIndicator size="large" color="#0000ff" />
+        }
+
+          {!this.state.isLoading  &&
+       
+   
           <ScrollableTabView
           onChangeTab={this.onTabChanged.bind(this)}
             refreshControlStyle={{}}
@@ -534,7 +539,7 @@ export default class Result extends React.Component {
                     {this.state.showPlayerControls ? (
                       <Header
                         ref={ref3}
-                        centerComponent={{ text: 'Includes: Engine, Grill, Headlights, Bumpers', style: { color: 'white', width: 265, fontWeight: "bold", marginBottom: 20,   } }}
+                        centerComponent={{ text: 'Includes: Engine, Grill, Headlights, Bumpers', style: { color: '#fff', fontSize: 16, marginBottom: 20} }}
                         rightComponent={<Ionicons name="md-close-circle" size={20} color="white" style={{ marginBottom: 20, padding: 15 }} onPress={() => this.hidePlayerControls()} />}
                         containerStyle={{
                           backgroundColor: 'black',
@@ -551,7 +556,7 @@ export default class Result extends React.Component {
                           key={concealment._id}
                           leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
                           title={concealment.title}
-                          onPress={() => navigate('Details', { data: concealment })}
+                          onPress={() => navigate('Details', { data: concealment, id:this.state.id ,zone:this.state.currentTab})}
                         />
                       ), )
 
@@ -575,7 +580,7 @@ export default class Result extends React.Component {
                     {this.state.showPlayerControls ? (
                       <Header
                         ref={ref3}
-                        centerComponent={{ text: 'Includes: Seats, Doors, Mirrors', style: { color: 'white', fontWeight: "bold", marginBottom: 20 } }}
+                        centerComponent={{ text: 'Includes: Seats, Doors, Mirrors', style: { color: '#fff', fontSize: 16, marginBottom: 20} }}
                         rightComponent={<Ionicons name="md-close-circle" size={20} color="white" style={{ marginBottom: 20, padding: 15 }} onPress={() => this.hidePlayerControls()} />}
                         containerStyle={{
                           backgroundColor: 'black',
@@ -593,7 +598,7 @@ export default class Result extends React.Component {
                           key={concealment._id}
                           leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
                           title={concealment.title}
-                          onPress={() => navigate('Details', { data: concealment })}
+                          onPress={() => navigate('Details', { data: concealment, id:this.state.id ,zone:this.state.currentTab})}
                         />
                       ), )
 
@@ -616,7 +621,7 @@ export default class Result extends React.Component {
                     {this.state.showPlayerControls ? (
                       <Header
                         ref={ref3}
-                        centerComponent={{ text: 'Includes: Wheels, Frame', style: { color: 'white', fontWeight: "bold", marginBottom: 20 } }}
+                        centerComponent={{ text: 'Includes: Wheels, Frame', style: { color: '#fff', fontSize: 16, marginBottom: 20} }}
                         rightComponent={<Ionicons name="md-close-circle" size={20} color="white" style={{ marginBottom: 20, padding: 15 }} onPress={() => this.hidePlayerControls()} />}
                         containerStyle={{
                           backgroundColor: 'black',
@@ -631,7 +636,7 @@ export default class Result extends React.Component {
                           key={concealment._id}
                           leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
                           title={concealment.title}
-                          onPress={() => navigate('Details', { data: concealment })}
+                          onPress={() => navigate('Details', { data: concealment, id:this.state.id ,zone:this.state.currentTab})}
                         />
                       ), )
 
@@ -652,7 +657,7 @@ export default class Result extends React.Component {
                     {this.state.showPlayerControls ? (
                       <Header
                         ref={ref3}
-                        centerComponent={{ text: 'Includes: Trunk, Taillights, Mirrors', style: { color: 'white', fontWeight: "bold", marginBottom: 20 } }}
+                        centerComponent={{ text: 'Includes: Trunk, Taillights, Mirrors', style: { color: '#fff', fontSize: 16, marginBottom: 20} }}
                         rightComponent={<Ionicons name="md-close-circle" size={20} color="white" style={{ marginBottom: 20, padding: 15 }} onPress={() => this.hidePlayerControls()} />}
                         containerStyle={{
                           backgroundColor: 'black',
@@ -669,7 +674,7 @@ export default class Result extends React.Component {
                           key={concealment._id}
                           leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
                           title={concealment.title}
-                          onPress={() => navigate('Details', { data: concealment })}
+                          onPress={() => navigate('Details', { data: concealment, id:this.state.id ,zone:this.state.currentTab})}
                         />
                       ), )
                     }
@@ -686,7 +691,8 @@ export default class Result extends React.Component {
             </ScrollView>
           
           </ScrollableTabView>
-        }
+               }
+      
         <Container style={{ display: "none" }}>
           <Button onPress={() => { navigate('Search') }} ref={ref} title="Press Me" >
 
