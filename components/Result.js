@@ -150,7 +150,6 @@ export default class Result extends React.Component {
         let center = data[0].center.concealment.length > 0 ? data[0].center.concealment : null
         console.log("this is all the data", data[0]._id);
         this.setState({
-          
           data: data,
           undercarriage: undercarriage,
           front: front,
@@ -492,7 +491,13 @@ export default class Result extends React.Component {
           </View>
         }
 */}
-        {this.state.isLoading = true &&
+        {this.state.isLoading  &&
+         <ActivityIndicator size="large" color="#0000ff" />
+        }
+
+          {!this.state.isLoading  &&
+       
+   
           <ScrollableTabView
           onChangeTab={this.onTabChanged.bind(this)}
             refreshControlStyle={{}}
@@ -663,7 +668,8 @@ export default class Result extends React.Component {
             </ScrollView>
           
           </ScrollableTabView>
-        }
+               }
+      
         <Container style={{ display: "none" }}>
           <Button onPress={() => { navigate('Search') }} ref={ref} title="Press Me" >
 

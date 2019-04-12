@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem, Label } from 'native-base';
-import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, Animated, Keyboard, KeyboardAvoidingView  } from 'react-native';
+import { View, ScrollView, Image, StyleSheet, Text, TouchableOpacity, Animated, Keyboard, KeyboardAvoidingView, ActivityIndicator   } from 'react-native';
 import { createStackNavigator, createAppContainer, StackActions, NavigationActions } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { ImagePicker, Permissions, Camera } from 'expo';
@@ -31,7 +31,8 @@ export default class Add extends Component {
           vehicleData: null,
           foo: true,
           zone: null,
-          zones: ['Front/Engine','Center/Cabin','Undercarriage/Wheels','Rear/Trunk']
+          zones: ['Front/Engine','Center/Cabin','Undercarriage/Wheels','Rear/Trunk'],
+          isLoading: false
         };
       }
 
@@ -120,9 +121,9 @@ postConcealment=() => {
   let vehicleDataKeys=Object.keys(this.state.vehicleData[0])
   let checkForArea=vehicleDataKeys.filter(vechicleArea=>vechicleArea===this.state.carArea)
   let checkForAreaIndex=checkForArea[0]
-  let countFound=1
+  // let countFound=1
   console.log("YOOO id",id)
-  let countofdiscoveredFound=countFound + 1
+  // let countofdiscoveredFound=countFound + 1
 
   
 
@@ -170,7 +171,7 @@ postConcealment=() => {
     data.append('date',2019);
     data.append('referenceNo',this.state.reference);
     data.append('userId',this.state.userId  );
-    data.append('countFound',2019);
+    // data.append('countFound',2019);
     data.append('discovered',`{"location":"${this.state.location}","userId":"qdwsdasda","referenceNo":"1222"}`);
 
 
@@ -196,8 +197,12 @@ photos.forEach((photo) => {
     name: photo
   });  
 });
+
+this.setState({
+  isLoading: true
+})
 console.log("this is data",data);
-    fetch(`${http}concealments/${this.state.carArea}/${id}`, {
+    fetch(`${http}concealments/${this.state.zone}/${id}`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json",
@@ -210,6 +215,9 @@ console.log("this is data",data);
       console.log(isFocused(this));
       const onNavigateBack = navigation.getParam('onNavigateBack','NoData')
       onNavigateBack(true)
+      this.setState({
+        isLoading: false
+      })
       // this.props.navigation.state.params.onNavigateBack(this.state.foo)
       // this.props.navigation.goBack()
       // console.log(res)
@@ -325,6 +333,7 @@ console.log("this is data",data);
   render() {
     const { navigate } = this.props.navigation;
     return (
+   
       <KeyboardAwareScrollView
         style={{ backgroundColor: '#4c69a5' }}
         resetScrollToCoords={{ x: 0, y: 100 }}
@@ -332,8 +341,23 @@ console.log("this is data",data);
         scrollEnabled={true}
         extraScrollHeight={1000}
       >
+
+      
         <Container style={styles.container}>
+
+         {this.state.isLoading  &&
+        <ActivityIndicator size="large" color="#4AA7D" 
+        style ={{  
+        justifyContent: "center",
+        marginTop: 200,
+        alignItems: "center",
+  
+       
+}} />
+       }
+         {!this.state.isLoading  &&
           <Content>
+        
             <Form>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Text style={{paddingLeft: 16, fontSize: 16}}>Car Area</Text>
@@ -384,11 +408,12 @@ console.log("this is data",data);
                   <Image key={i} source={{ uri: image }} style={{ height: 80, width: 80, marginTop: 10, marginLeft: 10 }} />
                 ))}
             </View>
-
+    
+      
             <Button block iconLeft onPress={()=>{this.postConcealment()}} style={{backgroundColor:"#4AA7D1", height: 50, marginTop: 25, marginLeft: 16, marginRight: 16}}>
                 <Text style={{fontSize: 18, color:"#fff"}}>SUBMIT</Text>
             </Button>
-
+        
             <Container style={{ display: "none" }}>
               <Button onPress={() => { 
       
@@ -396,9 +421,11 @@ console.log("this is data",data);
                 }} ref={ref} title="Press Me" >
               </Button>
             </Container>
-
+          
           </Content>
+         }
         </Container>
+        
       </KeyboardAwareScrollView>
     );
   }

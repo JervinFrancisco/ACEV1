@@ -56,10 +56,7 @@ export default class Details extends Component {
     }, 4000)
   }
 
-  componentWillMount() {
 
-
-  }
 
   componentDidMount() {
     const { navigate } = this.props.navigation

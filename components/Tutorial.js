@@ -21,13 +21,21 @@ export default class Tutorial extends Component {
       }
     }
 
-    
+    done = () => {
+      console.log("this hit",this.props)
+      // navigate"Search")
+      return (<Button
+        title='Done'
+        onPress={()=>console.log("this")}
+      />)
+      };
    
     render() {
+      const { navigate } = this.props.navigation;
       const Done = ({
 
       })
-
+   
       /*
       const {navigate} = this.props.navigation;
         return (
@@ -49,7 +57,14 @@ export default class Tutorial extends Component {
       )*/
 
       return(
-      <Onboarding pages={[
+      <Onboarding 
+      skipToPage={2}
+      DoneButtonComponent={() => (
+        <Button
+          title={'Done'}
+        onPress={(ev)=>{navigate('Search')}}><Image style={{width:10, height:10}} source={require('../assets/icon.png')}/></Button>
+      )}
+      pages={[
         {
           backgroundColor: '#0D2847',
           image: <Image style={{width:256, height:256}} source={require('../assets/onb_search.png')} />,
