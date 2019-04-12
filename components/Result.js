@@ -86,7 +86,7 @@ export default class Result extends React.Component {
 
   componentWillMount() {
     this.animatedValue = new Animated.Value(0)
-    console.log("HEYYYYYYDEEYRER")
+
     // this.componentDidMount()
     // this.forceUpdate()
   }
@@ -98,7 +98,7 @@ export default class Result extends React.Component {
     // this.setState({
     //   refresh:!this.state.refresh
     // })
-    console.log("am i getting here")
+
     this.fetchandrefetch(this.state.data)
     
   }
@@ -114,11 +114,11 @@ export default class Result extends React.Component {
     const model = navigation.getParam('model', 'NO DATA')
     const year = navigation.getParam('year', 'NO DATA')
     this.setState({makeTitle:make, modelTitle:model, yearTitle:year})
-    console.log
+ 
     // let addNewData=navigation.getParam('addNewData', 'NO DATA')
     // addNewData();
     this.fetchandrefetch(data)
-    console.log("HEYYYY", data)
+    console.log(data)
     this.setState({ make: data[0].make, model: data[0].model, year: data[0].year })
 
     this.setState({ data: data,
@@ -144,11 +144,12 @@ export default class Result extends React.Component {
     fetch(`${http}concealments/${data[0].make}/${data[0].model}/${data[0].year}`, opts)
       .then(resp => resp.json())
       .then(data => {
+        console.log("Data",data);
         let rear = data[0].rear.concealment.length > 0 ? data[0].rear.concealment : null
         let front = data[0].front.concealment.length > 0 ? data[0].front.concealment : null
         let undercarriage = data[0].undercarriage.concealment.length > 0 ? data[0].undercarriage.concealment : null
         let center = data[0].center.concealment.length > 0 ? data[0].center.concealment : null
-        console.log("this is all the data", data[0]._id);
+     
         this.setState({
           id:data[0]._id,
           data: data,
@@ -200,40 +201,37 @@ export default class Result extends React.Component {
   }
   
 
-  logger = () => {
-    console.log("HOOOORAY HOOOOORAY WOOP WWOOOOOOP");
-  }
   rearToggled = () =>{
-    console.log("rear pressed")
+ 
     this.tabView.goToPage(3)
     this.bToggle()
     this.setState({activeTab : 3})
-    console.log(this.tabView.state.currentPage)
+ 
 
   };
   frontToggled = () =>{
-    console.log("front pressed")
+
     this.tabView.goToPage(0)
     this.fToggle()
     this.setState({activeTab : 0})
-    console.log(this.tabView.state.currentPage)
+
   };
   centerToggled = () =>{
-    console.log("center pressed")
+
     this.tabView.goToPage(1)
     this.cToggle()
     this.setState({activeTab : 1})
-    console.log(this.tabView.state.currentPage)
+
   };
   underToggled = () =>{
-    console.log("under pressed")
+
     this.tabView.goToPage(2)
     this.uToggle()
     this.setState({activeTab : 2})
-    console.log(this.tabView.state.currentPage)
+
   };
   fToggle = () =>{
-    console.log("fTogg")
+  
     frontToggle = true;
     backToggle = false;
     centerToggle = false;
@@ -241,7 +239,7 @@ export default class Result extends React.Component {
     this.setState({refresh : !this.state.refresh});
   }
   bToggle = () =>{
-    console.log("bTogg")
+
     frontToggle = false;
     backToggle = true;
     centerToggle = false;
@@ -249,7 +247,7 @@ export default class Result extends React.Component {
     this.setState({refresh : !this.state.refresh});
   }
   cToggle = () =>{
-    console.log("cTogg")
+
     frontToggle = false;
     backToggle = false;
     centerToggle = true;
@@ -257,7 +255,7 @@ export default class Result extends React.Component {
     this.setState({refresh : !this.state.refresh});
   }
   uToggle = () =>{
-    console.log("uTogg")
+
     frontToggle = false;
     backToggle = false;
     centerToggle = false;
@@ -294,36 +292,35 @@ export default class Result extends React.Component {
     //}
   }
   onTabChanged =  async (i, ref) =>{
-    console.log("FROM:",i.from);
-    console.log("To",i.i);
+    
     
     switch(i.i){
       case 0:
-      console.log("front");
+     
       this.fToggle()
       await this.setState({currentTab : 'Front/Engine'})
-      console.log(this.state.currentTab)
+
       
       return;
       case 1:
-      console.log("center");
+    
       this.cToggle()
       await this.setState({currentTab : 'Center/Cabin'})
-      console.log(this.state.currentTab)
+    
 
       return;
       case 2:
-      console.log("under");
+    
       this.uToggle()
       await this.setState({currentTab : 'Undercarriage/Wheels'})
-      console.log(this.state.currentTab)
+    
 
       return;
       case 3:
-      console.log("rear");
+    
       this.bToggle()
       await this.setState({currentTab : 'Rear/Trunk'})
-      console.log(this.state.currentTab)
+
       return;
       default:
       break;
@@ -470,7 +467,7 @@ export default class Result extends React.Component {
           <ScrollableTabView
           onChangeTab={this.onTabChanged.bind(this)}
             refreshControlStyle={{}}
-            renderTabBar={() => <ScrollableTabBar onScroll={this.onScrollTab} onPress={(yo) => console.log(yo)} />}
+            renderTabBar={() => <ScrollableTabBar onScroll={this.onScrollTab} />}
             style={{ backgroundColor: "#0D2847" }}
             tabBarTextStyle={{ color: "white", textAlign:"center", fontSize: 18}}
             tabBarUnderlineStyle={{ backgroundColor: "white" }}

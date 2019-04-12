@@ -3,8 +3,8 @@
   "webpackServerPort": null,
   "expoServerNgrokUrl": "https://rd-mie.anonymous.acev1.exp.direct",
   "packagerNgrokUrl": "https://packager.rd-mie.anonymous.acev1.exp.direct",
-  "ngrokPid": 39714,
+  "ngrokPid": 40104,
   "devToolsPort": 19002,
   "packagerPort": 19003,
-  "packagerPid": 39700
+  "packagerPid": 40079
 }

@@ -22,11 +22,11 @@ export default class Tutorial extends Component {
     }
 
     done = () => {
-      console.log("this hit",this.props)
+    
       // navigate"Search")
       return (<Button
         title='Done'
-        onPress={()=>console.log("this")}
+       
       />)
       };
    

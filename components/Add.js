@@ -68,7 +68,7 @@ export default class Add extends Component {
         console.log('ERROR', err);
       }
       getLocation = () => {
-        console.log("load");
+        console.log("load getting location");
         let opts = { enableHighAccuracy: false, maximumAge: 120000, timeOut: 20000 };
     
         navigator.geolocation.getCurrentPosition(this.pass, this.fail, opts);
@@ -88,7 +88,7 @@ componentDidMount(){
   this.setState({
     zone
   })
-  console.log('zone', zone)
+  console.log('Zone selection: ', zone)
   var newArray = this.state.zones.filter( (word) => word != zone)
   newArray.unshift(zone)
  
@@ -159,22 +159,22 @@ postConcealment= async () => {
   let countofdiscoveredFound=countFound + 1
 
   const scone = navigation.getParam('zone','noData')
-  console.log("WHERE THE HECK IS THE ZONE: ",scone)
+
   switch(this.state.zone){
     case 'Front/Engine':
-    console.log("front hit")
+  
     await this.setState({carArea: 'front'})
     break;
     case 'Center/Cabin':
-    console.log("center hit")
+    
     await this.setState({carArea: 'center'})
     break;
     case 'Undercarriage/Wheels':
-    console.log("under carriage hit")
+ 
     await this.setState({carArea: 'undercarriage'})
     break;
     case 'Rear/Trunk':
-    console.log("trunk hit")
+ 
     await this.setState({carArea: 'rear'})
     break;
     default:
@@ -257,7 +257,7 @@ photos.forEach((photo) => {
 this.setState({
   isLoading: true
 })
-console.log("this is data",data);
+
     fetch(`${http}concealments/${this.state.carArea}/${id}`, {
       method: 'post',
       headers: {
@@ -268,7 +268,7 @@ console.log("this is data",data);
       body: data
     }).then(res => {
   
-
+      console.log("Respone:", res)
       const onNavigateBack = navigation.getParam('onNavigateBack','NoData')
       onNavigateBack(true)
       this.setState({
@@ -315,7 +315,7 @@ console.log("this is data",data);
     let id = this.state.vehicleData[0]._id
 
     if (st === 'granted' && stR === 'granted') {
-      console.log("granted");
+      console.log("Camera is granted");
       const { cancelled, uri, base64 } = await ImagePicker.launchCameraAsync({ allowsEditing: true, mediaTypes: "Images", aspect: [1, 1], quality: 0.3 });
   
 

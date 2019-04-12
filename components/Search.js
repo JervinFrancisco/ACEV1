@@ -68,7 +68,7 @@ export default class Search extends React.Component {
     this.setState({
       make: value
     }, () => {
-      console.log("Make was saved", value)
+   
     });
   }
 
@@ -76,7 +76,7 @@ export default class Search extends React.Component {
     this.setState({
       model: value,
     }, () => {
-      console.log("Model was saved", value)
+   
     });
   }
 
@@ -84,7 +84,7 @@ export default class Search extends React.Component {
     this.setState({
       year: value
     }, () => {
-      console.log("Year was saved", value)
+    
     });
   }
 
@@ -105,7 +105,7 @@ export default class Search extends React.Component {
     const { navigate } = this.props.navigation
     fetch('http://10.70.158.155:3000/vehicles/honda/civic/2019', opts)
       .then(resp => {
-        console.log(resp)
+        console.log("Response",resp)
         if (resp.status != 200) {
           throw new Error(`${resp.status}`);
         }
@@ -116,7 +116,7 @@ export default class Search extends React.Component {
         this.setState({
           isLoading: false
         })
-        console.log("this data was consoled", data)
+        console.log("Data", data)
         navigate('Result', { data: data, make:this.state.make, model:this.state.model, year: this.state.year })
       })
       .catch(err => alert(err.message))
@@ -166,9 +166,7 @@ export default class Search extends React.Component {
   }
 
   render() {
-    console.log("cars",this.state.makes,"END") 
-    console.log(Object.keys(this.state.makes)) 
-    console.log("makeeeees","")
+
     if (this.state.loading) {
       return false;
     }

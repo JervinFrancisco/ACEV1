@@ -55,14 +55,12 @@ export default class Details extends Component {
   hideWithTimer() {
     this.timer = setTimeout(() => {
       this.hidePlayerControls()
-    }, 4000)
+    }, 1000)
   }
 
-
-
-  
+ 
   async postDiscovered(){
-    console.log("postDiscovered",this.state.data)
+
     let formData={
       "location":this.state.data.location,
         "referenceNo":this.state.data.referenceNo,
@@ -70,19 +68,19 @@ export default class Details extends Component {
     }
     switch(this.state.zone){
       case 'Front/Engine':
-      console.log("front hit")
+    
       await this.setState({carArea: 'front'})
       break;
       case 'Center/Cabin':
-      console.log("center hit")
+  
       await this.setState({carArea: 'center'})
       break;
       case 'Undercarriage/Wheels':
-      console.log("under carriage hit")
+   
       await this.setState({carArea: 'undercarriage'})
       break;
       case 'Rear/Trunk':
-      console.log("trunk hit")
+   
       await this.setState({carArea: 'rear'})
       break;
       default:
@@ -95,7 +93,7 @@ var name;
 
 // Turn the data object into an array of URL-encoded key/value pairs.
 for(name in formData) {
-console.log(name);
+
 urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(formData[name]));
 }
 
@@ -136,8 +134,7 @@ XHR.send(urlEncodedData);
 
     let position = this.state.position === images.id ? 0 : this.state.position + 1
     let [a, ...rest]=data.discovered
-    console.log("zone",zone);
-    console.log("first", a)
+   
     this.setState({ title: data.title, description: data.description, dataSource: images, position: position, firstDiscovered:a,restDiscovered:rest,data,parentid,zone })
     this.showPlayerControls()
 
@@ -149,7 +146,7 @@ XHR.send(urlEncodedData);
 
   render() {
     const { navigate } = this.props.navigation;
-console.log("dsadasd",this.state.images)
+
   
 
     return (
