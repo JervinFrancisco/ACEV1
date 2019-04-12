@@ -1,14 +1,10 @@
-<<<<<<< HEAD
 {
   "packagerPort": 19001,
-  "packagerPid": 38724,
+  "packagerPid": 39440,
   "expoServerPort": 19000,
   "webpackServerPort": null,
   "expoServerNgrokUrl": "https://vq-skj.anonymous.acev1.exp.direct",
   "packagerNgrokUrl": "https://packager.vq-skj.anonymous.acev1.exp.direct",
-  "ngrokPid": 38744,
+  "ngrokPid": 39460,
   "devToolsPort": 19002
 }
-=======
-{}
->>>>>>> d429163fe1a320a3a3118153f048882ae37152ce

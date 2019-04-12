@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 
 const ref = React.createRef();
-const http = "http://10.70.204.251:3000/"    
+const http = "http://10.70.158.155:3000/"    
 
 
 export default class Details extends Component {
@@ -59,9 +59,7 @@ export default class Details extends Component {
 
 
 
-<<<<<<< HEAD
-=======
-  }
+  
   postDiscovered(){
     console.log("postDiscovered",this.state.data)
     let formData={
@@ -99,7 +97,7 @@ XHR.open('POST', `${http}concealments/front/discovered/${this.state.parentid}/${
 
 // Add the required HTTP header for form data POST requests
 XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOWEzZTViZjJlMjkzMWUzMTYwZmRkNSIsImlhdCI6MTU1NTAzMDgzOSwiZXhwIjoxNTU1MTE3MjM5fQ.l907gfjYDWDBEEFjyMAvk1BD8RjTXqIOCv7RuPo8XaY");
+XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTAzMDcyMiwiZXhwIjoxNTU1MTE3MTIyfQ.lmKMdhAV-c-xoWTSKs3gh1s2k6jG4n0kLdG82qx30pI");
 
 
 // Finally, send our data.
@@ -107,7 +105,6 @@ XHR.send(urlEncodedData);
 
   }
 
->>>>>>> d429163fe1a320a3a3118153f048882ae37152ce
   componentDidMount() {
     const { navigate } = this.props.navigation
     const { navigation } = this.props

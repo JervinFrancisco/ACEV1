@@ -16,7 +16,7 @@ var s = require('./styles')
 const { Circle, Rect, Path } = Svg;
 
 
-const http = "http://10.70.204.251:3000/"
+const http = "http://10.70.158.155:3000/"
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();

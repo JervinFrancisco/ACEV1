@@ -11,7 +11,7 @@ var s = require('./styles');
 
 const ref = React.createRef();
 const front = React.createRef();
-const http = "http://10.70.204.251:3000/"    
+const http = "http://10.70.158.155:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
@@ -32,7 +32,11 @@ export default class Add extends Component {
           foo: true,
           zone: null,
           zones: ['Front/Engine','Center/Cabin','Undercarriage/Wheels','Rear/Trunk'],
-          isLoading: false
+          isLoading: false,
+          validateTextENumber:false,
+      validateDescription:false,
+      validateTitle:false,
+      photos:false, 
         };
       }
 
@@ -110,6 +114,35 @@ componentDidMount(){
 
 // }
 postConcealment= async () => {
+  if(!this.state.title || !this.state.description || !this.state.userId || !this.state.reference || (this.state.images.length===0)){
+    if(!this.state.title){
+    this.setState({
+      validateTitle:true
+    })
+  }
+  if(!this.state.description){
+    this.setState({
+      validateDescription:true,
+    })
+  }
+  if(!this.state.userId ){
+    this.setState({
+    validateTextENumber:true,
+    })
+  }
+  if(!this.state.reference){
+    this.setState({
+    reference:12345
+    })
+  }
+  if(this.state.images.length===0){
+    this.setState({
+      photos:true
+      })
+  }
+    return false
+  }
+
  const {navigate, goBack, isFocused, dangerouslyGetParent} = this.props.navigation
   const { navigation } = this.props
   let id=this.state.vehicleData[0]._id
@@ -117,15 +150,9 @@ postConcealment= async () => {
   let vehicleDataKeys=Object.keys(this.state.vehicleData[0])
   let checkForArea=vehicleDataKeys.filter(vechicleArea=>vechicleArea===this.state.carArea)
   let checkForAreaIndex=checkForArea[0]
-<<<<<<< HEAD
-  // let countFound=1
-  console.log("YOOO id",id)
-  // let countofdiscoveredFound=countFound + 1
-=======
   let countFound=1
 
   let countofdiscoveredFound=countFound + 1
->>>>>>> d429163fe1a320a3a3118153f048882ae37152ce
 
   const scone = navigation.getParam('zone','noData')
   console.log("WHERE THE HECK IS THE ZONE: ",scone)
@@ -223,15 +250,11 @@ photos.forEach((photo) => {
   });  
 });
 
-<<<<<<< HEAD
 this.setState({
   isLoading: true
 })
 console.log("this is data",data);
-    fetch(`${http}concealments/${this.state.zone}/${id}`, {
-=======
     fetch(`${http}concealments/${this.state.carArea}/${id}`, {
->>>>>>> d429163fe1a320a3a3118153f048882ae37152ce
       method: 'post',
       headers: {
         "Content-Type": "application/json",
@@ -299,7 +322,7 @@ console.log("this is data",data);
         var imageList = this.state.images
         imageList.push(uri)
        
-        this.setState({ images: imageList })
+        this.setState({ images: imageList, photos:false })
     
         // const data = new FormData();
         // data.append('name', 'testName'); // you can append anyone.
@@ -414,16 +437,17 @@ console.log("this is data",data);
               </View>
               
               <Item floatingLabel>
-                <Label style={styles.listLabelText}>Title</Label>
-                <Input style={styles.inputFields} onChange={(ev) => { this.setState({ title: ev.nativeEvent.text }) }} />
+              
+                <Label style={styles.listLabelText}>Title {this.state.validateTitle&&<Text style={{color:'red', fontStyle:'italic'}}> * required</Text>}</Label>
+                <Input style={styles.inputFields} onChange={(ev) => { this.setState({ title: ev.nativeEvent.text, validateTitle:false }) }} />
               </Item>
               <Item floatingLabel>
-                <Label style={styles.listLabelText}>Description</Label>
-                <Input style={styles.descriptionInput} onChange={(ev) => { this.setState({ description: ev.nativeEvent.text }) }} />
+                <Label style={styles.listLabelText}>Description {this.state.validateDescription&&<Text style={{color:'red', fontStyle:'italic'}}> * required</Text>}</Label>
+                <Input style={styles.descriptionInput} onChange={(ev) => { this.setState({ description: ev.nativeEvent.text,validateDescription:false }) }} />
               </Item>
               <Item floatingLabel>
-                <Label style={styles.listLabelText}>Employee Number</Label>
-                <Input style={styles.inputFields} onChange={(ev) => { this.setState({ userId: ev.nativeEvent.text }) }} />
+                <Label style={styles.listLabelText}>Employee Number {this.state.validateTextENumber&&<Text style={{color:'red', fontStyle:'italic'}}> * required</Text>}</Label>
+                <Input style={styles.inputFields} onChange={(ev) => { this.setState({ userId: ev.nativeEvent.text, validateTextENumber:false }) }} />
               </Item>
               <Item floatingLabel>
                 <Label style={styles.listLabelText}>Reference Number (optional)</Label>
@@ -431,7 +455,10 @@ console.log("this is data",data);
               </Item>
 
             </Form>
-            <Button transparent iconLeft large block style={{ backgroundColor: "grey", marginTop: 24, marginLeft: 16, marginRight: 16 }} onPress={this.cameraPressed.bind(this)} >
+            {this.state.photos &&
+          <Text style={{fontStyle:"italic", marginLeft: 16, marginTop: 16,color:"red"}}>*at least one (1) photo required</Text>
+            }
+            <Button transparent iconLeft large block style={{ backgroundColor: "grey", marginTop: 16, marginLeft: 16, marginRight: 16 }} onPress={this.cameraPressed.bind(this)} >
               <Ionicons name='md-camera' size={24} color="white" />
             </Button>
 
