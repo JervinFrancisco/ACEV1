@@ -485,7 +485,7 @@ export default class Result extends React.Component {
                     {this.state.showPlayerControls ? (
                       <Header
                         ref={ref3}
-                        centerComponent={{ text: 'Includes: Engine, Grill, Headlights, Bumpers', style: { color: 'white', width: 265, fontWeight: "bold", marginBottom: 20,   } }}
+                        centerComponent={{ text: 'Includes: Engine, Grill, Headlights, Bumpers', style: { color: '#fff', fontSize: 16, marginBottom: 20} }}
                         rightComponent={<Ionicons name="md-close-circle" size={20} color="white" style={{ marginBottom: 20, padding: 15 }} onPress={() => this.hidePlayerControls()} />}
                         containerStyle={{
                           backgroundColor: 'black',
@@ -526,7 +526,7 @@ export default class Result extends React.Component {
                     {this.state.showPlayerControls ? (
                       <Header
                         ref={ref3}
-                        centerComponent={{ text: 'Includes: Seats, Doors, Mirrors', style: { color: 'white', fontWeight: "bold", marginBottom: 20 } }}
+                        centerComponent={{ text: 'Includes: Seats, Doors, Mirrors', style: { color: '#fff', fontSize: 16, marginBottom: 20} }}
                         rightComponent={<Ionicons name="md-close-circle" size={20} color="white" style={{ marginBottom: 20, padding: 15 }} onPress={() => this.hidePlayerControls()} />}
                         containerStyle={{
                           backgroundColor: 'black',
@@ -567,7 +567,7 @@ export default class Result extends React.Component {
                     {this.state.showPlayerControls ? (
                       <Header
                         ref={ref3}
-                        centerComponent={{ text: 'Includes: Wheels, Frame', style: { color: 'white', fontWeight: "bold", marginBottom: 20 } }}
+                        centerComponent={{ text: 'Includes: Wheels, Frame', style: { color: '#fff', fontSize: 16, marginBottom: 20} }}
                         rightComponent={<Ionicons name="md-close-circle" size={20} color="white" style={{ marginBottom: 20, padding: 15 }} onPress={() => this.hidePlayerControls()} />}
                         containerStyle={{
                           backgroundColor: 'black',
@@ -603,7 +603,7 @@ export default class Result extends React.Component {
                     {this.state.showPlayerControls ? (
                       <Header
                         ref={ref3}
-                        centerComponent={{ text: 'Includes: Trunk, Taillights, Mirrors', style: { color: 'white', fontWeight: "bold", marginBottom: 20 } }}
+                        centerComponent={{ text: 'Includes: Trunk, Taillights, Mirrors', style: { color: '#fff', fontSize: 16, marginBottom: 20} }}
                         rightComponent={<Ionicons name="md-close-circle" size={20} color="white" style={{ marginBottom: 20, padding: 15 }} onPress={() => this.hidePlayerControls()} />}
                         containerStyle={{
                           backgroundColor: 'black',
