@@ -116,7 +116,7 @@ XHR.open('POST', `${http}concealments/${this.state.carArea}/discovered/${this.st
 
 // Add the required HTTP header for form data POST requests
 XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTAzMDcyMiwiZXhwIjoxNTU1MTE3MTIyfQ.lmKMdhAV-c-xoWTSKs3gh1s2k6jG4n0kLdG82qx30pI");
+XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTA3MDI4MCwiZXhwIjoxNTU1MTU2NjgwfQ.Oa15Rp2gvETahxQnJe1tWhOsljBzm4n5Dya7_HwHcfM");
 
 
 // Finally, send our data.
