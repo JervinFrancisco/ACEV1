@@ -1,18 +1,19 @@
 import React from 'react';
 import SideBar from './SideBar';
 import { Ionicons } from '@expo/vector-icons';
-import { Font, AppLoading } from 'expo';
+import { Font } from 'expo';
 import { StyleSheet, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import Drawer from 'react-native-drawer'
 import { Container, Content, Form, Picker, Icon, Text, Button } from 'native-base';
-import Makes from '../assets/makes.json'
+import Makes from '../assets/data/makes.json'
+import apiCred from '../assets/data/apiCred.json'
 var s = require('./styles')
 
 var self
 const ref = React.createRef();
 const ref2 = React.createRef();
 let arr = []
-const http = "http://10.70.147.233:3000"   
+
 export default class Search extends React.Component {
 
   closeDrawer = () => {
@@ -87,12 +88,12 @@ export default class Search extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTQyNjM1NywiZXhwIjoxNTU1NTEyNzU3fQ.CPtOkLMM-aUTElFORBlFzbr5YzkqPcMO2VE809TYRro"
+        'x-access-token': apiCred.token
       }
     }
 
     const { navigate } = this.props.navigation
-    fetch(`${http}/vehicles/honda/civic/2019`, opts)
+    fetch(`${apiCred.ip}/vehicles/honda/civic/2019`, opts)
       .then(resp => {
         console.log("Response", resp)
         if (resp.status != 200) {

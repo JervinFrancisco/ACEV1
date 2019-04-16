@@ -4,13 +4,18 @@ import { View, Image, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ImagePicker, Permissions, Camera } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import apiCred from '../assets/data/apiCred.json'
+//import Camera from 'react-native-camera';
 var s = require('./styles');
 
-//import Camera from 'react-native-camera';
+
+// This is component is the Add form page, to add a car to the database
+
 
 const ref = React.createRef();
 const front = React.createRef();
-const http = "http://10.70.147.233:3000/"
+
+
 const options = {
   title: 'Choose Image',
   takePhotoButtonTitle: 'Take Photo',
@@ -43,9 +48,11 @@ export default class Add extends Component {
     headerTitle: "Add a concealment method",
   }
 
-  componentWillMount() {
 
-  }
+  // This 3 functions (pass,fail,getlocation) gets the current location of the user when the go to the add page
+  // and will be set into the lat and long state
+  // this uses the google api to get the current city
+
   pass = (position) => {
     this.setState({
       lat: position.coords.latitude,
@@ -96,6 +103,8 @@ export default class Add extends Component {
     })
 
   }
+
+  // This function will post a concealment method with all the details and images which will talk to the Api
 
   postConcealment = async () => {
     if (!this.state.title || !this.state.description || !this.state.userId || !this.state.reference || (this.state.images.length === 0)) {
@@ -187,11 +196,11 @@ export default class Add extends Component {
       isLoading: true
     })
 
-    fetch(`${http}concealments/${this.state.carArea}/${id}`, {
+    fetch(`${apiCred.ip}/concealments/${this.state.carArea}/${id}`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json",
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTQyNjM1NywiZXhwIjoxNTU1NTEyNzU3fQ.CPtOkLMM-aUTElFORBlFzbr5YzkqPcMO2VE809TYRro",
+        'x-access-token': apiCred.token,
         "Content-Type": "multipart/form-data",
       },
       body: data
@@ -218,6 +227,8 @@ export default class Add extends Component {
     });
   }
 
+
+  // This function is the Camera function, it will ask the user permissions at first. 
 
   cameraPressed = async (ev) => {
 

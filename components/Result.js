@@ -6,10 +6,12 @@ import { Container, Content, Button } from 'native-base';
 import { ListItem, Header } from 'react-native-elements'
 import { FloatingAction } from 'react-native-floating-action';
 import { Svg, LinearGradient } from 'expo';
+import apiCred from '../assets/data/apiCred.json'
 var s = require('./styles')
 const { Circle, Rect, Path, G } = Svg;
 
-const http = "http://10.70.147.233:3000/"
+
+
 
 const ref = React.createRef();
 const ref2 = React.createRef();
@@ -115,10 +117,10 @@ export default class Result extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTQyNjM1NywiZXhwIjoxNTU1NTEyNzU3fQ.CPtOkLMM-aUTElFORBlFzbr5YzkqPcMO2VE809TYRro"
+        'x-access-token': apiCred.token
       }
     }
-    fetch(`${http}concealments/${data[0].make}/${data[0].model}/${data[0].year}`, opts)
+    fetch(`${apiCred.ip}/concealments/${data[0].make}/${data[0].model}/${data[0].year}`, opts)
       .then(resp => resp.json())
       .then(data => {
         console.log("Data", data);
@@ -440,7 +442,7 @@ export default class Result extends React.Component {
                       this.state.front.map(concealment => (
                         <ListItem
                           key={concealment._id}
-                          leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
+                          leftAvatar={{ rounded: false, source: { uri: `${apiCred.ip}/${concealment.src[0]}` } }}
                           title={concealment.title}
                           onPress={() => navigate('Details', { data: concealment, id: this.state.id, zone: this.state.currentTab })}
                         />
@@ -482,7 +484,7 @@ export default class Result extends React.Component {
 
                         <ListItem
                           key={concealment._id}
-                          leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
+                          leftAvatar={{ rounded: false, source: { uri: `${apiCred.ip}/${concealment.src[0]}` } }}
                           title={concealment.title}
                           onPress={() => navigate('Details', { data: concealment, id: this.state.id, zone: this.state.currentTab })}
                         />
@@ -520,7 +522,7 @@ export default class Result extends React.Component {
                       this.state.undercarriage.map(concealment => (
                         <ListItem
                           key={concealment._id}
-                          leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
+                          leftAvatar={{ rounded: false, source: { uri: `${apiCred.ip}/${concealment.src[0]}` } }}
                           title={concealment.title}
                           onPress={() => navigate('Details', { data: concealment, id: this.state.id, zone: this.state.currentTab })}
                         />
@@ -558,7 +560,7 @@ export default class Result extends React.Component {
                         <ListItem
 
                           key={concealment._id}
-                          leftAvatar={{ rounded: false, source: { uri: `${http}${concealment.src[0]}` } }}
+                          leftAvatar={{ rounded: false, source: { uri: `${apiCred.ip}${concealment.src[0]}` } }}
                           title={concealment.title}
                           onPress={() => navigate('Details', { data: concealment, id: this.state.id, zone: this.state.currentTab })}
                         />

@@ -6,9 +6,8 @@ import Slideshow from 'react-native-image-slider-show';
 import { Ionicons } from '@expo/vector-icons';
 import {Collapse,CollapseHeader, CollapseBody} from 'accordion-collapse-react-native';
 import { Divider } from 'react-native-elements';
-
+import apiCred from '../assets/data/apiCred.json'
 const ref = React.createRef();
-const http = "http://10.70.147.233:3000/"    
 
 
 export default class Details extends Component {
@@ -109,11 +108,11 @@ XHR.addEventListener('error', function(event) {
 alert('Error');
 });
 
-XHR.open('POST', `${http}concealments/${this.state.carArea}/discovered/${this.state.parentid}/${this.state.data._id}`);
+XHR.open('POST', `${apiCred.ip}concealments/${this.state.carArea}/discovered/${this.state.parentid}/${this.state.data._id}`);
 
 XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTQyNjM1NywiZXhwIjoxNTU1NTEyNzU3fQ.CPtOkLMM-aUTElFORBlFzbr5YzkqPcMO2VE809TYRro");
+XHR.setRequestHeader('x-access-token', apiCred.token);
 
 XHR.send(urlEncodedData);
 
@@ -124,7 +123,7 @@ XHR.send(urlEncodedData);
     const { navigation } = this.props
     const data = navigation.getParam('data', 'NO DATA')
     const parentid = navigation.getParam('id', 'NO DATA')
-    let images = data.src.map((img, i) => { return { id: i, url: `${http}${img}` } })
+    let images = data.src.map((img, i) => { return { id: i, url: `${apiCred.ip}/${img}` } })
     const zone = navigation.getParam('zone', 'NO DATA')
     let position = this.state.position === images.id ? 0 : this.state.position + 1
     let [a, ...rest]=data.discovered
