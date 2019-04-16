@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
+  "expoServerPort": null,
   "webpackServerPort": null,
-  "expoServerNgrokUrl": "https://43-ttw.anonymous.acev1.exp.direct",
-  "packagerNgrokUrl": "https://packager.43-ttw.anonymous.acev1.exp.direct",
-  "ngrokPid": 41030,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19003,
   "packagerPort": null,
   "packagerPid": null

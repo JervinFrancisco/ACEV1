@@ -26,7 +26,7 @@ export default class Search extends React.Component {
   showActionsheet = () => {
     this.ActionSheet.show()
   }
-  
+
   constructor(props) {
     super(props)
     this.myRef = React.createRef()
@@ -39,20 +39,17 @@ export default class Search extends React.Component {
       year: '2019',
       isLoading: false,
       drawerOpen: false,
-      arrYear: [2019,2018,2017],
+      arrYear: [2019, 2018, 2017],
       data: null,
-      loading:true
-      
-      // voice: false,
-      // speechToText: "No voice input"
+      loading: true
     }
   }
 
   componentDidMount() {
-    
 
-    for(let i = 2019;i > 1989; i--){
-        arr.push(i.toString())
+
+    for (let i = 2019; i > 1989; i--) {
+      arr.push(i.toString())
     }
   }
   async componentWillMount() {
@@ -68,7 +65,7 @@ export default class Search extends React.Component {
     this.setState({
       make: value
     }, () => {
-   
+
     });
   }
 
@@ -76,7 +73,7 @@ export default class Search extends React.Component {
     this.setState({
       model: value,
     }, () => {
-   
+
     });
   }
 
@@ -84,7 +81,7 @@ export default class Search extends React.Component {
     this.setState({
       year: value
     }, () => {
-    
+
     });
   }
 
@@ -93,7 +90,6 @@ export default class Search extends React.Component {
       isLoading: true
     })
     let opts = {
-      // body:JSON.stringify(formData),
       method: "GET",
       headers: {
         'Accept': 'application/json',
@@ -103,21 +99,21 @@ export default class Search extends React.Component {
     }
 
     const { navigate } = this.props.navigation
-    fetch('http://10.70.158.155:3000/vehicles/honda/civic/2019', opts)
+    fetch('http://192.168.50.174:3000/vehicles/honda/civic/2019', opts)
       .then(resp => {
-        console.log("Response",resp)
+        console.log("Response", resp)
         if (resp.status != 200) {
           throw new Error(`${resp.status}`);
         }
         return resp.json()
-        
+
       })
       .then(data => {
         this.setState({
           isLoading: false
         })
         console.log("Data", data)
-        navigate('Result', { data: data, make:this.state.make, model:this.state.model, year: this.state.year })
+        navigate('Result', { data: data, make: this.state.make, model: this.state.model, year: this.state.year })
       })
       .catch(err => alert(err.message))
 
@@ -138,7 +134,7 @@ export default class Search extends React.Component {
     ),
 
     headerRight: (
-      <View style={{flexDirection:"row", alignItems:"center"}}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
         <TouchableOpacity
           style={s.menuButton}
           onPress={() => {
@@ -147,16 +143,6 @@ export default class Search extends React.Component {
           }}>
           <Ionicons name="md-today" size={24} color="white" />
         </TouchableOpacity>
-
-        {/*<TouchableOpacity
-          style={s.menuButton}
-          onPress={() => {
-            //var yo = ref;
-            //yo.current.props.onPress()
-            this.showActionsheet
-          }}>
-          <Ionicons name="md-more" size={24} color="white" />
-        </TouchableOpacity>*/}
       </View>
     ),
   }
@@ -177,9 +163,7 @@ export default class Search extends React.Component {
         ref={this.myRef}
         content={<SideBar na={this.navigateDrawer} />}
         type="displace"
-        //styles={drawerStyles} 
         openDrawerOffset={0.2}
-        //tweenHandler={Drawer.tweenPresets.parallax}
         open={false}
         tapToClose={true}
         panCloseMask={0.0}
@@ -190,39 +174,37 @@ export default class Search extends React.Component {
         })}
       >
 
-      {/* MAIN CONTENT */}
+        {/* MAIN CONTENT */}
 
         <Container style={styles.searchScreenContainer}>
           <Content>
             <Form style={styles.mmmForm}>
 
-            <View style={styles.pickerListItem}>
-            <Text style={styles.pickerLabelText}>MAKE</Text>  
-              <Picker
-                mode="dialog"
-                style={styles.itemPicker}
-                placeholder="Select Make"
-                prompt = "Select Make"
-                selectedValue={this.state.make}
-                onValueChange={this.makeValueSaved.bind(this)}>
-                {
-                  Object.keys(this.state.makes).map(make => (
-                    <Picker.Item key={Date.now()} label={make} value={make} />
-                  ))
-                }
+              <View style={styles.pickerListItem}>
+                <Text style={styles.pickerLabelText}>MAKE</Text>
+                <Picker
+                  mode="dialog"
+                  style={styles.itemPicker}
+                  placeholder="Select Make"
+                  prompt="Select Make"
+                  selectedValue={this.state.make}
+                  onValueChange={this.makeValueSaved.bind(this)}>
+                  {
+                    Object.keys(this.state.makes).map(make => (
+                      <Picker.Item key={Date.now()} label={make} value={make} />
+                    ))
+                  }
                 </Picker>
-              
-              
-            </View>
+              </View>
 
-            
-            <View style={styles.pickerListItem}>
-            <Text style={styles.pickerLabelText}>MODEL</Text>
-            <Picker
+
+              <View style={styles.pickerListItem}>
+                <Text style={styles.pickerLabelText}>MODEL</Text>
+                <Picker
                   mode="dialog"
                   style={styles.itemPicker}
                   placeholder="Select Model"
-                  prompt = "Select Model"
+                  prompt="Select Model"
                   selectedValue={this.state.model}
                   onValueChange={this.modelValueSaved.bind(this)}
                 >
@@ -232,57 +214,43 @@ export default class Search extends React.Component {
                     ))
                   }
                 </Picker>
-            </View>
-                
-            <View style={styles.pickerListItem}>
-            <Text style={styles.pickerLabelText}>YEAR</Text>
+              </View>
+
+              <View style={styles.pickerListItem}>
+                <Text style={styles.pickerLabelText}>YEAR</Text>
                 <Picker
                   mode="dialog"
                   style={styles.itemPicker}
                   placeholder="Select Year"
-                  //placeholderStyle={{ color: "#bfc6ea" }}
-                  //placeholderIconColor="#007aff"
-                  prompt = "Select Year"
+                  prompt="Select Year"
                   selectedValue={this.state.year}
                   onValueChange={this.yearValueSaved.bind(this)}
                 >
-
                   {
-                    arr.map(year =>(
+                    arr.map(year => (
                       <Picker.Item key={Date.now()} label={year} value={year} />
                     ))
                   }
-            
-
-                  
                 </Picker>
-            </View>
-              
+              </View>
 
-{/*
-            <View>
-              <TouchableOpacity onPress={() => { this.savedData() }} style={s.largeButton}>
-                <Text style={s.largeButtonText}>VIEW VEHICLE</Text>
-              </TouchableOpacity>
-</View>*/}
+              {this.state.isLoading &&
+                <ActivityIndicator size="large" color="#ffffff" />
+              }
 
-  {this.state.isLoading  &&
-         <ActivityIndicator size="large" color="#ffffff" />
-        }
-  
-  {!this.state.isLoading  &&
-    <Button block iconLeft onPress={() => { this.savedData() }} style={{backgroundColor:"#4AA7D1", height: 50, marginBottom: 25}}>
-    <Icon name="car"></Icon>
-    <Text style={{fontSize: 18}}>View Vehicle</Text>
-</Button>
-        }
+              {!this.state.isLoading &&
+                <Button block iconLeft onPress={() => { this.savedData() }} style={{ backgroundColor: "#4AA7D1", height: 50, marginBottom: 25 }}>
+                  <Icon name="car"></Icon>
+                  <Text style={{ fontSize: 18 }}>View Vehicle</Text>
+                </Button>
+              }
 
-{/*
+              {/*
                   <Button block iconLeft transparent light>
                     <Icon name="mic"></Icon>
                     <Text style={{fontSize: 16}}>Use Voice</Text>
 </Button>*/}
-          
+
             </Form>
           </Content>
 
@@ -318,9 +286,9 @@ export default class Search extends React.Component {
 
 }
 const drawerStyles = {
-  drawer: { 
-    shadowColor: '#000000', 
-    shadowOpacity: 0.8, 
+  drawer: {
+    shadowColor: '#000000',
+    shadowOpacity: 0.8,
     shadowRadius: 3
   },
   main: { paddingLeft: 3 },
@@ -330,11 +298,11 @@ const styles = StyleSheet.create({
   searchScreenContainer: {
     backgroundColor: "#0D2847",
     padding: 24,
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  
+
   mmmForm: {
 
   },
@@ -355,10 +323,10 @@ const styles = StyleSheet.create({
   },
 
   pickerListItem: {
-    flex:1, 
-    flexDirection: "row", 
-    alignItems: "center", 
-    justifyContent:"center",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 25
   },
 

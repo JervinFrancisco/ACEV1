@@ -12,10 +12,10 @@ module.exports = StyleSheet.create({
   },
   controlPanel: {
     flex: 1,
-    backgroundColor:"#0D2847",
+    backgroundColor: "#0D2847",
   },
   controlPanelText: {
-    color:'white',
+    color: 'white',
   },
   welcome: {
     fontSize: 20,
@@ -25,71 +25,69 @@ module.exports = StyleSheet.create({
   controlPanelWelcome2: {
     fontSize: 15,
     margin: 10,
-    color:'lightgrey',
-    fontWeight:'bold',
+    color: 'lightgrey',
+    fontWeight: 'bold',
     borderBottomColor: "grey",
     borderBottomWidth: 1
   },
   controlPanelWelcome: {
     fontSize: 20,
     margin: 10,
-    color:'white',
-    fontWeight:'bold',
+    color: 'white',
+    fontWeight: 'bold',
   },
-  
   categoryLabel: {
     fontSize: 15,
     textAlign: 'left',
     left: 10,
-    padding:10,
-    fontWeight:'bold',
+    padding: 10,
+    fontWeight: 'bold',
   },
   row: {
     flexDirection: 'row',
-    backgroundColor:'white',
+    backgroundColor: 'white',
     borderRadius: 0,
     borderWidth: 0,
-    padding:0,
+    padding: 0,
     borderTopWidth: 1 / PixelRatio.get(),
     borderColor: '#d6d7da',
-    padding:10,
+    padding: 10,
     alignItems: 'center'
   },
   lastRow: {
     flexDirection: 'row',
-    backgroundColor:'white',
+    backgroundColor: 'white',
     borderRadius: 0,
     borderWidth: 0,
-    padding:0,
+    padding: 0,
     borderTopWidth: 1 / PixelRatio.get(),
     borderBottomWidth: 1 / PixelRatio.get(),
     borderColor: '#d6d7da',
-    padding:10,
+    padding: 10,
     alignItems: 'center'
   },
   rowLabel: {
-    left:10,
-    fontSize:15,
-    flex:1,
+    left: 10,
+    fontSize: 15,
+    flex: 1,
   },
   rowInput: {
-    right:10,
+    right: 10,
   },
   sliderMetric: {
-    right:10,
-    width:30,
+    right: 10,
+    width: 30,
   },
   slider: {
     width: 150,
     height: 30,
     margin: 10,
   },
-  
+
   picker: {
-    padding:0,
-    //borderBottomWidth: 1 / PixelRatio.get(),
-    //borderTopWidth: 1 / PixelRatio.get(),
+    padding: 0,
   },
+
   label: {
     fontSize: 20,
     textAlign: 'left',
@@ -104,13 +102,13 @@ module.exports = StyleSheet.create({
     color: '#FFFFFF',
     backgroundColor: '#0D2847'
   },
-  
+
   button: {
     padding: 15,
     backgroundColor: "red",
-    marginRight:20,
-    marginBottom:20,
-    marginLeft:20,
+    marginRight: 20,
+    marginBottom: 20,
+    marginLeft: 20,
   },
 
   container: {
@@ -119,9 +117,9 @@ module.exports = StyleSheet.create({
   },
 
   menuButton: {
-    width: 50, 
-    height: 50, 
-    alignItems:"center", 
+    width: 50,
+    height: 50,
+    alignItems: "center",
     justifyContent: "center"
   },
 
@@ -139,21 +137,21 @@ module.exports = StyleSheet.create({
   },
 
   largeButtonOutline: {
-    borderWidth: 1, 
-    borderColor: "#4AA7D1", 
-    backgroundColor:"transparent",
-    marginLeft:16,
+    borderWidth: 1,
+    borderColor: "#4AA7D1",
+    backgroundColor: "transparent",
+    marginLeft: 16,
     marginRight: 16
   },
 
   largeButtonText: {
-    color:"white",
+    color: "white",
     fontWeight: "600",
     textAlign: "center",
     fontSize: 16,
   },
 
-  largeButtonOutlineText:{
+  largeButtonOutlineText: {
     color: "#4AA7D1",
     fontWeight: "600",
     textAlign: "center",

@@ -11,7 +11,7 @@ var s = require('./styles');
 
 const ref = React.createRef();
 const front = React.createRef();
-const http = "http://10.70.158.155:3000/"    
+const http = "http://192.168.50.174:3000/"    
 const options = {
     title: 'Choose Image',
     takePhotoButtonTitle: 'Take Photo',
@@ -95,28 +95,9 @@ componentDidMount(){
   this.setState({
     zones: newArray
   })
-  //console.log("YOOOO",data,"end here")
  
   }
-//   postConcealment(){
-//     console.log("reference", this.state.reference, "title", this.state.title, "description", this.state.description, "userID", this.state.userId, "area", this.state.carArea)
-//     const { navigate } = this.props.navigation
-//     let id = this.state.vehicleData[0]._id
-//     let vehicleDataKeys = Object.keys(this.state.vehicleData[0])
-//     let checkForArea = vehicleDataKeys.filter(vechicleArea => vechicleArea === this.state.carArea)
-//     let checkForAreaIndex = checkForArea[0]
-//     let countFound ;
-//     if(this.state.vehicleData[0][checkForAreaIndex].concealment[0].discovered.length){
-//     if(this.state.vehicleData[0][checkForAreaIndex].concealment[0].discovered.length !=0){
-//       countFound = this.state.vehicleData[0][checkForAreaIndex].concealment[0].discovered.length
-//   }else{
-//     countFound=1;
-//   }
-// }
-//     console.log("YOOO id", id)
-//     let countofdiscoveredFound = countFound + 1
 
-// }
 postConcealment= async () => {
   if(!this.state.title || !this.state.description || !this.state.userId || !this.state.reference || (this.state.images.length===0)){
     if(!this.state.title){
@@ -183,43 +164,6 @@ postConcealment= async () => {
 
   
 
-
-  // let bodytype=this.state.vehicleData[0].bodytype
-  // let make=this.state.vehicleData[0].make
-  // let model=this.state.vehicleData[0].model
-  // // let year=this.state.vehicleData[0].year
-  // let data=
-  //   `title=${this.state.title}&description=${this.state.description}&location=Ottawa%2C%20ON&date=2017&referenceNo=${this.state.reference}&countFound=1&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D&discovered=%7B%22location%22%3A%22ottawa%22%2C%22userId%22%3A%22234231rwds4%22%2C%22referenceNo%22%3A%224421321%22%7D`
-
-   
-
-    // let data = {
-    //   title: this.state.title,
-    //   description: this.state.description,
-    //   location: this.state.location,
-    //   date: 2019,
-    //   referenceNo: this.state.reference,
-    //  countFound:1,
-    //   discovered: `{"location":"${this.state.location}","userId":${this.state.userId},"referenceNo":${this.state.reference}}`
-    // }
-
-
-
-    // var XHR = new XMLHttpRequest();
-    // var urlEncodedData = "";
-    // var urlEncodedDataPairs = [];
-    // var name;
-  
-    // // Turn the data object into an array of URL-encoded key/value pairs.
-    // for(name in data) {
-    //     console.log(name);
-    //   urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
-    // }
-  
-    // // Combine the pairs into a single string and replace all %-encoded spaces to 
-    // // the '+' character; matches the behaviour of browser form submissions.
-    // urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
-
     const data = new FormData();
     data.append('title',this.state.title);
     data.append('description',this.state.description);
@@ -227,29 +171,15 @@ postConcealment= async () => {
     data.append('date',2019);
     data.append('referenceNo',this.state.reference);
     data.append('userId',this.state.userId  );
-    // data.append('countFound',2019);
     data.append('discovered',`{"location":"${this.state.location}","userId":"qdwsdasda","referenceNo":"1222"}`);
 
-
-    // data.append('file', {
-    //   uri:uri,
-    //   type: 'image/jpg', // or photo.type
-    //   name: uri
-    // });
-    // for(let i=0;i<this.state.images.length;i++){
-    //   data.append('file', {
-    //     uri:this.state.images[i].uri,
-    //     type: 'image/jpg', // or photo.type
-    //     name: this.state.images[i].uri
-    //   });
-    // }
     const photos = this.state.images
 
 photos.forEach((photo) => {
 
     data.append('file', {
     uri: photo,
-    type: 'image/jpeg', // or photo.type
+    type: 'image/jpeg', 
     name: photo
   });  
 });
@@ -274,28 +204,12 @@ this.setState({
       this.setState({
         isLoading: false
       })
-      // this.props.navigation.state.params.onNavigateBack(this.state.foo)
-      // this.props.navigation.goBack()
+   
 
     }).catch(err =>{
       console.log("Error: ",err);
     });
 
-
-
-// console.log("posthittttt badllllyyy")
-
-//     // Set up our request
-//     XHR.open('POST', `${http}concealments/${this.state.carArea}/${id}`);
-  
-//     // Add the required HTTP header for form data POST requests
-//     XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-//     XHR.setRequestHeader('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDkyMjc2MCwiZXhwIjoxNTU1MDA5MTYwfQ.9u7ArBsPIu0SbWMVqD4EvmQgOE16UBgMaID1lTHqDfM');
-  
-  
-//     // Finally, send our data.
-//     XHR.send(urlEncodedData)
-    // this.postImages(this.state.carArea, id)
   }
 
 
@@ -309,7 +223,6 @@ this.setState({
 
   cameraPressed = async (ev) => {
  
-    // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
     const { status: st, permissions } = await Permissions.askAsync(Permissions.CAMERA);
     const { status: stR } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     let id = this.state.vehicleData[0]._id
@@ -318,79 +231,19 @@ this.setState({
       console.log("Camera is granted");
       const { cancelled, uri, base64 } = await ImagePicker.launchCameraAsync({ allowsEditing: true, mediaTypes: "Images", aspect: [1, 1], quality: 0.3 });
   
-
       if (!cancelled) {
-
-        //var imageList = this.state.images === null ? [] : this.state.images;
-
         var imageList = this.state.images
         imageList.push(uri)
-       
         this.setState({ images: imageList, photos:false })
-    
-        // const data = new FormData();
-        // data.append('name', 'testName'); // you can append anyone.
-        // data.append('file', {
-        //   uri: uri,
-        //   type: 'image/jpeg', // or photo.type
-        //   name: 'testPhotoName'
-        // });// number 123456 is immediately converted to a string "123456"
-
-        // var request = new XMLHttpRequest();
-        // request.open('POST', `${http}concealments/upload/${this.state.carArea}/${id}`);
-        // request.setRequestHeader('Content-Type', 'multipart/form-data');
-
-        // // Add the required HTTP header for form data POST requests
-        // request.setRequestHeader('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDc1OTUwNiwiZXhwIjoxNTU0ODQ1OTA2fQ.jMcy7ARN999OFfoEHflrzxaOPLY59LGd8r15Lvj_eM4');
-
-        // request.send(data);
-        // console.log("uriiiiiiiiiii",uri);
-        // const data = new FormData();
-        // data.append('name', 'testName'); // you can append anyone.
-        // data.append('file', {
-        //   uri:uri,
-        //   type: 'image/jpg', // or photo.type
-        //   name: uri
-        // });
-        // for(let i=0;i<imageList.length;i++){
-        //   data.append('file', {
-        //     uri:imageList[i].uri,
-        //     type: 'image/jpg', // or photo.type
-        //     name: imageList[i.uri]
-        //   });
-        // }
-        // fetch(`${http}concealments/upload/${this.state.carArea}/${id}`, {
-        //   method: 'post',
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     'x-access-token':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NDg0ODAzNSwiZXhwIjoxNTU0OTM0NDM1fQ.X4az6qapnIGTlzag_6heV61t4WFGGAiwtTf_TkuWCl4",
-        //     "Content-Type": "multipart/form-data",
-        // },
-        //   body: data
-        // }).then(res => {
-        //   // console.log(res)
-        // });
-
-        // c
-        // fetch(`${http}concealments/upload/${this.state.carArea}/${id}`, {
-        //   method: 'post',
-        //   body: data
-        // }).then(res => {
-        //   console.log(res)
-        // });
-
       }
-
-
     } else {
       throw new Error('Camera permission not granted');
     }
   }
+  
   render() {
     const { navigate } = this.props.navigation;
     const { navigation } = this.props;
-
-    
 
     return (
    
@@ -401,18 +254,14 @@ this.setState({
         scrollEnabled={true}
         extraScrollHeight={1000}
       >
-
-      
         <Container style={styles.container}>
-
          {this.state.isLoading  &&
         <ActivityIndicator size="large" color="#4AA7D" 
         style ={{  
         justifyContent: "center",
         marginTop: 200,
         alignItems: "center",
-  
-       
+      
 }} />
        }
          {!this.state.isLoading  &&

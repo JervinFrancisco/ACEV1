@@ -9,7 +9,7 @@ import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-co
 import { Divider } from 'react-native-elements';
 
 const ref = React.createRef();
-const http = "http://10.70.158.155:3000/"    
+const http = "http://192.168.50.174:3000/"    
 
 
 export default class Details extends Component {
@@ -17,7 +17,7 @@ export default class Details extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isModalOpened: false,  //Controls if modal is opened or closed
+      isModalOpened: false, 
       currentImageIndex: 0,
       showModal: false,
       position: 0,
@@ -88,38 +88,34 @@ export default class Details extends Component {
     }
     var XHR = new XMLHttpRequest();
 var urlEncodedData = "";
+
 var urlEncodedDataPairs = [];
+
 var name;
 
-// Turn the data object into an array of URL-encoded key/value pairs.
 for(name in formData) {
 
 urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(formData[name]));
 }
 
-// Combine the pairs into a single string and replace all %-encoded spaces to 
-// the '+' character; matches the behaviour of browser form submissions.
 urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
-// Define what happens on successful data submission
+
 XHR.addEventListener('load', function(event) {
-alert('Yeah! Data sent and response loaded.');
+alert('Data sent and response loaded.');
 });
 
-// Define what happens in case of error
+
 XHR.addEventListener('error', function(event) {
-alert('Oops! Something goes wrong.');
+alert('Error');
 });
 
-// Set up our request
 XHR.open('POST', `${http}concealments/${this.state.carArea}/discovered/${this.state.parentid}/${this.state.data._id}`);
 
-// Add the required HTTP header for form data POST requests
 XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
 XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTA3MDI4MCwiZXhwIjoxNTU1MTU2NjgwfQ.Oa15Rp2gvETahxQnJe1tWhOsljBzm4n5Dya7_HwHcfM");
 
-
-// Finally, send our data.
 XHR.send(urlEncodedData);
 
   }
@@ -129,9 +125,8 @@ XHR.send(urlEncodedData);
     const { navigation } = this.props
     const data = navigation.getParam('data', 'NO DATA')
     const parentid = navigation.getParam('id', 'NO DATA')
-    let images = data.src.map((img, i) => { return { id: i, url: `http://10.70.158.155:3000/${img}` } })
+    let images = data.src.map((img, i) => { return { id: i, url: `http://192.168.50.174:3000/${img}` } })
     const zone = navigation.getParam('zone', 'NO DATA')
-
     let position = this.state.position === images.id ? 0 : this.state.position + 1
     let [a, ...rest]=data.discovered
    
@@ -147,24 +142,18 @@ XHR.send(urlEncodedData);
   render() {
     const { navigate } = this.props.navigation;
 
-  
-
     return (
       <Container>
 
-
-
         {this.state.dataSource &&
           <Slideshow
-
             onPress={(yo) => { this.handleOpenModal(yo.index) }}
             dataSource={this.state.dataSource}
             position={this.state.position}
             onPositionChanged={position => this.setState({ position })}
-
           />
-
         }
+
 <ScrollView>
         <View>
           <Modal visible={this.state.showModal} transparent={true} onRequestClose={this.handleCloseModal} onCancel={() => this.handleCloseModal}>
@@ -176,9 +165,7 @@ XHR.send(urlEncodedData);
             <Divider style={{ backgroundColor: 'lightgrey' }}></Divider>
             <Text style={styles.reportDescription}>{this.state.description}</Text>
             <Divider style={{ backgroundColor: 'lightgrey' }}></Divider>
-            
-
-
+   
           <Collapse>
       <CollapseHeader style={{ borderBottomWidth:0,borderWidth:0, width: 370, height: 90}}>
         <Separator style={{backgroundColor:"transparent",  flexDirection: 'row'}} bordered>
@@ -199,22 +186,17 @@ XHR.send(urlEncodedData);
     }
       </CollapseBody>
     </Collapse>
-
-        
           <Container style={{ display: "none" }}>
             <Button onPress={() => { navigate('Result') }} ref={ref} title="Press Me" ></Button>
           </Container>
-
         </View>
-
         </ScrollView>
+
         {this.state.showPlayerControls ? (
           <Footer style ={styles.bottomView} >
             <FooterTab style= {{backgroundColor:'#333' }}>
             <Ionicons style={{marginTop:6.5, marginLeft:10}}name="md-eye" size={24} color="white" />
                 <Text style={{width:230, color:"white", fontSize: 16, marginTop:13.5, marginLeft:18}}>Discovered something here?</Text>
-          
-      
               <Button onPress={()=>{this.postDiscovered()}} >
                 <Text  style={{color:"white", fontSize: 16, fontWeight:"600"}}>YES</Text>
               </Button>
@@ -229,7 +211,6 @@ XHR.send(urlEncodedData);
     )
 
   }
-
 
 }
 const styles = StyleSheet.create({

@@ -16,7 +16,7 @@ var s = require('./styles')
 const { Circle, Rect, Path, G } = Svg;
 
 
-const http = "http://10.70.158.155:3000/"
+const http = "http://192.168.50.174:3000/"
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();
@@ -70,43 +70,25 @@ export default class Result extends React.Component {
 
   }
   showPlayerControls = () => {
-    // this.hideWithTimer();
     this.setState({ showPlayerControls: true, });
   }
 
   hidePlayerControls() {
-    // clearTimeout(this.timer);
     this.setState({ showPlayerControls: false, });
   }
 
-  // hideWithTimer() {
-  //   this.timer = setTimeout(() => {
-  //     this.hidePlayerControls()
-  //   }, 4000)
-  // }
-
   componentWillMount() {
     this.animatedValue = new Animated.Value(0)
-
-    // this.componentDidMount()
-    // this.forceUpdate()
   }
 
   handleOnNavigateBack = () => {
     const { navigate } = this.props.navigation;
-    // console.log("AM I EVEN GETTING HERE?")
     navigate('Result')
-    // this.setState({
-    //   refresh:!this.state.refresh
-    // })
-
     this.fetchandrefetch(this.state.data)
 
   }
 
   componentDidMount() {
-
-    // http://localhost:3000/concealments/5ca50af07c95490b99dab412
 
     const { navigate } = this.props.navigation
     const { navigation } = this.props
@@ -116,8 +98,6 @@ export default class Result extends React.Component {
     const year = navigation.getParam('year', 'NO DATA')
     this.setState({ makeTitle: make, modelTitle: model, yearTitle: year })
 
-    // let addNewData=navigation.getParam('addNewData', 'NO DATA')
-    // addNewData();
     this.fetchandrefetch(data)
     console.log(data)
     this.setState({ make: data[0].make, model: data[0].model, year: data[0].year })
@@ -132,11 +112,11 @@ export default class Result extends React.Component {
       duration: 1500
     }).start();
 
-
   }
+
   fetchandrefetch = (data) => {
     let opts = {
-      // body:JSON.stringify(formData),
+
       method: "GET",
       headers: {
         'Accept': 'application/json',
@@ -165,20 +145,6 @@ export default class Result extends React.Component {
       })
       .catch(err => console.log("Error", err.message))
   }
-
-  // shouldComponentUpdate(){
-  //   //console.log("SHOULD THE COMPONENT UPDATE?!")
-  //   return true;
-  // }
-
-  // componentDidUpdate(){
-  //   //console.log("CONSOLE DID UPDAAAAAAAATE");
-  // }
-
-  // componentWillUpdate(){
-  //   //console.log("CONSOLE WIIIIILLLL UPDAAAAAATE");
-
-  // }
 
 
   static navigationOptions = {
@@ -267,33 +233,8 @@ export default class Result extends React.Component {
   }
   onScrollTab = () => {
     this.setState({ activeTab: this.state.activeTab = undefined });
-    // console.log(this.tabView.state.currentPage);
-    // switch(this.tabView.state.currentPage){
-    //   case 0:
-    //   console.log("front");
-    //   console.log(this.state.activePage);
-    //   console.log(this.state.activeTab);
-    //   this.fToggle()
-
-    //   return;
-    //   case 1:
-    //   console.log("center");
-    //   this.cToggle()
-
-    //   return;
-    //   case 2:
-    //   console.log("under");
-    //   this.uToggle()
-
-    //   return;
-    //   case 3:
-    //   console.log("rear");
-    //   this.bToggle()
-    //   return;
-    //   default:
-    //   break;
-    //}
   }
+
   onTabChanged = async (i, ref) => {
 
 
@@ -302,36 +243,23 @@ export default class Result extends React.Component {
 
         this.fToggle()
         await this.setState({ currentTab: 'Front/Engine' })
-
-
         return;
       case 1:
-
         this.cToggle()
         await this.setState({ currentTab: 'Center/Cabin' })
-
-
         return;
       case 2:
 
         this.uToggle()
         await this.setState({ currentTab: 'Undercarriage/Wheels' })
-
-
         return;
       case 3:
-
         this.bToggle()
         await this.setState({ currentTab: 'Rear/Trunk' })
-
         return;
       default:
         break;
     }
-
-
-
-
   }
 
   render() {
@@ -351,71 +279,46 @@ export default class Result extends React.Component {
             <LinearGradient colors={['#05162E', '#0D2847']} style={{ height: 200 }}>
               <View style={styles.innerContainer}>
                 <Text style={styles.titleText}>{this.state.makeTitle} {this.state.modelTitle} {this.state.yearTitle}</Text>
-                {/*<Text style={styles.titleText}>Mitsubushi Mitsubushi 2009</Text>*}
-            
-               {/*back*/}
                 <Svg height="70%" width="70%" viewBox="0 0 941.31 312.35">
                   {backToggle &&
                     <Path
-
-
-                      // fill={this.state.activeTab === 3 ? this.state.selectedColor : this.state.notSelectedColor }
                       fill={this.state.selectedColor}
                       onPress={this.rearToggled}
-                      // onPressIn={this.toggle}
-                      // onPressOut={this.toggle}
-
                       d="M936.85,174.7a151.82,151.82,0,0,0-7.78-32.82A105.18,105.18,0,0,0,924,130a2.49,2.49,0,0,0-1.76-.69H922a2.57,2.57,0,0,0-2.31,1.92c-.09.55-.18,1.12-.28,1.7l0,.09v.11h0c-1.25,7.5-2.9,17.18-3.66,20.65-1.14,5.31-6.78,5.72-8.48,5.72H891.54c-2.92,0-4.88-.75-5.8-2.22-1.41-2.24,0-5.37.1-5.5a46.73,46.73,0,0,1,3.91-7.36A97.28,97.28,0,0,1,904,126.93c8.31-8.21,14.36-18.74,18-26.13.49-1.62,1-3.38,1.59-5.18,3.24-10.51,3.52-16.48.94-20-3.31-4.49-11.37-4.72-24.24-4.72H842.39c-.91,0-8.92-.2-12-1.58l-20.33-9.21L805,57.81l-.25-.11-10.08-4.57C792.06,51.67,790,51,788.47,51c-2.67,0-4.13,2.13-4.46,6.52-3.32,21-11.84,75-15.07,95.43-1.14,6.18,1.78,8.41,4.88,10.17A80.84,80.84,0,0,1,825.33,236c0,.82,0,1.68,0,2.52a7.4,7.4,0,0,0,1.33,4,5.74,5.74,0,0,0,4.88,2.5h0l.6,0,28.22-1.12.94,0,1.17-.05,1.86-.07,2.19-.09,25.09-1c4.3-.17,6.63-3.75,8.33-6.37l.23-.36a6.51,6.51,0,0,1,4.24-3.08c2.1-.45,4.39-.76,6.6-1.06h0c4.43-.6,8.6-1.17,10.53-2.75C924.46,226.68,940.27,201.73,936.85,174.7Z" />
                   }
                   {!backToggle &&
                     <Path
-
-
                       fill={this.state.notSelectedColor}
                       onPress={this.rearToggled}
-                      // onPressIn={this.toggle}
-                      // onPressOut={this.toggle}
-
                       d="M936.85,174.7a151.82,151.82,0,0,0-7.78-32.82A105.18,105.18,0,0,0,924,130a2.49,2.49,0,0,0-1.76-.69H922a2.57,2.57,0,0,0-2.31,1.92c-.09.55-.18,1.12-.28,1.7l0,.09v.11h0c-1.25,7.5-2.9,17.18-3.66,20.65-1.14,5.31-6.78,5.72-8.48,5.72H891.54c-2.92,0-4.88-.75-5.8-2.22-1.41-2.24,0-5.37.1-5.5a46.73,46.73,0,0,1,3.91-7.36A97.28,97.28,0,0,1,904,126.93c8.31-8.21,14.36-18.74,18-26.13.49-1.62,1-3.38,1.59-5.18,3.24-10.51,3.52-16.48.94-20-3.31-4.49-11.37-4.72-24.24-4.72H842.39c-.91,0-8.92-.2-12-1.58l-20.33-9.21L805,57.81l-.25-.11-10.08-4.57C792.06,51.67,790,51,788.47,51c-2.67,0-4.13,2.13-4.46,6.52-3.32,21-11.84,75-15.07,95.43-1.14,6.18,1.78,8.41,4.88,10.17A80.84,80.84,0,0,1,825.33,236c0,.82,0,1.68,0,2.52a7.4,7.4,0,0,0,1.33,4,5.74,5.74,0,0,0,4.88,2.5h0l.6,0,28.22-1.12.94,0,1.17-.05,1.86-.07,2.19-.09,25.09-1c4.3-.17,6.63-3.75,8.33-6.37l.23-.36a6.51,6.51,0,0,1,4.24-3.08c2.1-.45,4.39-.76,6.6-1.06h0c4.43-.6,8.6-1.17,10.53-2.75C924.46,226.68,940.27,201.73,936.85,174.7Z" />
                   }
-
                   {/* front  */}
                   {frontToggle && <Path
-
-
                     fill={this.state.selectedColor}
-
                     onPress={this.frontToggled}
                     d="M123.35,181.55a82.42,82.42,0,0,1,12.13-10,81.76,81.76,0,0,1,29.3-12.33,82.22,82.22,0,0,1,60.59,11.2c7.22,4.62,9.84,5.44,12.68,5.44.63,0,1.29,0,2-.09h0c.86,0,1.84-.11,3-.11h40.09c4,0,6.36-.67,7.32-2.14s.63-3.73-1.16-7.82c-7.9-18.14-22.22-50.82-29.2-65.9l-.19-.41,0-.07A14.13,14.13,0,0,0,257,94.56c-1.35-1.22-3.16-1.77-5.89-1.77a33.43,33.43,0,0,0-5,.45c-31.67,4.85-60.7,9.83-86.29,14.8-21.89,4.25-41.77,8.6-59.09,12.91-14.11,3.52-26.49,7-37.85,10.61-9.52,3-16.75,5.69-22.56,7.88A69.57,69.57,0,0,0,29,144.74a42.47,42.47,0,0,0-7.8,5.93c-4.44,4.3-7.48,9.2-11,14.86a3.22,3.22,0,0,0,1,3.4,1.94,1.94,0,0,0,1.3.5c1.64,0,3.76-1.9,6.44-4.31s6.22-5.58,10.38-7.64a182.57,182.57,0,0,1,21.49-8.7A135.44,135.44,0,0,1,64.29,145a66.26,66.26,0,0,1,12.62-1.69h.75c3.89,0,6,.61,6.25,1.83.31,1.5-2.25,3.59-4.45,5.07a63.77,63.77,0,0,1-9.52,5.14,95.81,95.81,0,0,0-13.87,7.79,79.51,79.51,0,0,0-10.5,8.15,28.14,28.14,0,0,1-9.21,5.55,34.79,34.79,0,0,1-10.5,2.45c-6,.28-14.28,1.58-14.63,1.64H11c-1.13,0-6.87.29-8.29,6.09a.08.08,0,0,0,0,0c0,3.29,0,6.64.12,9.95a183.05,183.05,0,0,0,1.69,19.41,96.64,96.64,0,0,0,3.56,16c1.55,4.69,3.34,8.15,5.33,10.27a6.8,6.8,0,0,0,5,2.48c7.52,0,14,5.22,17.24,8.33a16,16,0,0,0,10.68,4h0c14,0,33-.09,44.57-.09h0c2.92,0,5-.79,6.46-2.4s2.26-4.39,2.26-8.13c0-1.27-.08-2.54-.15-3.77v-.06h0c-.08-1.25-.15-2.42-.15-3.61a81.66,81.66,0,0,1,6.43-31.9,82.16,82.16,0,0,1,17.56-26Z" />
                   }
-
                   {!frontToggle &&
                     <G>
                       <Path fill={this.state.notSelectedColor} onPress={this.frontToggled}
                         d="M123.35,181.55a82.42,82.42,0,0,1,12.13-10,81.76,81.76,0,0,1,29.3-12.33,82.22,82.22,0,0,1,60.59,11.2c7.22,4.62,9.84,5.44,12.68,5.44.63,0,1.29,0,2-.09h0c.86,0,1.84-.11,3-.11h40.09c4,0,6.36-.67,7.32-2.14s.63-3.73-1.16-7.82c-7.9-18.14-22.22-50.82-29.2-65.9l-.19-.41,0-.07A14.13,14.13,0,0,0,257,94.56c-1.35-1.22-3.16-1.77-5.89-1.77a33.43,33.43,0,0,0-5,.45c-31.67,4.85-60.7,9.83-86.29,14.8-21.89,4.25-41.77,8.6-59.09,12.91-14.11,3.52-26.49,7-37.85,10.61-9.52,3-16.75,5.69-22.56,7.88A69.57,69.57,0,0,0,29,144.74a42.47,42.47,0,0,0-7.8,5.93c-4.44,4.3-7.48,9.2-11,14.86a3.22,3.22,0,0,0,1,3.4,1.94,1.94,0,0,0,1.3.5c1.64,0,3.76-1.9,6.44-4.31s6.22-5.58,10.38-7.64a182.57,182.57,0,0,1,21.49-8.7A135.44,135.44,0,0,1,64.29,145a66.26,66.26,0,0,1,12.62-1.69h.75c3.89,0,6,.61,6.25,1.83.31,1.5-2.25,3.59-4.45,5.07a63.77,63.77,0,0,1-9.52,5.14,95.81,95.81,0,0,0-13.87,7.79,79.51,79.51,0,0,0-10.5,8.15,28.14,28.14,0,0,1-9.21,5.55,34.79,34.79,0,0,1-10.5,2.45c-6,.28-14.28,1.58-14.63,1.64H11c-1.13,0-6.87.29-8.29,6.09a.08.08,0,0,0,0,0c0,3.29,0,6.64.12,9.95a183.05,183.05,0,0,0,1.69,19.41,96.64,96.64,0,0,0,3.56,16c1.55,4.69,3.34,8.15,5.33,10.27a6.8,6.8,0,0,0,5,2.48c7.52,0,14,5.22,17.24,8.33a16,16,0,0,0,10.68,4h0c14,0,33-.09,44.57-.09h0c2.92,0,5-.79,6.46-2.4s2.26-4.39,2.26-8.13c0-1.27-.08-2.54-.15-3.77v-.06h0c-.08-1.25-.15-2.42-.15-3.61a81.66,81.66,0,0,1,6.43-31.9,82.16,82.16,0,0,1,17.56-26Z" />
                       <Path onPress={this.frontToggled} fill={this.state.backgroundColor} class="cls-2" d="M3.26,185.61c2-4.34,6.75-4.6,7.77-4.6h.2c.35,0,8.6-1.36,14.64-1.64a34.63,34.63,0,0,0,10.5-2.45,28.32,28.32,0,0,0,9.21-5.54,77.41,77.41,0,0,1,10.5-8.15,94.26,94.26,0,0,1,13.86-7.79,63.77,63.77,0,0,0,9.52-5.14c2.2-1.49,4.76-3.58,4.45-5.08-.25-1.21-2.36-1.83-6.25-1.83h-.75a65.47,65.47,0,0,0-12.62,1.69,137,137,0,0,0-13.45,3.78,180.87,180.87,0,0,0-21.49,8.7c-4.16,2.05-7.6,5.15-10.38,7.64s-4.8,4.3-6.44,4.3a1.86,1.86,0,0,1-1.3-.5,3.21,3.21,0,0,1-1-3.4Z" />
                     </G>
-
                   }
-
                   {/*undercarriage*/}
                   {underToggle && <Path
-
                     fill={this.state.selectedColor}
                     onPress={this.underToggled}
                     d="M664.34,238.54a80.67,80.67,0,0,1,13.19-44.3c.49-1.93.34-3.42-.45-4.43C675.7,188,672.62,188,671,188H255.89a5.7,5.7,0,0,0-2.94.75,5,5,0,0,0-1.88,1.92,5.17,5.17,0,0,0,.24,5.31,163.25,163.25,0,0,1,9,20.48A69.92,69.92,0,0,1,264.18,239a75.52,75.52,0,0,1-.94,12.39c-.4,2.39-.07,4.23,1,5.49a5.15,5.15,0,0,0,4.12,1.65H659.54c2.18,0,3.71-.53,4.67-1.61s1.43-3,1.13-5.68A81.89,81.89,0,0,1,664.34,238.54Z" />
                   }
                   {!underToggle && <Path
-
                     fill={this.state.notSelectedColor}
                     onPress={this.underToggled}
                     d="M664.34,238.54a80.67,80.67,0,0,1,13.19-44.3c.49-1.93.34-3.42-.45-4.43C675.7,188,672.62,188,671,188H255.89a5.7,5.7,0,0,0-2.94.75,5,5,0,0,0-1.88,1.92,5.17,5.17,0,0,0,.24,5.31,163.25,163.25,0,0,1,9,20.48A69.92,69.92,0,0,1,264.18,239a75.52,75.52,0,0,1-.94,12.39c-.4,2.39-.07,4.23,1,5.49a5.15,5.15,0,0,0,4.12,1.65H659.54c2.18,0,3.71-.53,4.67-1.61s1.43-3,1.13-5.68A81.89,81.89,0,0,1,664.34,238.54Z" />
                   }
-
                   {/*Center*/}
                   {centerToggle &&
                     <G>
-
                       <Path
                         onPress={this.centerToggled}
                         fill={this.state.selectedColor}
@@ -427,7 +330,6 @@ export default class Result extends React.Component {
                     </G>
                   }
                   {!centerToggle && <G>
-
                     <Path
                       onPress={this.centerToggled}
                       fill={this.state.notSelectedColor}
@@ -459,7 +361,6 @@ export default class Result extends React.Component {
                       <Path
                         fill={this.state.selectedColor}
                         onPress={this.underToggled} d="M181.29,170.89A68.59,68.59,0,1,0,229.79,191,68.14,68.14,0,0,0,181.29,170.89Zm0,112.42a44.78,44.78,0,1,1,44.78-44.78A44.82,44.82,0,0,1,181.29,283.31Z" />
-
                       <Path onPress={this.underToggled} fill={this.state.selectedColor} id="fWheelPizza-2" data-name="fWheelPizza" class="cls-1" d="M203.21,214.84l-12.07,19,22.28,1.51h0a19.83,19.83,0,0,0-.21-3.77,23.77,23.77,0,0,0-2.87-8.38C206.91,217.25,203.36,214.94,203.21,214.84Z" />
                       <Path onPress={this.underToggled} fill={this.state.selectedColor} id="fWheelPizza-3" data-name="fWheelPizza" class="cls-1" d="M167.7,268.72a18.3,18.3,0,0,0,3.3,1.82,23.61,23.61,0,0,0,8.63,2l1.31,0c5.92,0,9.2-1.47,9.56-1.64l-9.71-20.3Z" />
                       <Path onPress={this.underToggled} fill={this.state.selectedColor} id="fWheelPizza-4" data-name="fWheelPizza" class="cls-1" d="M194.55,208.65a20,20,0,0,0-3.33-1.76,23.92,23.92,0,0,0-8.66-1.85h-.68a25.06,25.06,0,0,0-10.16,1.81L181.78,227Z" />
@@ -505,28 +406,12 @@ export default class Result extends React.Component {
             </LinearGradient>
           </View>
         }
-        {/*}
-        {this.state.isLoading &&
-         <View style={{
-            flex: 1,
-            width: '100%',
-            height: 50,
-            backgroundColor: '#0D2847',
-            justifyContent: 'flex-end',
-            position: 'absolute',
-            bottom: -200,
-            elevation: 0
-          }}>
-            <ActivityIndicator size="large" color='#C41200' />
-          </View>
-        }
-*/}
+
         {this.state.isLoading &&
           <ActivityIndicator size="large" color="#0000ff" />
         }
 
         {!this.state.isLoading &&
-
 
           <ScrollableTabView
             onChangeTab={this.onTabChanged.bind(this)}
@@ -744,21 +629,6 @@ export default class Result extends React.Component {
       </Container>
     )
   }
-
-
-  // render() {
-  //     return (
-
-  //         <View>
-  //         {/* <ImageMapper src="../assets/car-icon.png" map={MAP}
-  //           onClick={area => this.areaClicked(area)}  
-  //         //   //onImageClick optional             */}
-
-  //              </View>
-
-  //     );
-  // }
-
 
 }
 const styles = StyleSheet.create({

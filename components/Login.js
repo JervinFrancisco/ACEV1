@@ -12,17 +12,13 @@ export default class Login extends Component {
         super(props)
         this.state = {
             isLoading: false,
-            username: null,
+            username: "ava_miller@cbsa.gc.ca",
             password: null
         }
       }
 
       loginPressed() {
-        console.log("Login pressed");
 
-        console.log("username",this.state.username);
-        
-        console.log("password",this.state.password)
         if(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(this.state.username) && this.state.password){
           this.props.navigation.navigate('Search');
         }else{
@@ -46,22 +42,19 @@ export default class Login extends Component {
               <View style={styles.logoView}>
                 <Image style={styles.logo} source={require("../assets/aceLogo.png")}></Image>
               </View>
-              
                   <View style={styles.formView}>
                   <View style={{marginBottom: 24}}>
                   <Item style={styles.textInput} >
                       <Icon name="md-person" style={{color:"#fff", marginLeft: 16, width: 24}}/>
-                      <Input style={styles.textInputText} placeholder="Email" placeholderTextColor="grey" onChange={(ev) => { this.setState({ username: ev.nativeEvent.text }) }}/>
+                      <Input style={styles.textInputText} placeholder="ava_miller@cbsa.gc.ca"  placeholderTextColor="grey" onChange={(ev) => { this.setState({ username: "ava_miller@cbsa.gc.ca" }) }}>
+                      ava_miller@cbsa.ca
+                      </Input>
                     </Item>
 
                     <Item style={styles.textInput}>
                       <Icon active name="md-lock" style={{color:"#fff", marginLeft: 16, width: 24}}/>
                       <Input style={styles.textInputText} secureTextEntry placeholder="Password" placeholderTextColor="grey" onChange={(ev) => { this.setState({ password: ev.nativeEvent.text }) }}/>
                     </Item>
-    {/*}
-                    <TextInput style={styles.input} placeholder="employee id/email" placeholderTextColor="#FFF" onChange={(ev) => { this.setState({ username: ev.nativeEvent.text }) }}></TextInput>
-                    <TextInput secureTextEntry style={styles.input} placeholder="password" placeholderTextColor="#FFF" onChange={(ev) => { this.setState({ password: ev.nativeEvent.text }) }}></TextInput>
-              */}
                   </View>
                     
                     <Button block style={s.largeButtonOutline} onPress={this.loginPressed.bind(this)}>

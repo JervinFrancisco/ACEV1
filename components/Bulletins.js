@@ -74,10 +74,7 @@ export default class Bulletins extends Component {
               userId: "58433",
             }
             }
-            
         }
-      
-
       static navigationOptions = {
         headerTitle: "Bulletins",
       }
@@ -134,18 +131,11 @@ export default class Bulletins extends Component {
       </Container>
           );
       }
-
-
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "lightgrey"
   },
-  cards: {
-    //backgroundColor: "#375B79",
-  },
-  cardContainer: {
-    //backgroundColor: "#375B79",
-  }
+
 });

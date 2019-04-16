@@ -27,7 +27,7 @@ const MainAppStack = createStackNavigator(
     Tutorial: Tutorial,
   },
   {
-    initialRouteName: "Search", //temporarily - will/should be 'Login'
+    initialRouteName: "Login", //temporarily - will/should be 'Login'
     defaultNavigationOptions: {
       backgroundColor:"#0D2847",
       headerTintColor: "#fff",
