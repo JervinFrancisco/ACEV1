@@ -1,10 +1,5 @@
-
-// import React from "react";
-// import { AppRegistry, Image, StatusBar } from "react-native";
-// import { Container, Content, Text, List, ListItem } from "native-base";
-// const routes = ["Home", "Chat", "Profile"];
 import React, { Component } from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+
 
 import {
   SwitchIOS,
@@ -25,9 +20,6 @@ export default class SideBar extends Component {
   this.state={
     navigateDrawer:props.na
   }
-  }
-  componentDidMount() {
-
 
   }
 
@@ -80,7 +72,6 @@ console.log(this.props)
 const styles = StyleSheet.create({
   controlPanel: {
     flex: 1,
-    //backgroundColor:"#05162E",
     elevation: 2,
     backgroundColor:"#020c1c"
   },
@@ -96,8 +87,6 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     flexDirection: "row",
     alignItems: "center",
-    //borderBottomWidth: 2,
-    //borderBottomColor: "#0D2847",
     
   },
 

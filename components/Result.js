@@ -1,22 +1,16 @@
 import React from 'react';
-//from 'react-native';
-import Nav from './Nav';
-import MethodList from './MethodList';
 import { Ionicons } from '@expo/vector-icons';
-import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Animated, ActivityIndicator, TouchableWithoutFeedback } from 'react-native';
+import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Animated, ActivityIndicator} from 'react-native';
 import { ScrollableTabView, ScrollableTabBar } from '@valdio/react-native-scrollable-tabview'
-import { Container, Content, List, Icon, Left, Body, Right, Switch, Button } from 'native-base';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { ListItem, withTheme, Header } from 'react-native-elements'
+import { Container, Content, Button } from 'native-base';
+import { ListItem, Header } from 'react-native-elements'
 import { FloatingAction } from 'react-native-floating-action';
 import { Svg, LinearGradient } from 'expo';
-import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion-collapse-react-native';
 var s = require('./styles')
-
 const { Circle, Rect, Path, G } = Svg;
 
+const http = "http://10.70.147.233:3000/"
 
-const http = "http://192.168.50.174:3000/"
 const ref = React.createRef();
 const ref2 = React.createRef();
 const ref3 = React.createRef();
@@ -121,7 +115,7 @@ export default class Result extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTA3MDI4MCwiZXhwIjoxNTU1MTU2NjgwfQ.Oa15Rp2gvETahxQnJe1tWhOsljBzm4n5Dya7_HwHcfM"
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTQyNjM1NywiZXhwIjoxNTU1NTEyNzU3fQ.CPtOkLMM-aUTElFORBlFzbr5YzkqPcMO2VE809TYRro"
       }
     }
     fetch(`${http}concealments/${data[0].make}/${data[0].model}/${data[0].year}`, opts)

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Modal, TouchableHighlight, View, TouchableOpacity, Text, Image, TouchableWithoutFeedback, StyleSheet, ScrollView } from 'react-native';
+import { Modal,View,Text, StyleSheet, ScrollView } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import { Container, Header, Content, List, Icon, Left, Body, Right, Switch, Button, ListItem, Footer, FooterTab,Separator } from 'native-base';
+import { Container,Button, ListItem, Footer, FooterTab,Separator } from 'native-base';
 import Slideshow from 'react-native-image-slider-show';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
+import {Collapse,CollapseHeader, CollapseBody} from 'accordion-collapse-react-native';
 import { Divider } from 'react-native-elements';
 
 const ref = React.createRef();
-const http = "http://192.168.50.174:3000/"    
+const http = "http://10.70.147.233:3000/"    
 
 
 export default class Details extends Component {
@@ -114,7 +113,7 @@ XHR.open('POST', `${http}concealments/${this.state.carArea}/discovered/${this.st
 
 XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTA3MDI4MCwiZXhwIjoxNTU1MTU2NjgwfQ.Oa15Rp2gvETahxQnJe1tWhOsljBzm4n5Dya7_HwHcfM");
+XHR.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTQyNjM1NywiZXhwIjoxNTU1NTEyNzU3fQ.CPtOkLMM-aUTElFORBlFzbr5YzkqPcMO2VE809TYRro");
 
 XHR.send(urlEncodedData);
 
@@ -125,7 +124,7 @@ XHR.send(urlEncodedData);
     const { navigation } = this.props
     const data = navigation.getParam('data', 'NO DATA')
     const parentid = navigation.getParam('id', 'NO DATA')
-    let images = data.src.map((img, i) => { return { id: i, url: `http://192.168.50.174:3000/${img}` } })
+    let images = data.src.map((img, i) => { return { id: i, url: `${http}${img}` } })
     const zone = navigation.getParam('zone', 'NO DATA')
     let position = this.state.position === images.id ? 0 : this.state.position + 1
     let [a, ...rest]=data.discovered

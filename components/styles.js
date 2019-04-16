@@ -1,5 +1,4 @@
 import { StyleSheet, PixelRatio } from 'react-native';
-import { withTheme } from 'react-native-elements';
 const deviceScreen = require('Dimensions').get('window')
 
 module.exports = StyleSheet.create({

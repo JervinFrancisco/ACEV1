@@ -3,13 +3,10 @@ import Search from './components/Search';
 import Login from './components/Login';
 import Result from './components/Result';
 import Details from './components/Details';
-import Camera from './components/CameraScreen';
 import Add from './components/Add';
 import About from './components/About';
 import Tutorial from './components/Tutorial';
-import SideBar from './components/SideBar';
 import Bulletins from './components/Bulletins';
-import TestingComponent from './components/TestingComponent'
 
 import { createStackNavigator, createAppContainer, createDrawerNavigator, createSwitchNavigator } from "react-navigation";
 
@@ -23,7 +20,6 @@ const MainAppStack = createStackNavigator(
     Add: Add,
     Bulletins:Bulletins,
     About: About,
-    TestingComponent: TestingComponent,
     Tutorial: Tutorial,
   },
   {

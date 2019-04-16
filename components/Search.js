@@ -1,22 +1,18 @@
 import React from 'react';
-//from 'react-native';
-import Nav from './Nav';
-import DropDowns from './DropDowns';
 import SideBar from './SideBar';
 import { Ionicons } from '@expo/vector-icons';
 import { Font, AppLoading } from 'expo';
-import { StyleSheet, TouchableHighlight, Image, TouchableOpacity, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, ActivityIndicator } from 'react-native';
 import Drawer from 'react-native-drawer'
-import { Container, Header, Content, Form, Item, Picker, Icon, Text, ListItem, Row, Button } from 'native-base';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { Container, Content, Form, Picker, Icon, Text, Button } from 'native-base';
 import Makes from '../assets/makes.json'
-import { ActionSheetProvider, connectActionSheet, } from "@expo/react-native-action-sheet";
 var s = require('./styles')
 
 var self
 const ref = React.createRef();
 const ref2 = React.createRef();
 let arr = []
+const http = "http://10.70.147.233:3000"   
 export default class Search extends React.Component {
 
   closeDrawer = () => {
@@ -47,7 +43,6 @@ export default class Search extends React.Component {
 
   componentDidMount() {
 
-
     for (let i = 2019; i > 1989; i--) {
       arr.push(i.toString())
     }
@@ -73,7 +68,6 @@ export default class Search extends React.Component {
     this.setState({
       model: value,
     }, () => {
-
     });
   }
 
@@ -81,7 +75,6 @@ export default class Search extends React.Component {
     this.setState({
       year: value
     }, () => {
-
     });
   }
 
@@ -94,12 +87,12 @@ export default class Search extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTA3MDI4MCwiZXhwIjoxNTU1MTU2NjgwfQ.Oa15Rp2gvETahxQnJe1tWhOsljBzm4n5Dya7_HwHcfM"
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjYTkwNGQ2NzE5MTE0MTIxYTAzMzBhZSIsImlhdCI6MTU1NTQyNjM1NywiZXhwIjoxNTU1NTEyNzU3fQ.CPtOkLMM-aUTElFORBlFzbr5YzkqPcMO2VE809TYRro"
       }
     }
 
     const { navigate } = this.props.navigation
-    fetch('http://192.168.50.174:3000/vehicles/honda/civic/2019', opts)
+    fetch(`${http}/vehicles/honda/civic/2019`, opts)
       .then(resp => {
         console.log("Response", resp)
         if (resp.status != 200) {

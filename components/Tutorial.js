@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import ImageSlider from 'react-native-image-slider';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { StyleSheet, TouchableHighlight,Image, TouchableOpacity, View, Alert} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { Container, Content, List, Icon, Left, Body, Right, Switch, Button } from 'native-base';
+import { Image } from 'react-native';
+import {Button } from 'native-base';
 import Onboarding from 'react-native-onboarding-swiper';
 
 
@@ -22,8 +19,6 @@ export default class Tutorial extends Component {
     }
 
     done = () => {
-    
-      // navigate"Search")
       return (<Button
         title='Done'
        
@@ -35,26 +30,6 @@ export default class Tutorial extends Component {
       const Done = ({
 
       })
-   
-      /*
-      const {navigate} = this.props.navigation;
-        return (
-          <Container>
-            <ImageSlider images={[
-          require('../assets/tut1.png'),
-          require('../assets/tut2.png'),
-          require('../assets/tut3.png'),
-          require('../assets/tut4.png'),
-        ]}/>
-        <Container style={{ display: "none" }}>
-        <Button onPress={() => { navigate("Search")}} ref={ref} title="Press Me" >
-
-        </Button>
-      </Container>
-      </Container>
-
-      
-      )*/
 
       return(
       <Onboarding 

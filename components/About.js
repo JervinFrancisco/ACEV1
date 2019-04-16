@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { createStackNavigator, createAppContainer, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
-import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity, Animated } from 'react-native';
-import { Drawer, Container, Header, Left, Body, Right, Title, Button, Icon, Content, Picker, Item } from 'native-base';
-import { Ionicons } from '@expo/vector-icons';
+import { View,Text, Image, StyleSheet} from 'react-native';
+import { Container } from 'native-base';
 var s = require('./styles');
 
 export default class About extends Component {

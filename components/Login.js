@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Form, Item, Input, Picker, Icon, Textarea, Button, ListItem, Label } from 'native-base';
-import { Alert, View, ScrollView, Text, Image, StyleSheet, TouchableOpacity,Animated,  Keyboard, KeyboardAvoidingView, TextInput  } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { Ionicons } from '@expo/vector-icons';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {Item, Input,Icon, Button } from 'native-base';
+import { Alert, View, Text, Image, StyleSheet, KeyboardAvoidingView} from 'react-native';
 var s = require('./styles')
 
 export default class Login extends Component {
